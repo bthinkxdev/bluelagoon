@@ -1,0 +1,3 @@
+<p>Dear {{ enquiry.first_name }},</p>
+<p>Thank you for contacting <strong>{{ site_name }}</strong>. We have received your message{% if enquiry.package %} about <strong>{{ enquiry.package.title }}</strong>{% endif %} and will respond shortly.</p>
+<p>Best regards,<br>{{ site_name }}</p>

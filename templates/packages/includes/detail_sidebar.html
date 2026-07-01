@@ -1,0 +1,36 @@
+{% load humanize package_tags %}
+<aside class="wl-layout__aside wl-detail-aside">
+  <div class="wl-detail-booking wl-reveal" id="wl-detail-booking">
+    {% if package.category %}
+    <span class="wl-detail-booking__badge">{{ package.category.name }}</span>
+    {% endif %}
+    <h2 class="wl-detail-booking__title">{{ package.title }}</h2>
+    {% if package.duration %}
+    <p class="wl-detail-booking__meta">{{ package.duration }}</p>
+    {% endif %}
+    {% if package.route %}
+    <p class="wl-detail-booking__route">{{ package.route|route_bullets }}</p>
+    {% endif %}
+
+    <div class="wl-detail-booking__price">
+      {% if package.price %}
+      <strong>₹{{ package.price|floatformat:0 }}</strong>
+      <small>{{ package.price_note|default:"*Per Person / Day" }}</small>
+      {% else %}
+      <strong class="wl-detail-booking__contact">Contact for price</strong>
+      {% endif %}
+    </div>
+
+    <div class="wl-detail-booking__actions">
+      <a href="{% url 'enquiries:contact' %}?package={{ package.slug }}" class="wl-btn wl-btn--primary wl-btn--block">Enquire now</a>
+      {% if site_settings.phone_primary %}
+      <a href="tel:{{ site_settings.phone_primary|phone_tel }}" class="wl-btn wl-btn--call wl-btn--block">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        Call {{ site_settings.phone_primary }}
+      </a>
+      {% endif %}
+    </div>
+  </div>
+
+  {% include "packages/includes/list_sidebar.html" with show_help_card=False %}
+</aside>

@@ -1,0 +1,46 @@
+{% load static package_tags %}
+{% package_gallery_images package as gallery_images %}
+{% if gallery_images %}
+<div class="wl-detail-gallery wl-reveal" id="wl-package-gallery" data-gallery{% if gallery_images|length > 1 %} data-gallery-autoplay="2000"{% endif %} tabindex="0">
+  <div class="wl-detail-gallery__stage">
+    <button type="button" class="wl-detail-gallery__nav wl-detail-gallery__nav--prev" data-gallery-prev aria-label="Previous photo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button type="button" class="wl-detail-gallery__main-btn" data-gallery-zoom aria-label="View full size photo">
+      <img src="{{ gallery_images.0.src }}" alt="{{ gallery_images.0.alt }}" id="wl-gallery-main" data-gallery-main data-fallback="{% static 'img/slide-1.jpg' %}" loading="eager" decoding="async">
+    </button>
+    <button type="button" class="wl-detail-gallery__nav wl-detail-gallery__nav--next" data-gallery-next aria-label="Next photo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <span class="wl-detail-gallery__counter" data-gallery-counter>1 / {{ gallery_images|length }}</span>
+  </div>
+  {% if gallery_images|length > 1 %}
+  <div class="wl-detail-gallery__thumbs" role="tablist" aria-label="Package photos">
+    {% for slide in gallery_images %}
+    <button type="button"
+      class="wl-detail-gallery__thumb{% if forloop.first %} is-active{% endif %}"
+      data-gallery-thumb
+      data-src="{{ slide.src }}"
+      data-alt="{{ slide.alt }}"
+      data-index="{{ forloop.counter0 }}"
+      role="tab"
+      aria-label="Photo {{ forloop.counter }}"
+      aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+      <img src="{{ slide.src }}" alt="" loading="lazy" decoding="async">
+    </button>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+<div class="wl-gallery-lightbox" id="wl-gallery-lightbox" hidden aria-hidden="true">
+  <button type="button" class="wl-gallery-lightbox__close" data-lightbox-close aria-label="Close gallery">&times;</button>
+  <button type="button" class="wl-gallery-lightbox__nav wl-gallery-lightbox__nav--prev" data-lightbox-prev aria-label="Previous photo">&#8249;</button>
+  <img src="" alt="" class="wl-gallery-lightbox__img" data-lightbox-img>
+  <button type="button" class="wl-gallery-lightbox__nav wl-gallery-lightbox__nav--next" data-lightbox-next aria-label="Next photo">&#8250;</button>
+</div>
+{% else %}
+<div class="wl-detail-gallery wl-detail-gallery--empty wl-reveal" id="wl-package-gallery">
+  <p>Photos for this package will appear here soon.</p>
+</div>
+{% endif %}

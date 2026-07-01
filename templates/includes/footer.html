@@ -1,0 +1,49 @@
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-sm-3">
+        <h3>Contacts</h3>
+        <ul id="contact_details_footer">
+          <li>{{ site_settings.company_name }}<br>{{ site_settings.address }}</li>
+          <li>
+            <a href="tel:{{ site_settings.phone_primary }}">{{ site_settings.phone_primary }}</a>
+            {% if site_settings.phone_secondary %} / <a href="tel:{{ site_settings.phone_secondary }}">{{ site_settings.phone_secondary }}</a>{% endif %}
+          </li>
+          <li><a href="mailto:{{ site_settings.email }}">{{ site_settings.email }}</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <h3>About</h3>
+        <ul>
+          <li><a href="{% url 'website:about' %}">About us</a></li>
+          <li><a href="{% url 'website:services' %}">Services</a></li>
+          <li><a href="{% url 'packages:domestic_list' %}">Packages</a></li>
+          <li><a href="{% url 'gallery:list' %}">Gallery</a></li>
+          <li><a href="{% url 'enquiries:contact' %}">Contact us</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <h3>Newsletter</h3>
+        <p>Join our newsletter to stay informed about offers and news.</p>
+        <form method="post" action="{% url 'enquiries:newsletter' %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <input name="email" placeholder="Your mail" class="form-control" type="email" required aria-label="Email for newsletter">
+          </div>
+          <input value="Subscribe" class="btn_1 white" type="submit">
+        </form>
+      </div>
+      <div class="col-md-3 col-sm-3" id="newsletter">
+        <div id="social_footer">
+          <ul>
+            {% if site_settings.facebook_url %}<li><a href="{{ site_settings.facebook_url }}" aria-label="Facebook"><i class="fa fa-facebook"></i></a></li>{% endif %}
+            {% if site_settings.twitter_url %}<li><a href="{{ site_settings.twitter_url }}" aria-label="Twitter"><i class="fa fa-twitter"></i></a></li>{% endif %}
+            {% if site_settings.google_plus_url %}<li><a href="{{ site_settings.google_plus_url }}" aria-label="Google Plus"><i class="fa fa-google-plus"></i></a></li>{% endif %}
+            {% if site_settings.youtube_url %}<li><a href="{{ site_settings.youtube_url }}" aria-label="YouTube"><i class="fa fa-youtube"></i></a></li>{% endif %}
+          </ul>
+          <p>{{ site_settings.copyright_text }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

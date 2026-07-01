@@ -1,0 +1,45 @@
+{% extends "base_wanderly.html" %}
+{% load static package_tags %}
+
+{% block body_extra_class %} wl-inner-page wl-header-solid wl-packages-page{% endblock %}
+
+{% block content %}
+<main class="wl-main wl-inner-main">
+  <div class="wl-packages-hero-band">
+    {% if category_type == "domestic" %}
+      {% include "includes/page_hero.html" with title=page_title hero_eyebrow="Handpicked Journeys" subtitle="Browse domestic tour packages from Blue Lagoon Holidays." hero_modifier="packages-domestic" %}
+    {% elif category_type == "international" %}
+      {% include "includes/page_hero.html" with title=page_title hero_eyebrow="Handpicked Journeys" subtitle="Browse international tour packages from Blue Lagoon Holidays." hero_modifier="packages-international" %}
+    {% elif category_type == "pilgrim" %}
+      {% include "includes/page_hero.html" with title=page_title hero_eyebrow="Handpicked Journeys" subtitle="Browse pilgrim tour packages from Blue Lagoon Holidays." hero_modifier="packages-pilgrim" %}
+    {% else %}
+      {% include "includes/page_hero.html" with title=page_title hero_eyebrow="Handpicked Journeys" subtitle="Browse all our packages from Blue Lagoon Holidays — domestic, international, and pilgrim." hero_modifier="packages" %}
+    {% endif %}
+
+    {% include "includes/wl_package_search.html" with active_tab=category_type search=search search_variant="page" %}
+  </div>
+
+  <section class="wl-inner-section wl-packages-list-section">
+    <div class="container">
+      <div id="wl-package-list-panel" data-partial-url="{% url 'packages:list_partial' %}">
+        {% include "packages/includes/package_filters.html" %}
+
+        <div class="wl-package-results" id="wl-package-results" aria-live="polite" aria-busy="false">
+          <div class="wl-package-results__loader" aria-hidden="true">
+            <span class="wl-package-results__spinner"></span>
+          </div>
+          <div class="wl-layout wl-layout--list">
+            <div class="wl-layout__main" id="wl-package-results-main">
+              {% include "packages/includes/package_list_results.html" %}
+            </div>
+
+            <aside class="wl-layout__aside wl-reveal wl-reveal--delay-1 is-visible">
+              {% include "packages/includes/list_sidebar.html" %}
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

@@ -1,0 +1,107 @@
+{% load static %}
+<div id="map"> </div>
+<!-- end map-->
+
+<div id="position">
+  <div id="map_decor"></div>
+  <div class="container">
+    <ul>
+      <li><a href="{% url 'core:home' %}">Home</a></li>
+      <li>Contact Us</li>
+    </ul>
+  </div>
+</div>
+<!-- End Position -->
+
+<div class="container margin_60">
+  <div class="row">
+    <div class="col-md-8">
+      <div id="message-contact"></div>
+      <form method="post" action="assets/contact.html" id="contactform">
+	  <div id="success" style="display:none; color:#004284; font-weight:bold;">Thank you we will contact you soon.</div>
+    <div id="fail" style="display:none; color:#004284;font-weight:bold;">Please try again.</div>
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" class="form-control" id="name_contact" name="name_contact" placeholder="Enter Name">
+			   <div id="error_name" style="display:none; color:red;">Please enter First name</div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" class="form-control" id="lastname_contact" name="lastname_contact" placeholder="Enter Last Name">
+			   <div id="error_lname" style="display:none; color:red;">Please enter Last name</div>
+            </div>
+          </div>
+        </div>
+        <!-- End row -->
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" id="email_contact" name="email_contact" class="form-control" placeholder="Enter Email">
+            <div id="error_email"style="display:none; color:red;">Please enter email address</div>
+            <div id="error_email1"style="display:none; color:red;">Please enter valid email address</div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="text" id="phone_contact" name="phone_contact" class="form-control" placeholder="Enter Phone number">
+            <div id="error_phone"style="display:none; color:red;">Please enter phone no</div>
+            <div id="error_phone1"style="display:none; color:red;">Please enter valid phone no</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Message</label>
+              <textarea id="message_contact" name="message_contact" class="form-control" placeholder="Write your message" style="height:150px;"></textarea>
+            <div id="error_msg"style="display:none; color:red;">Please enter message </div>
+            </div>
+          </div>
+        </div>
+        <div class="row add_bottom_30">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Human verification</label>
+              <input type="text" id="verify_contact" class=" form-control add_bottom_30" placeholder=" ">
+            </div>
+            <input type="submit" value="Submit" class="btn_1" id="submit-contact">
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- End col-md-8 -->
+    
+    <div class="col-md-4">
+      <div class="box_style_1">
+        <h3>Contacts</h3>
+        <ul id="contact_details_footer">
+          <li>REGISTERED OFFICE: BLUE LAGOON HOLIDAY CRUISES PVT LTD, <br>
+		  AYINI BYPASS LINK ROAD, VITHAYATHIL BUILDING, MARADU, ERNAKULAM, KERALA 682304
+</li>
+		  
+ 
+          <li><a href="tel://">+91 9446651610</a> / <a href="tel://">+91 9846308744</a></li>
+          <li><a href="mailto:">bluelagoonholiday@gmail.com  </a></li>
+		  
+		  <li>
+		  KANNUR BRANCH: HIRA CENTER, GOVERNMENT HOSPITAL ROAD, MATTANNUR, KANNUR - 670702</li>
+		    <li><a href="tel://">+91 9446651610</a> / <a href="tel://">+91 9446651610</a></li>
+          <li><a href="mailto:">bluelagoonholiday@gmail.com  </a></li>
+
+		    		  <li>
+		  KOOTHUPARAMP BRANCH: MUNICIPAL SHOPPING COMPLEX, KOOTHUPARAMP </li>
+		    <li><a href="tel://">+91 9446651610</a> / <a href="tel://">+91 9446651610</a></li>
+          <li><a href="mailto:">bluelagoonholiday@gmail.com  </a></li>
+        </ul>  </div>
+    </div>
+    <!-- End col-md-4 --> 
+  </div>
+  <!-- End row --> 
+</div>
+<!-- End Container -->

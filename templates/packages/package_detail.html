@@ -1,0 +1,135 @@
+{% extends "base_wanderly.html" %}
+{% load static humanize package_tags %}
+
+{% block body_extra_class %} wl-inner-page wl-header-solid wl-package-detail-page{% endblock %}
+
+{% block content %}
+{% package_hero_image package as hero_image %}
+<main class="wl-main wl-inner-main">
+  <div class="wl-packages-hero-band">
+    <section class="wl-page-hero wl-page-hero--package-detail"
+      style="--wl-page-hero-image: url('{{ hero_image }}');"
+      aria-labelledby="wl-package-hero-title">
+      <div class="wl-page-hero__overlay" aria-hidden="true"></div>
+      <div class="container wl-page-hero__inner">
+        <div class="wl-page-hero__content wl-reveal">
+          {% if package.category %}
+          <p class="wl-page-hero__eyebrow">{{ package.category.name }}</p>
+          {% endif %}
+          <h1 class="wl-page-hero__title" id="wl-package-hero-title">{{ package.title }}</h1>
+          {% if hero_subtitle %}
+          <p class="wl-page-hero__lead">{{ hero_subtitle }}</p>
+          {% elif package.short_description %}
+          <p class="wl-page-hero__lead">{{ package.short_description }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+  </div>
+
+  {% include "includes/wl_breadcrumbs.html" with crumbs=breadcrumb_crumbs %}
+
+  <section class="wl-inner-section wl-package-detail-section">
+    <div class="container">
+      <div class="wl-package-detail-facts wl-reveal">
+        {% if package.duration %}
+        <div class="wl-package-detail-facts__item">
+          <span class="wl-package-detail-facts__icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2"/></svg>
+          </span>
+          <div>
+            <strong>Duration</strong>
+            <span>{{ package.duration }}</span>
+          </div>
+        </div>
+        {% endif %}
+        {% if package.route %}
+        <div class="wl-package-detail-facts__item wl-package-detail-facts__item--wide">
+          <span class="wl-package-detail-facts__icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h10M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+          <div>
+            <strong>Route</strong>
+            <span>{{ package.route|route_bullets }}</span>
+          </div>
+        </div>
+        {% endif %}
+        {% if package.price %}
+        <div class="wl-package-detail-facts__item wl-package-detail-facts__item--price">
+          <span class="wl-package-detail-facts__icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <div>
+            <strong>From</strong>
+            <span>₹{{ package.price|floatformat:0 }}</span>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="wl-layout wl-layout--detail">
+        <div class="wl-layout__main">
+          {% include "packages/includes/image_carousel.html" %}
+
+          {% if package.description or package.short_description %}
+          <div class="wl-detail-block wl-reveal">
+            <h3>About this package</h3>
+            <div class="wl-prose">
+              {% if package.description %}
+              {{ package.description|safe }}
+              {% else %}
+              <p>{{ package.short_description }}</p>
+              {% endif %}
+            </div>
+          </div>
+          {% endif %}
+
+          {% if package.inclusions.exists or package.exclusions.exists %}
+          <div id="wl-section-inclusions" class="wl-detail-split wl-reveal">
+            {% if package.inclusions.exists %}
+            <div class="wl-detail-block wl-detail-block--inclusions">
+              <h3>Inclusions</h3>
+              <ul class="wl-list-check">
+                {% for item in package.inclusions.all %}<li>{{ item.text }}</li>{% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+            {% if package.exclusions.exists %}
+            <div class="wl-detail-block wl-detail-block--exclusions">
+              <h3>Exclusions</h3>
+              <ul class="wl-list-check wl-list-check--muted">
+                {% for item in package.exclusions.all %}<li>{{ item.text }}</li>{% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+
+        {% include "packages/includes/detail_sidebar.html" %}
+      </div>
+    </div>
+
+    {% include "includes/testimonials_showcase.html" with testimonials=package.testimonials.all variant="detail" show_package=False %}
+  </section>
+</main>
+
+<div class="wl-detail-mobile-bar" id="wl-detail-mobile-bar">
+  <div class="wl-detail-mobile-bar__price">
+    {% if package.price %}
+    <strong>₹{{ package.price|floatformat:0 }}</strong>
+    <small>{{ package.price_note|default:"per person" }}</small>
+    {% else %}
+    <strong>Get a quote</strong>
+    {% endif %}
+  </div>
+  <div class="wl-detail-mobile-bar__actions">
+    {% if site_settings.phone_primary %}
+    <a href="tel:{{ site_settings.phone_primary|phone_tel }}" class="wl-btn wl-btn--call wl-btn--icon" aria-label="Call {{ site_settings.phone_primary }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+    </a>
+    {% endif %}
+    <a href="{% url 'enquiries:contact' %}?package={{ package.slug }}" class="wl-btn wl-btn--primary">Enquire</a>
+  </div>
+</div>
+{% endblock %}

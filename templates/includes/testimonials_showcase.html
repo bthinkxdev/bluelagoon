@@ -1,0 +1,43 @@
+{% load package_tags %}
+{% testimonial_marquee_rows testimonials as marquee_rows %}
+{% if marquee_rows.row_a %}
+<section class="wl-testimonials-showcase{% if variant == 'detail' %} wl-testimonials-showcase--detail{% endif %}" aria-labelledby="{% if variant == 'detail' %}wl-package-testimonials-title{% else %}wl-home-testimonials-title{% endif %}">
+  <div class="container">
+    <div class="wl-testimonials-showcase__header wl-reveal">
+      <p class="wl-section-script">Guest voices</p>
+      {% if variant == 'detail' %}
+      <h2 class="wl-section-title" id="wl-package-testimonials-title">What travellers <em>say about this trip</em></h2>
+      {% else %}
+      <h2 class="wl-section-title" id="wl-home-testimonials-title">What travellers <em>say about us</em></h2>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="wl-testimonials-marquee" data-marquee>
+    <div class="wl-testimonials-marquee__fade wl-testimonials-marquee__fade--left" aria-hidden="true"></div>
+    <div class="wl-testimonials-marquee__fade wl-testimonials-marquee__fade--right" aria-hidden="true"></div>
+
+    <div class="wl-testimonials-marquee__row">
+      <div class="wl-testimonials-marquee__track wl-testimonials-marquee__track--left">
+        {% for item in marquee_rows.row_a %}
+          {% include "includes/testimonial_tile.html" with item=item show_package=show_package %}
+        {% endfor %}
+        {% for item in marquee_rows.row_a %}
+          {% include "includes/testimonial_tile.html" with item=item show_package=show_package duplicate=True %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="wl-testimonials-marquee__row">
+      <div class="wl-testimonials-marquee__track wl-testimonials-marquee__track--right">
+        {% for item in marquee_rows.row_b %}
+          {% include "includes/testimonial_tile.html" with item=item show_package=show_package %}
+        {% endfor %}
+        {% for item in marquee_rows.row_b %}
+          {% include "includes/testimonial_tile.html" with item=item show_package=show_package duplicate=True %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}

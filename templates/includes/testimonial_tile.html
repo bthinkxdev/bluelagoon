@@ -1,0 +1,26 @@
+{% load static %}
+<article class="wl-testimonial-tile{% if duplicate %} wl-testimonial-tile--dup{% endif %}"{% if duplicate %} aria-hidden="true"{% endif %}>
+  <div class="wl-testimonial-tile__glow" aria-hidden="true"></div>
+  <div class="wl-testimonial-tile__quote-mark" aria-hidden="true">“</div>
+  <div class="wl-testimonial-tile__head">
+    <div class="wl-testimonial-tile__avatar">
+      {% if item.photo %}
+      <img src="{{ item.photo.url }}" alt="" loading="lazy" decoding="async" width="48" height="48">
+      {% else %}
+      <img src="{% static 'img/testimonial_1.jpg' %}" alt="" loading="lazy" decoding="async" width="48" height="48">
+      {% endif %}
+    </div>
+    <div class="wl-testimonial-tile__identity">
+      <strong class="wl-testimonial-tile__name">{{ item.name }}</strong>
+      {% if item.package and show_package != False %}
+      <span class="wl-testimonial-tile__package">{{ item.package.title }}</span>
+      {% endif %}
+      <div class="wl-testimonial-tile__stars" aria-label="{{ item.rating_clamped }} out of 5 stars">
+        {% for i in "12345" %}
+        <span class="wl-testimonial-tile__star{% if forloop.counter <= item.rating_clamped %} is-filled{% endif %}" aria-hidden="true">★</span>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <blockquote class="wl-testimonial-tile__text">{{ item.quote }}</blockquote>
+</article>

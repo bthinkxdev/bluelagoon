@@ -1,0 +1,14 @@
+<nav class="wl-breadcrumbs" aria-label="Breadcrumb">
+  <div class="container">
+    <ol class="wl-breadcrumbs__list">
+      <li><a href="{% url 'core:home' %}">Home</a></li>
+      {% if crumbs %}
+        {% for label, url in crumbs %}
+        <li>{% if url %}<a href="{{ url }}">{{ label }}</a>{% else %}<span aria-current="page">{{ label }}</span>{% endif %}</li>
+        {% endfor %}
+      {% elif crumb_label %}
+        <li><span aria-current="page">{{ crumb_label }}</span></li>
+      {% endif %}
+    </ol>
+  </div>
+</nav>

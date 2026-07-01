@@ -1,0 +1,51 @@
+<div class="wl-package-filters wl-reveal is-visible" id="wl-package-filters">
+  <div class="wl-package-filters__top">
+    <nav class="wl-package-tabs" id="wl-package-tabs" aria-label="Package categories" role="tablist" data-package-filter-tabs>
+      <button type="button" role="tab" class="wl-package-tabs__item{% if not category_type %} is-active{% endif %}" data-package-filter data-category="" aria-selected="{% if not category_type %}true{% else %}false{% endif %}" id="wl-package-tab-all">
+        All
+      </button>
+      <button type="button" role="tab" class="wl-package-tabs__item{% if category_type == 'domestic' %} is-active{% endif %}" data-package-filter data-category="domestic" aria-selected="{% if category_type == 'domestic' %}true{% else %}false{% endif %}" id="wl-package-tab-domestic">
+        Domestic
+      </button>
+      <button type="button" role="tab" class="wl-package-tabs__item{% if category_type == 'international' %} is-active{% endif %}" data-package-filter data-category="international" aria-selected="{% if category_type == 'international' %}true{% else %}false{% endif %}" id="wl-package-tab-international">
+        International
+      </button>
+      <button type="button" role="tab" class="wl-package-tabs__item{% if category_type == 'pilgrim' %} is-active{% endif %}" data-package-filter data-category="pilgrim" aria-selected="{% if category_type == 'pilgrim' %}true{% else %}false{% endif %}" id="wl-package-tab-pilgrim">
+        Pilgrim
+      </button>
+    </nav>
+
+    <div class="wl-package-filters__sort">
+      <label class="wl-package-filters__sort-label" for="wl-package-sort">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M7 4v16M7 4l-3 3M7 4l3 3M17 20V4M17 20l-3-3M17 20l3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Sort</span>
+      </label>
+      <select id="wl-package-sort" class="wl-package-filters__select" data-package-list-control="sort" aria-label="Sort packages">
+        {% for value, label in sort_choices.items %}
+        <option value="{{ value }}"{% if search.sort == value %} selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+
+  <div class="wl-package-filters__bottom">
+    <span class="wl-package-filters__duration-label" id="wl-package-duration-label">Duration</span>
+    <div class="wl-package-filters__duration" role="group" aria-labelledby="wl-package-duration-label">
+      {% for value, label in duration_choices.items %}
+      <button
+        type="button"
+        class="wl-package-filters__chip{% if search.duration_bucket == value %} is-active{% endif %}"
+        data-package-duration-chip
+        data-value="{{ value }}"
+        aria-pressed="{% if search.duration_bucket == value %}true{% else %}false{% endif %}">
+        {% if value == "" %}Any{% elif value == "short" %}1–3d{% elif value == "medium" %}4–7d{% elif value == "long" %}8+d{% else %}{{ label }}{% endif %}
+      </button>
+      {% endfor %}
+    </div>
+    <button type="button" class="wl-package-filters__clear" id="wl-package-clear-filters" data-package-clear-filters hidden>
+      Clear
+    </button>
+  </div>
+</div>

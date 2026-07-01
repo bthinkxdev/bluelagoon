@@ -1,0 +1,6 @@
+Dear {{ enquiry.first_name }},
+
+Thank you for contacting {{ site_name }}. We have received your message{% if enquiry.package %} about {{ enquiry.package.title }}{% endif %} and will respond shortly.
+
+Best regards,
+{{ site_name }}

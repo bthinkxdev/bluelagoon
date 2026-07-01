@@ -1,0 +1,15 @@
+{% extends "base_wanderly.html" %}
+
+{% block body_extra_class %} wl-inner-page wl-header-solid{% endblock %}
+
+{% block content %}
+<main class="wl-main wl-inner-main">
+  <section class="wl-error-page wl-reveal">
+    <div>
+      <h1>Access denied</h1>
+      <p>You do not have permission to access this page.</p>
+      <a href="{% url 'core:home' %}" class="wl-btn wl-btn--primary">Return home</a>
+    </div>
+  </section>
+</main>
+{% endblock %}

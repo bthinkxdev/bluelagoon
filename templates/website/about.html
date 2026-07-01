@@ -1,0 +1,172 @@
+{% extends "base_wanderly.html" %}
+{% load static package_tags %}
+
+{% block body_extra_class %} wl-inner-page wl-header-solid wl-about-page{% endblock %}
+
+{% block content %}
+<main class="wl-main wl-inner-main">
+  {% include "includes/page_hero.html" with title="About Us" subtitle="Your trusted Kerala travel partner — thoughtfully crafted journeys across India and beyond." hero_eyebrow="Our Story" hero_modifier="about" %}
+  {% include "includes/wl_breadcrumbs.html" with crumb_label="About Us" %}
+
+  <section class="wl-about-story wl-inner-section">
+    <div class="container">
+      <div class="wl-about-story__grid wl-reveal">
+        <div class="wl-about-story__media">
+          <img src="{% static 'img/about-wayanad.jpg' %}" alt="Kerala hill station scenery">
+          <span class="wl-about-story__badge">IATO Certified Agency</span>
+        </div>
+        <div class="wl-about-story__content">
+          <p class="wl-about-story__eyebrow">Who we are</p>
+          <h2 class="wl-about-story__title">Blue Lagoon Holidays</h2>
+          {% if page and page.content %}
+          <div class="wl-prose wl-about-story__prose">{{ page.content|safe }}</div>
+          {% else %}
+          <p class="wl-about-story__lead">Blue Lagoon Holiday Cruises Pvt Ltd offers a multi-ranged variety of cruise options and on-shore packages across Kerala, India, and beyond.</p>
+          <p>We help travellers discover mystical spots in South India — from hill stations and beach resorts to trekking routes, heritage cities and modern metropolises.</p>
+          {% endif %}
+          <div class="wl-about-story__actions">
+            <a href="{% url 'packages:list' %}" class="wl-btn wl-btn--primary">Explore packages</a>
+            <a href="{% url 'enquiries:contact' %}" class="wl-btn wl-btn--outline">Contact us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wl-about-highlights" aria-label="Company highlights">
+    <div class="container">
+      <div class="wl-about-highlights__grid wl-reveal">
+        <article class="wl-about-highlight">
+          <strong>15+</strong>
+          <span>Years of travel expertise</span>
+        </article>
+        <article class="wl-about-highlight">
+          <strong>4</strong>
+          <span>Southern states covered</span>
+        </article>
+        <article class="wl-about-highlight">
+          <strong>24/7</strong>
+          <span>Guest support on tour</span>
+        </article>
+        <article class="wl-about-highlight">
+          <strong>100%</strong>
+          <span>Custom itineraries available</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="wl-inner-section wl-about-offerings">
+    <div class="container">
+      <div class="wl-section-intro wl-reveal">
+        <p class="wl-section-intro__eyebrow">What we do</p>
+        <h2>End-to-end travel, handled with care</h2>
+        <p>From pre-designed getaways to fully custom itineraries — we plan, book and support every step of your journey.</p>
+      </div>
+
+      <div class="wl-about-offerings__grid">
+        <article class="wl-about-offering wl-reveal">
+          <span class="wl-about-offering__icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 10.5 12 4l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </span>
+          <h3>Holiday packages</h3>
+          <p>Pre-designed and custom-made tours across Kerala, Tamil Nadu, Karnataka and Goa for every budget.</p>
+        </article>
+        <article class="wl-about-offering wl-reveal wl-reveal--delay-1">
+          <span class="wl-about-offering__icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M2 16l10-6 10 6-10 6-10-6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M6 18v-5l6-3.5 6 3.5v5" stroke="currentColor" stroke-width="1.8"/></svg>
+          </span>
+          <h3>Cruise experiences</h3>
+          <p>Journeys to Lakshadweep, Andaman, Goa, Mumbai, Singapore and Malaysia with on-shore activities.</p>
+        </article>
+        <article class="wl-about-offering wl-reveal wl-reveal--delay-2">
+          <span class="wl-about-offering__icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="8" width="18" height="11" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="1.8"/></svg>
+          </span>
+          <h3>Seamless logistics</h3>
+          <p>Ticketing, airport and ship terminal transfers, taxis and on-ground assistance for worry-free travel.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="wl-section wl-why wl-about-why">
+    <div class="container">
+      <div class="wl-why-header text-center wl-reveal">
+        <p class="wl-section-script">Why travellers choose us</p>
+        <h2 class="wl-section-title">Warm hospitality, lasting memories</h2>
+      </div>
+      <div class="wl-why-grid">
+        <div class="wl-why-card wl-reveal">
+          <div class="wl-why-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <h3>Expert planners</h3>
+          <p>Seasoned consultants craft personalised itineraries across Kerala, India and the world.</p>
+        </div>
+        <div class="wl-why-card wl-reveal wl-reveal--delay-1">
+          <div class="wl-why-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M20.6 7.2 12 3 3.4 7.2 12 11.4l8.6-4.2z" stroke="currentColor" stroke-width="2"/><path d="M3.4 12 12 16.2l8.6-4.2M3.4 16.8 12 21l8.6-4.2" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <h3>Best value</h3>
+          <p>Competitive rates on domestic getaways, international tours and pilgrimage packages.</p>
+        </div>
+        <div class="wl-why-card wl-reveal wl-reveal--delay-2">
+          <div class="wl-why-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 4v6c0 4.5-3 8.5-7 9-4-.5-7-4.5-7-9V7l7-4z" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <h3>Trusted &amp; secure</h3>
+          <p>Verified partners, reliable stays and support from booking through your return home.</p>
+        </div>
+        <div class="wl-why-card wl-reveal wl-reveal--delay-3">
+          <div class="wl-why-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="13" r="3" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <h3>Memorable moments</h3>
+          <p>Backwaters, hill stations, beaches and cultural tours you will treasure forever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wl-inner-section wl-about-team">
+    <div class="container">
+      <div class="wl-section-intro wl-reveal">
+        <p class="wl-section-intro__eyebrow">Leadership</p>
+        <h2>Meet our director</h2>
+        <p>The leadership behind Blue Lagoon Holidays — guiding every journey with experience and integrity.</p>
+      </div>
+
+      <div class="wl-team-grid wl-team-grid--single wl-reveal wl-reveal--delay-1">
+        <article class="wl-team-card">
+          <div class="wl-team-card__photo">
+            <img src="{% static 'img/director.jpg' %}" alt="Director, Blue Lagoon Holidays">
+          </div>
+          <div class="wl-team-card__body">
+            <h3>Director</h3>
+            <p>Blue Lagoon Holidays</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="wl-about-cta wl-reveal">
+    <div class="container">
+      <div class="wl-about-cta__card">
+        <div class="wl-about-cta__content">
+          <p class="wl-about-cta__eyebrow">Plan your next journey</p>
+          <h2>Ready to explore with Blue Lagoon?</h2>
+          <p>Tell us where you want to go — we will craft a journey that fits your style, schedule and budget.</p>
+        </div>
+        <div class="wl-about-cta__actions">
+          <a href="{% url 'enquiries:contact' %}" class="wl-btn wl-btn--primary">Plan your trip</a>
+          {% if site_settings.phone_primary %}
+          <a href="tel:{{ site_settings.phone_primary|phone_tel }}" class="wl-btn wl-btn--call">Call {{ site_settings.phone_primary }}</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

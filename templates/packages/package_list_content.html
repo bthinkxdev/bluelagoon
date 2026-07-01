@@ -1,0 +1,66 @@
+{% load static package_tags %}
+<section class="sub_header" id="bg_general">
+  <div class="sub_header_content">
+    <div class="animated fadeInDown">
+      <h1>{{ page_title }}</h1>
+      <p>Search and compare curated {{ category_label|lower }} tour packages from Blue Lagoon Holidays.</p>
+    </div>
+  </div>
+</section>
+
+<div id="position">
+  <div class="container">
+    <ul>
+      <li><a href="{% url 'core:home' %}">Home</a></li>
+      <li>{{ breadcrumb.0.0 }}</li>
+    </ul>
+  </div>
+</div>
+
+<div class="container margin_60">
+  {% include "packages/includes/package_search_form.html" %}
+
+  {% if search_active %}
+  <div class="alert alert-info" style="margin-bottom: 24px;">
+    <strong>Search results</strong>
+    {% if packages %}
+      for <em>{{ search_query }}</em> — {{ packages|length }} package{{ packages|length|pluralize }} found.
+    {% else %}
+      — no packages matched <em>{{ search_query }}</em>. Try fewer filters or <a href="{% url list_url_name %}">view all {{ category_label|lower }} packages</a>.
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <div class="row">
+    <div class="col-lg-9 col-md-8">
+      {% for package in packages %}
+        {% include "packages/includes/package_strip.html" %}
+      {% empty %}
+      <div class="box_style_1">
+        <h3>No packages found</h3>
+        <p>We could not find a {{ category_label|lower }} package matching your search. Try a broader destination name, leave dates empty, or browse all packages.</p>
+        <p><a href="{% url list_url_name %}" class="btn_1">View all {{ category_label }} packages</a></p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="col-lg-3 col-md-4">
+      <div class="box_style_1" id="general_facilities">
+        <h3>How to search</h3>
+        <ol style="padding-left: 18px; line-height: 1.6;">
+          <li>Choose <strong>Domestic</strong>, <strong>International</strong>, or <strong>Pilgrim</strong> on the home page.</li>
+          <li>Enter <strong>From</strong> (your city) and <strong>To</strong> (destination or region).</li>
+          <li>Pick <strong>travel dates</strong> to match trip length with package duration.</li>
+          <li>Set <strong>travellers</strong> for your group size.</li>
+          <li>Click <strong>Search</strong> — then open a package for full itinerary and enquiry.</li>
+        </ol>
+      </div>
+      <div class="box_style_2">
+        <i class="icon_set_1_icon-90"></i>
+        <h4>Need help? Call us</h4>
+        <a href="tel:+919846308744" class="phone">+91 9846 30 87 44</a>
+        <small>Monday to Friday 9.00am – 7.30pm</small>
+      </div>
+    </div>
+  </div>
+</div>

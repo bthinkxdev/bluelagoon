@@ -1,0 +1,6 @@
+Package enquiry from {{ enquiry.name }}
+Package: {{ enquiry.package }}
+Email: {{ enquiry.email }}
+Phone: {{ enquiry.phone }}
+Guests: {{ enquiry.guests }}
+Message: {{ enquiry.message }}

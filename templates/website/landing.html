@@ -1,0 +1,19 @@
+{% extends "base_wanderly.html" %}
+{% load static %}
+
+{% block body_extra_class %} wl-inner-page wl-header-solid{% endblock %}
+
+{% block content %}
+<main class="wl-main wl-inner-main">
+  {% include "includes/page_hero.html" with title=page.title|default:"Page" subtitle=page.subtitle %}
+  {% include "includes/wl_breadcrumbs.html" with crumb_label=page.title|default:"Page" %}
+
+  <section class="wl-inner-section wl-inner-section--tight">
+    <div class="container">
+      <div class="wl-prose wl-reveal">
+        {% if page and page.content %}{{ page.content|safe }}{% else %}<p>Content coming soon.</p>{% endif %}
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

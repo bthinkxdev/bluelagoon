@@ -1,0 +1,64 @@
+{% load static %}
+<header class="sticky">
+  <div id="top_header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-4 col-xs-4">
+          <div id="logo">
+            <a href="{% url 'core:home' %}">
+              {% if site_settings.logo %}
+              <img src="{{ site_settings.logo.url }}" alt="{{ site_name }}" data-retina="true">
+              {% else %}
+              <img src="{% static 'img/newlogo.png' %}" alt="{{ site_name }}" data-retina="true">
+              {% endif %}
+            </a>
+          </div>
+        </div>
+        <nav class="col-md-8 col-sm-8 col-xs-8" aria-label="Main navigation">
+          <a class="cmn-toggle-switch cmn-toggle-switch__rot open_close" href="javascript:void(0);"><span>Menu mobile</span></a>
+          <div class="main-menu">
+            <div id="header_menu">
+              <img src="{% static 'img/newlogo.png' %}" alt="{{ site_name }}" data-retina="true">
+            </div>
+            <a href="#" class="open_close" id="close_in"><i class="fa fa-times" aria-hidden="true"></i></a>
+            <ul>
+              {% for item in navigation_items %}
+              <li{% if item.children.exists %} class="submenu"{% endif %}{% if item.highlight %} class="active"{% endif %}>
+                {% if item.children.exists %}
+                <a href="javascript:void(0);" class="show-submenu">{{ item.label }} <i class="fa fa-angle-down"></i></a>
+                <ul>
+                  {% for child in item.children.all %}
+                  {% if child.is_active %}
+                  <li><a href="{% if child.url_name %}{% url child.url_name %}{% else %}{{ child.external_url }}{% endif %}">{{ child.label }}</a></li>
+                  {% endif %}
+                  {% endfor %}
+                </ul>
+                {% elif item.url_name %}
+                <a href="{% url item.url_name %}">{{ item.label }}</a>
+                {% elif item.external_url %}
+                <a href="{{ item.external_url }}">{{ item.label }}</a>
+                {% else %}
+                <a href="#">{{ item.label }}</a>
+                {% endif %}
+              </li>
+              {% empty %}
+              <li><a href="{% url 'core:home' %}">Home</a></li>
+              <li><a href="{% url 'website:about' %}">About</a></li>
+              <li><a href="{% url 'website:services' %}">Services</a></li>
+              <li class="submenu">
+                <a href="javascript:void(0);" class="show-submenu">Packages <i class="fa fa-angle-down"></i></a>
+                <ul>
+                  <li><a href="{% url 'packages:domestic_list' %}">Domestic</a></li>
+                  <li><a href="{% url 'packages:international_list' %}">International</a></li>
+                </ul>
+              </li>
+              <li><a href="{% url 'gallery:list' %}">Gallery</a></li>
+              <li><a href="{% url 'enquiries:contact' %}">Contact us</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>

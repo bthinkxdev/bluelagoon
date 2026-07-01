@@ -1,0 +1,12 @@
+{% if breadcrumb %}
+<div id="position">
+  <div class="container">
+    <ul>
+      <li><a href="{% url 'core:home' %}">Home</a></li>
+      {% for label, url_name in breadcrumb %}
+      <li>{% if url_name %}<a href="{% url url_name %}">{{ label }}</a>{% else %}{{ label }}{% endif %}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}

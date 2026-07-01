@@ -1,0 +1,33 @@
+{% extends "base_wanderly.html" %}
+{% load static %}
+
+{% block body_extra_class %} wl-inner-page wl-header-solid{% endblock %}
+
+{% block content %}
+<main class="wl-main wl-inner-main">
+  {% include "includes/page_hero.html" with title="Services" subtitle="Everything you need for a seamless journey." %}
+  {% include "includes/wl_breadcrumbs.html" with crumb_label="Services" %}
+
+  <section class="wl-inner-section">
+    <div class="container">
+      <div class="wl-section-intro wl-reveal">
+        <p class="wl-section-intro__eyebrow">What we offer</p>
+        <h2>Travel services tailored for you</h2>
+        <p>From holiday packages to flights, hotels, and on-ground assistance — Blue Lagoon Holidays handles every detail.</p>
+      </div>
+
+      <div class="wl-services-grid">
+        <article class="wl-service-card wl-reveal"><div class="wl-service-card__bg" style="background-image: url('{% static 'img/room_1.jpg' %}');"></div><div class="wl-service-card__overlay"></div><div class="wl-service-card__body"><h3>Holiday Packages</h3></div></article>
+        <article class="wl-service-card wl-reveal wl-reveal--delay-1"><div class="wl-service-card__bg" style="background-image: url('{% static 'img/room_2.jpg' %}');"></div><div class="wl-service-card__overlay"></div><div class="wl-service-card__body"><h3>Flight Ticket Booking</h3></div></article>
+        <article class="wl-service-card wl-reveal wl-reveal--delay-2"><div class="wl-service-card__bg" style="background-image: url('{% static 'img/room_3.jpg' %}');"></div><div class="wl-service-card__overlay"></div><div class="wl-service-card__body"><h3>Hotels &amp; Resorts</h3></div></article>
+        <article class="wl-service-card wl-reveal"><div class="wl-service-card__bg" style="background-image: url('{% static 'img/int_03.jpg' %}');"></div><div class="wl-service-card__overlay"></div><div class="wl-service-card__body"><h3>Sightseeing Tours</h3></div></article>
+        <article class="wl-service-card wl-reveal wl-reveal--delay-1"><div class="wl-service-card__bg" style="background-image: url('{% static 'img/slide-1.jpg' %}');"></div><div class="wl-service-card__overlay"></div><div class="wl-service-card__body"><h3>Group Tours</h3></div></article>
+        <article class="wl-service-card wl-reveal wl-reveal--delay-2"><div class="wl-service-card__bg" style="background-image: url('{% static 'img/4_thumb.jpg' %}');"></div><div class="wl-service-card__overlay"></div><div class="wl-service-card__body"><h3>Pilgrimage Tours</h3></div></article>
+        <article class="wl-service-card wl-reveal"><div class="wl-service-card__bg" style="background-image: url('{% static 'img/room_1.jpg' %}');"></div><div class="wl-service-card__overlay"></div><div class="wl-service-card__body"><h3>Car &amp; Coaches</h3></div></article>
+        <article class="wl-service-card wl-reveal wl-reveal--delay-1"><div class="wl-service-card__bg" style="background-image: url('{% static 'img/room_2.jpg' %}');"></div><div class="wl-service-card__overlay"></div><div class="wl-service-card__body"><h3>Tour Guides</h3></div></article>
+        <article class="wl-service-card wl-reveal wl-reveal--delay-2"><div class="wl-service-card__bg" style="background-image: url('{% static 'img/room_3.jpg' %}');"></div><div class="wl-service-card__overlay"></div><div class="wl-service-card__body"><h3>Meet &amp; Assist</h3></div></article>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

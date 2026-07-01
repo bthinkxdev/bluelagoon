@@ -1,0 +1,60 @@
+{% extends "base_wanderly.html" %}
+{% load static %}
+
+{% block body_extra_class %} wl-inner-page wl-header-solid{% endblock %}
+
+{% block content %}
+<main class="wl-main wl-inner-main">
+  {% include "includes/page_hero.html" with title="Wayanad" subtitle="A green paradise in the Western Ghats of Kerala." hero_modifier="wayanad" %}
+  {% include "includes/wl_breadcrumbs.html" with crumbs=breadcrumb_crumbs %}
+
+  <section class="wl-inner-section wl-inner-section--tight">
+    <div class="container">
+      <div class="wl-layout">
+        <div class="wl-layout__main">
+          <div class="wl-detail-gallery wl-reveal" data-gallery>
+            <div class="wl-detail-gallery__main">
+              <img src="{% static 'img/wayanad/1.jpg' %}" alt="Wayanad" id="wl-gallery-main" data-gallery-main>
+            </div>
+            <div class="wl-detail-gallery__thumbs">
+              {% for i in "1234567" %}
+              <button type="button" class="wl-detail-gallery__thumb{% if forloop.first %} is-active{% endif %}" data-gallery-thumb data-src="{% static 'img/wayanad/' %}{{ forloop.counter }}.jpg" aria-label="Wayanad image {{ forloop.counter }}">
+                <img src="{% static 'img/wayanad/thumb_' %}{{ forloop.counter }}.jpg" alt="">
+              </button>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="wl-detail-block wl-reveal">
+            <div class="wl-prose">
+              {% if page and page.content %}{{ page.content|safe }}{% else %}
+              <p>Wayanad is located at the Western Ghats of Kerala. It is a green paradise nestled in the mountain region. The entire city is with enchanting and hypnotizing culture and history. Ideal time to visit the place is between September and March.</p>
+              <h4>Edakkal Caves</h4>
+              <p>One of the most ancient caves with carvings and paintings of Stone Age. The history of the caves can be traced over 5000 years and had been colonized at various stages in history.</p>
+              <h4>Banasura Dam</h4>
+              <p>One of the biggest earth dams in India, located at the north-west part of Wayanad, extended to a wide area with crystal clear waters throughout the area.</p>
+              <h4>Pazhassi Raja Tomb</h4>
+              <p>Located in Mananthavady in Wayanad, revealing the history of Pazhassi Raja who was the first warrior to oppose British rule.</p>
+              <p><strong>Other attractions include Wayanad wildlife sanctuary, Kuruva Island, and Soochipara falls.</strong></p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <aside class="wl-layout__aside wl-reveal wl-reveal--delay-1">
+          <div class="wl-card wl-card--phone">
+            <h3>Need help? Call us</h3>
+            <a href="tel:{{ site_settings.phone_primary }}" class="wl-card__phone">{{ site_settings.phone_primary }}</a>
+            <small style="color: var(--wl-muted);">Monday to Friday 9:00am – 7:30pm</small>
+          </div>
+          <div class="wl-card">
+            <h3>Explore packages</h3>
+            <p class="wl-prose" style="margin:0 0 16px;font-size:14px;">Browse our domestic tour packages including Wayanad and Kerala highlights.</p>
+            <a href="{% url 'packages:domestic_list' %}" class="wl-btn wl-btn--primary">Domestic packages</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

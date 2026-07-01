@@ -1,0 +1,10 @@
+<p>New contact enquiry from <strong>{{ enquiry.full_name }}</strong></p>
+<table>
+{% if enquiry.package %}
+<tr><td>Package</td><td><strong>{{ enquiry.package.title }}</strong>{% if enquiry.package.duration %} ({{ enquiry.package.duration }}){% endif %}</td></tr>
+{% endif %}
+<tr><td>Email</td><td><a href="mailto:{{ enquiry.email }}">{{ enquiry.email }}</a></td></tr>
+<tr><td>Phone</td><td>{{ enquiry.phone }}</td></tr>
+<tr><td>Message</td><td>{{ enquiry.message|linebreaksbr }}</td></tr>
+</table>
+<p><em>Reply directly to this email to reach the customer.</em></p>

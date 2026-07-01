@@ -1,0 +1,15 @@
+{% extends "base_wanderly.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link href="{% static 'css/travel-loader.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block page_loader %}
+{% include "includes/travel_loader.html" %}
+<script src="{% static 'js/travel-loader.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+{% include "core/home_content.html" %}
+{% endblock %}

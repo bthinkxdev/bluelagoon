@@ -1,0 +1,36 @@
+{% load static package_tags %}
+<article class="wl-package-row wl-reveal{% if forloop.counter == 2 %} wl-reveal--delay-1{% elif forloop.counter == 3 %} wl-reveal--delay-2{% endif %}">
+  <div class="wl-package-row__media">
+    <a href="{% package_detail_url package %}" tabindex="-1" aria-hidden="true">
+      <img src="{% package_list_image package %}" alt="">
+      {% if package.category %}
+      <span class="wl-package-row__badge">{{ package.category.name }}</span>
+      {% endif %}
+    </a>
+  </div>
+  <div class="wl-package-row__body">
+    <h3><a href="{% package_detail_url package %}">{{ package.title }}</a></h3>
+    {% if package.duration %}
+    <p class="wl-package-row__duration">{{ package.duration }}</p>
+    {% endif %}
+    {% if package.route %}
+    <p class="wl-package-row__route">{{ package.route|route_bullets }}</p>
+    {% else %}
+    <p class="wl-package-row__desc">{{ package.short_description|default:package.title|truncatewords:24 }}</p>
+    {% endif %}
+  </div>
+  <div class="wl-package-row__aside">
+    <div class="wl-package-row__price">
+      {% if package.price %}
+      <strong>₹{{ package.price|floatformat:0 }}</strong>
+      <small>{{ package.price_note|default:"*Per Person / Day" }}</small>
+      {% else %}
+      <strong class="wl-package-row__contact">Contact for price</strong>
+      {% endif %}
+    </div>
+    <a href="{% package_detail_url package %}" class="wl-btn wl-btn--outline wl-btn--package">
+      View Details
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</article>

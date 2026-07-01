@@ -1,0 +1,28 @@
+{% if search_active %}
+<div class="wl-alert wl-alert--info wl-package-results__alert">
+  <strong>Search results</strong>
+  {% if packages %}
+    for <em>{{ search_query }}</em> — {{ packages|length }} package{{ packages|length|pluralize }} found.
+  {% else %}
+    — no packages matched <em>{{ search_query }}</em>. Try fewer filters or <a href="{% url list_url_name %}">view all packages</a>.
+  {% endif %}
+</div>
+{% endif %}
+
+<p class="wl-package-results__summary" id="wl-package-results-summary" aria-live="polite">
+  {% if packages %}
+  Showing <strong>{{ packages|length }}</strong> package{{ packages|length|pluralize }}{% if category_type %} in <span>{{ category_label }}</span>{% endif %}
+  {% else %}
+  No packages found{% if category_type %} in {{ category_label }}{% endif %}
+  {% endif %}
+</p>
+
+{% for package in packages %}
+  {% include "packages/includes/package_strip.html" %}
+{% empty %}
+<div class="wl-empty">
+  <h3>No packages found</h3>
+  <p>We could not find{% if category_type %} a {{ category_label|lower }}{% endif %} package matching your search. Try a broader destination name, leave dates empty, or browse all packages.</p>
+  <p><button type="button" class="wl-btn wl-btn--primary" data-package-filter data-category="">View all packages</button></p>
+</div>
+{% endfor %}

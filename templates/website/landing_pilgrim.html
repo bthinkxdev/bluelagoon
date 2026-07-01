@@ -1,0 +1,54 @@
+{% extends "base_wanderly.html" %}
+{% load static %}
+
+{% block body_extra_class %} wl-inner-page wl-header-solid{% endblock %}
+
+{% block content %}
+<main class="wl-main wl-inner-main">
+  {% include "includes/page_hero.html" with title="Pilgrimage Tours" subtitle="Sacred journeys across Kerala and India." hero_modifier="pilgrim" %}
+  {% include "includes/wl_breadcrumbs.html" with crumbs=breadcrumb_crumbs %}
+
+  <section class="wl-inner-section wl-inner-section--tight">
+    <div class="container">
+      <div class="wl-layout">
+        <div class="wl-layout__main">
+          <div class="wl-detail-gallery wl-reveal" data-gallery>
+            <div class="wl-detail-gallery__main">
+              <img src="{% static 'img/pilgrims/1.jpg' %}" alt="Pilgrimage tour" id="wl-gallery-main" data-gallery-main>
+            </div>
+            <div class="wl-detail-gallery__thumbs">
+              {% for i in "1234567" %}
+              <button type="button" class="wl-detail-gallery__thumb{% if forloop.first %} is-active{% endif %}" data-gallery-thumb data-src="{% static 'img/pilgrims/' %}{{ forloop.counter }}.jpg" aria-label="Pilgrimage image {{ forloop.counter }}">
+                <img src="{% static 'img/pilgrims/thumb_' %}{{ forloop.counter }}.jpg" alt="">
+              </button>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="wl-detail-block wl-reveal">
+            <div class="wl-prose">
+              {% if page and page.content %}{{ page.content|safe }}{% else %}
+              <p>Experience meaningful pilgrimage tours to revered temples, mosques, and churches across Kerala and India with thoughtful planning and comfortable travel.</p>
+              <p>From Sabarimala and Guruvayur to Padmanabhaswamy Temple and beyond — we handle transport, accommodation, and darshan arrangements.</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <aside class="wl-layout__aside wl-reveal wl-reveal--delay-1">
+          <div class="wl-card wl-card--phone">
+            <h3>Need help? Call us</h3>
+            <a href="tel:{{ site_settings.phone_primary }}" class="wl-card__phone">{{ site_settings.phone_primary }}</a>
+            <small style="color: var(--wl-muted);">Monday to Friday 9:00am – 7:30pm</small>
+          </div>
+          <div class="wl-card">
+            <h3>Pilgrim packages</h3>
+            <p class="wl-prose" style="margin:0 0 16px;font-size:14px;">Browse dedicated pilgrimage tour packages with full itineraries.</p>
+            <a href="{% url 'packages:pilgrim_list' %}" class="wl-btn wl-btn--primary">Pilgrim packages</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

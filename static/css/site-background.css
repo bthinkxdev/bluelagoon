@@ -1,0 +1,30 @@
+/* Site-wide background — desktop & mobile */
+
+html {
+  min-height: 100%;
+}
+
+html::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: #FAF9F7;
+  background-image: url("../img/bg/lgpg.png");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  pointer-events: none;
+}
+
+body {
+  background: transparent !important;
+  min-height: 100vh;
+}
+
+@media (max-width: 767px) {
+  html::before {
+    background-image: url("../img/bg/mobilebg.png");
+    background-position: center center;
+  }
+}

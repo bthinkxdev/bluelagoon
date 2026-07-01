@@ -1,0 +1,42 @@
+{% extends "base_wanderly.html" %}
+{% load static %}
+
+{% block body_extra_class %} wl-inner-page wl-header-solid{% endblock %}
+
+{% block content %}
+<main class="wl-main wl-inner-main">
+  {% include "includes/page_hero.html" with title="Gallery" subtitle="Moments from our tours and destinations." %}
+  {% include "includes/wl_breadcrumbs.html" with crumb_label="Gallery" %}
+
+  <section class="wl-inner-section wl-inner-section--tight">
+    <div class="container">
+      <div class="wl-gallery-grid">
+        {% for image in images %}
+        {% if image.image %}
+        <a href="{{ image.image.url }}" class="wl-gallery-item wl-reveal" title="{{ image.title }}">
+          <img src="{{ image.image.url }}" alt="{{ image.title }}">
+        </a>
+        {% endif %}
+        {% empty %}
+        <div class="wl-empty wl-reveal">
+          <h3>No gallery photos yet</h3>
+          <p>Upload images in the admin under <strong>Gallery photos</strong> (title + image). Only entries with an uploaded file are shown here.</p>
+        </div>
+        {% endfor %}
+      </div>
+
+      {% if page_obj.has_other_pages %}
+      <nav class="wl-pagination" aria-label="Gallery pages">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">←</a>
+        {% endif %}
+        <span class="is-active">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">→</a>
+        {% endif %}
+      </nav>
+      {% endif %}
+    </div>
+  </section>
+</main>
+{% endblock %}

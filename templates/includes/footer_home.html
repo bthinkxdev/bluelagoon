@@ -1,0 +1,70 @@
+{% load static package_tags %}
+<section class="wl-trust" aria-label="Trust indicators">
+  <div class="container wl-trust__inner">
+    <div class="wl-trust__items">
+      <div class="wl-trust__item">
+        <span class="wl-trust__icon" aria-hidden="true">★</span>
+        <span><strong>Top Rated</strong> on Google 4.8/5</span>
+      </div>
+      <div class="wl-trust__item">
+        <span class="wl-trust__icon" aria-hidden="true">✓</span>
+        <span><strong>IATA Certified</strong> Agency</span>
+      </div>
+      <div class="wl-trust__item">
+        <span class="wl-trust__icon" aria-hidden="true">🔒</span>
+        <span><strong>100% Secure</strong> Payments</span>
+      </div>
+      <div class="wl-trust__item">
+        <span class="wl-trust__icon" aria-hidden="true">♥</span>
+        <span><strong>Trusted by</strong> Happy Travelers</span>
+      </div>
+    </div>
+    <div class="wl-trust__social">
+      {% if site_settings.facebook_url %}<a href="{{ site_settings.facebook_url }}" aria-label="Facebook"><i class="fa fa-facebook"></i></a>{% endif %}
+      {% if site_settings.twitter_url %}<a href="{{ site_settings.twitter_url }}" aria-label="Twitter"><i class="fa fa-twitter"></i></a>{% endif %}
+      {% if site_settings.youtube_url %}<a href="{{ site_settings.youtube_url }}" aria-label="YouTube"><i class="fa fa-youtube-play"></i></a>{% endif %}
+      <a href="mailto:{{ site_settings.email }}" aria-label="Email"><i class="fa fa-envelope"></i></a>
+    </div>
+  </div>
+</section>
+
+<footer class="wl-footer">
+  <div class="container">
+    <div class="wl-footer__grid">
+      <div class="wl-footer__col wl-footer__col--contact">
+        <h3 class="wl-footer__heading">Contacts</h3>
+        <ul class="wl-footer__list">
+          <li class="wl-footer__company">{{ site_settings.company_name }}</li>
+          <li class="wl-footer__address">{{ site_settings.address }}</li>
+          <li class="wl-footer__phones">
+            <a href="tel:{{ site_settings.phone_primary|phone_tel }}" class="wl-footer__link">{{ site_settings.phone_primary }}</a>{% if site_settings.phone_secondary %}
+            <span class="wl-footer__sep">/</span>
+            <a href="tel:{{ site_settings.phone_secondary|phone_tel }}" class="wl-footer__link">{{ site_settings.phone_secondary }}</a>{% endif %}
+          </li>
+          <li><a href="mailto:{{ site_settings.email }}" class="wl-footer__link">{{ site_settings.email }}</a></li>
+        </ul>
+        {% if site_settings.phone_primary %}
+        <a href="tel:{{ site_settings.phone_primary|phone_tel }}" class="wl-footer__call-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          Call us
+        </a>
+        {% endif %}
+      </div>
+
+      <div class="wl-footer__col wl-footer__col--links">
+        <h3 class="wl-footer__heading">Quick links</h3>
+        <ul class="wl-footer__list wl-footer__list--links">
+          <li><a href="{% url 'website:about' %}">About us</a></li>
+          <li><a href="{% url 'website:services' %}">Services</a></li>
+          <li><a href="{% url 'packages:list' %}">Packages</a></li>
+          <li><a href="{% url 'gallery:list' %}">Gallery</a></li>
+          <li><a href="{% url 'enquiries:contact' %}">Contact us</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="wl-footer__bottom">
+      <p class="wl-footer__copy">{{ site_settings.copyright_text }}</p>
+    </div>
+  </div>
+</footer>

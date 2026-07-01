@@ -1,0 +1,50 @@
+<div class="wl-refine-search wl-reveal">
+  <h3 style="margin: 0 0 16px; font-family: var(--wl-font-serif); color: var(--wl-navy); font-size: 20px;">Refine your package search</h3>
+  <form method="get" action="{% url list_url_name %}" class="wl-form">
+    <div class="row">
+      <div class="col-sm-6 col-md-3">
+        <div class="form-group">
+          <label for="pkg-from">From</label>
+          <input id="pkg-from" class="form-control" type="text" name="from" value="{{ search.from_place }}" placeholder="City or airport">
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="form-group">
+          <label for="pkg-to">To</label>
+          <input id="pkg-to" class="form-control" type="text" name="to" value="{{ search.to_place }}" placeholder="Destination">
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-2">
+        <div class="form-group">
+          <label for="pkg-depart">Depart</label>
+          <input id="pkg-depart" class="form-control" type="date" name="depart" value="{% if search.depart %}{{ search.depart|date:'Y-m-d' }}{% endif %}">
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-2">
+        <div class="form-group">
+          <label for="pkg-return">Return</label>
+          <input id="pkg-return" class="form-control" type="date" name="return" value="{% if search.return_date %}{{ search.return_date|date:'Y-m-d' }}{% endif %}">
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-1">
+        <div class="form-group">
+          <label for="pkg-adults">Adults</label>
+          <input id="pkg-adults" class="form-control" type="number" name="adults" min="1" max="9" value="{{ search.adults }}">
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-1">
+        <div class="form-group">
+          <label for="pkg-children">Children</label>
+          <input id="pkg-children" class="form-control" type="number" name="children" min="0" max="9" value="{{ search.children }}">
+        </div>
+      </div>
+      <div class="col-sm-12" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
+        <button type="submit" class="wl-btn wl-btn--primary">Search packages</button>
+        {% if search_active %}
+        <a href="{% url list_url_name %}" class="wl-btn wl-btn--outline">Clear filters</a>
+        {% endif %}
+      </div>
+    </div>
+    <input type="hidden" name="travellers" value="{{ search.travellers_label }}">
+  </form>
+</div>

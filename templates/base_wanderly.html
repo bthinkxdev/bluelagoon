@@ -1,0 +1,38 @@
+{% load static seo_tags package_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% seo_meta obj=seo_obj title=page_title description=page_description %}
+<link rel="apple-touch-icon" sizes="57x57" href="{% static 'img/apple-icon-57x57.png' %}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+<link href="{% static 'css/home-landing.css' %}" rel="stylesheet">
+<link href="{% static 'css/site-pages.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+{% block extra_css %}{% endblock %}
+</head>
+<body class="home-wanderly{% block body_extra_class %}{% endblock %}">
+{% block page_loader %}{% endblock %}
+{% block site_header %}{% include "includes/header_home.html" %}{% endblock %}
+{% block content %}{% endblock %}
+{% block site_footer %}{% include "includes/footer_home.html" %}{% endblock %}
+<button type="button" class="wl-to-top" id="wl-to-top" aria-label="Back to top" hidden>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+{% if site_settings.phone_primary %}
+<a href="{{ site_settings.phone_primary|whatsapp_href:'Hello, I would like to enquire about a tour package.' }}" class="wl-whatsapp-fab" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+  <i class="fa fa-whatsapp" aria-hidden="true"></i>
+</a>
+{% endif %}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="{% static 'js/home-landing.js' %}"></script>
+<script src="{% static 'js/site-pages.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

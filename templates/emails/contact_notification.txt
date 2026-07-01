@@ -1,0 +1,11 @@
+New contact enquiry from {{ enquiry.full_name }}
+{% if enquiry.package %}
+Package: {{ enquiry.package.title }}{% if enquiry.package.duration %} ({{ enquiry.package.duration }}){% endif %}
+{% endif %}
+Email: {{ enquiry.email }}
+Phone: {{ enquiry.phone }}
+
+Message:
+{{ enquiry.message }}
+
+Reply to the customer at {{ enquiry.email }}.

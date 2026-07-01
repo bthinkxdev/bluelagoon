@@ -1,0 +1,41 @@
+{% load static seo_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% seo_meta obj=seo_obj title=page_title description=page_description %}
+<link rel="apple-touch-icon" sizes="57x57" href="{% static 'img/apple-icon-57x57.png' %}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet">
+{% block loader_fonts %}{% endblock %}
+<link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/animate.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/style.css' %}" rel="stylesheet">
+<link href="{% static 'css/menu.css' %}" rel="stylesheet">
+<link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+<link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet">
+<link href="{% static 'css/settings.css' %}" rel="stylesheet">
+<link href="{% static 'css/extralayers.css' %}" rel="stylesheet">
+<link href="{% static 'css/site-background.css' %}" rel="stylesheet">
+{% block extra_css %}{% endblock %}
+</head>
+<body{% block body_class %}{% endblock %}>
+{% block page_loader %}{% endblock %}
+<div class="layer"></div>
+{% block site_header %}{% include "includes/header.html" %}{% endblock %}
+{% block content %}{% endblock %}
+{% block site_footer %}{% include "includes/footer.html" %}{% endblock %}
+<div id="toTop"></div>
+<script src="{% static 'js/jquery-1.js' %}"></script>
+<script src="{% static 'js/common_scripts_min.js' %}"></script>
+<script src="{% static 'js/functions.js' %}"></script>
+<script src="{% static 'js/validate.js' %}"></script>
+<script src="{% static 'js/jquery_002.js' %}"></script>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/revolution_func.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>
