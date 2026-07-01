@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="ie ie8"> <![endif]-->
+<!--[if IE 9]><html class="ie ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+<!--<![endif]-->
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="Tour activities, itineraries, Tour holidays, Blue Lagoon Holidays, bed and breakfast, hotel, Kerala hotel bookings">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Home | Blue Lagoon Holidays</title>
+
+<!-- Favicons-->
+<link rel="apple-touch-icon" sizes="57x57" href="img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+
+<!-- Font-CSS -->
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+<!-- Font-Awesome CSS -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- BASE CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/animate.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="css/menu.css" rel="stylesheet">
+<link href="css/responsive.css" rel="stylesheet">
+<link href="css/magnific-popup.css" rel="stylesheet">
+
+<!-- REVOLUTION SLIDER CSS -->
+<link href="css/settings.css" rel="stylesheet">
+<link href="css/extralayers.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body style="overflow: visible;">
+
+
+<div class="layer"></div>
+<!-- Mobile menu overlay mask --> 
+
+<!-- Header================================================== -->
+<header class="sticky">
+  <div id="top_header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-4 col-xs-4">
+          <div id="logo"> <a href="#"><img src="img/logo-lkc.jpg" alt="" data-retina="true" ></a> </div>
+        </div>
+        <nav class="col-md-8 col-sm-8 col-xs-8"> <a class="cmn-toggle-switch cmn-toggle-switch__rot  open_close" href="javascript:void(0);"><span>Menu mobile</span></a>
+          <div class="main-menu">
+            <div id="header_menu"> <img src="img/logo-lkc.jpg" alt="" data-retina="true" > </div>
+            <a href="#" class="open_close" id="close_in"><i class="fa fa-times"></i> </a>
+            <ul>
+              <li class="active"> <a href="index.html">Home </a> </li>
+               <!-- <li><a href="about.html">About</a></li>-->
+              <li> <a href="services.html" >Services</a>
+              <li class="submenu"> <a href="javascript:void(0);" class="show-submenu">Packages <i class="fa fa-angle-down"></i> </a>
+                <ul>
+                  <li><a href="destinations.html">Domestic</a></li>
+                  <li><a href="international_destinations.html">International</a></li>
+                </ul>
+              </li>
+              <li><a href="gallery.html">Gallery</a></li>
+              <li><a href="contact.html">Contact us</a></li>
+            </ul>
+          </div>
+          <!-- End main-menu --> 
+          
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- End Header -->
+
+<div class="tp-banner-container">
+  <div class="tp-banner">
+    <ul>
+      <!-- SLIDE  -->
+      <li data-transition="fade" data-slotamount="7" data-masterspeed="500" data-saveperformance="on" data-title="Intro Slide"> 
+        <!-- MAIN IMAGE --> 
+        <img src="img/slides_bg/dummy.png" alt="slidebg1" data-lazyload="img/slide-1.jpg" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+        <div class="tp-caption white_heavy_40 customin customout text-center text-uppercase" data-x="center" data-y="center" data-hoffset="0" data-voffset="-20" data-customin="x:0;y:0;z:0;rotationX:90;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;" data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-speed="1000" data-start="1700" data-easing="Back.easeInOut" data-endspeed="300" style="z-index: 5;max-width: auto; max-height: auto; white-space: nowrap;">Blue Lagoon Holidays</div>
+        <!-- LAYER NR. 2 -->
+        <div class="tp-caption customin tp-resizeme rs-parallaxlevel-0 text-center" data-x="center" data-y="center" data-hoffset="0" data-voffset="15" data-customin="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-speed="500" data-start="2600" data-easing="Power3.easeInOut" data-splitin="none" data-splitout="none" data-elementdelay="0.05" data-endelementdelay="0.1" style="z-index: 9; max-width: auto; max-height: auto; white-space: nowrap;">
+          <div style="color:#ffffff; font-size:16px; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25); text-transform:uppercase"> Destinations / Tour activities / Pleasure</div>
+        </div>
+        <!-- LAYER NR. 3 -->
+        <div class="tp-caption customin tp-resizeme rs-parallaxlevel-0" data-x="center" data-y="center" data-hoffset="0" data-voffset="70" data-customin="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-speed="500" data-start="2900" data-easing="Power3.easeInOut" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-linktoslide="next" style="z-index: 12;"><a href='more-wayanad.html' class="button_intro">View More</a> </div>
+      </li>
+    </ul>
+  </div>
+  <div id="general_decor"></div>
+</div>
+<!-- End Slider -->
+<div class="feature-blt-section">
+<div class="container margin_60 padd_bottom_20">
+  <div class="main_title"> <span></span>
+    <h2>Why you will love Blue Lagoon Holidays</h2>
+    <p> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. </p>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="box_home"> 
+        <h3>Cozy and Charming Destinations</h3>
+        <p> Kerala is one of the most charming and captivating states of India. Situated alongside the azure Arabian Sea, it is one of the most sought after tourism and holiday destinations in the country. It is noted for its natural beauty created by beaches, backwaters, hill stations, wildlife, etc. Also known as God's Own Country, Kerala tourism also features some historical and religious monuments. It attracts travelers and tourists from all over the world. </p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="box_home"> 
+        <h3>Relax in a beautiful contest</h3>
+        <p>Kerala is a colorful land of fairs and festivals which are celebrated throughout the state with utmost enthusiasm and gaiety. These festivals are like the precious gems which enhances the beauty of the Kerala crown and tradition. Round the year, these vibrant festivals keeps the life of keralites people joyful. .
+</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="box_home"> 
+        <h3>Enjoy Tour activities</h3>
+        <p> Kerala, fondly known as the God's Own Country, is one of the most enticing travel destination and states of India. Beaches, backwaters, houseboats, traditional villages, modern cities, forts, temples, churches, palaces, beautiful landscapes, verdant hill stations, eye-catching surroundings, rich flora & fauna, etc are prime attractions of Kerala tourism. </p>
+      </div>
+    </div>
+  </div>
+  <!-- End row --> 
+</div>
+<!-- End container -->
+</div>
+<div class="bg_gray add_bottom_60">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-sm-3">
+        <div class="img_zoom"> <a href="#"><img src="img/room_1.jpg" alt="" class="img-responsive"></a> </div>
+        <h3>Kerala Packages</h3>
+        <p>Kerala is one of the most charming and captivating states of India. Situated alongside the azure Arabian Sea, it is one of the most sought after tourism and holiday destinations in the country. It is noted for its natural beauty created by beaches, backwaters, hill stations, wildlife, etc. Also known as God's Own Country, Kerala tourism also features some historical and religious monuments. It attracts travelers and tourists from all over the world</p>
+        <p> <a href="more-wayanad.html" class="btn_1">Read more</a> </p>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <div class="img_zoom"> <a href="#"><img src="img/room_2.jpg" alt="" class="img-responsive"></a> </div>
+        <h3>Lakshadweep Packages</h3>
+        <p> One of world's most spectacular tropical island systems, Lakshadweep is tucked away at 220-440Kms off the Kerala Coast. The islands offer a precious heritage of ecology and culture. The unique feature of the Islands is its coral reef, making it a pristine leisure spot to come back to. 4200 sq. kms. of lagoon, rich in marine wealth, is spread over 36 islands in an area of 32 sq. kms.The crystal clear water and the abundant marine life enhance the beauty of these islands
+</p>
+        <p> <a href="http://lakshadweepcruises.com/" class="btn_1" target="blank">Read more</a> </p>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <div class="img_zoom"> <a href="#"><img src="img/room_3.jpg" alt="" class="img-responsive"></a> </div>
+        <h3>International Packages</h3>
+        <p>Kerala is one of the most charming and captivating states of India. Situated alongside the azure Arabian Sea, it is one of the most sought after tourism and holiday destinations in the country. It is noted for its natural beauty created by beaches, backwaters, hill stations, wildlife, etc. Also known as God's Own Country, Kerala tourism also features some historical and religious monuments. It attracts travelers and tourists from all over the world
+</p>
+        <p> <a href="more_international.html" class="btn_1">Read more</a> </p>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <div class="img_zoom"> <a href="#"><img src="img/room_4.jpg" alt="" class="img-responsive"></a> </div>
+        <h3>Piligrim Packages</h3>
+        <p>The chanting of hallowed prayers can be experienced on a pilgrimage tour to India. There are oodles of places of worship for every devotee, be it Hindu, Sikh, Muslim or Christian. Make your journey to one of the renowned holy centers of India blissful and contended by grabbing the best pilgrimage travel packages.
+We offer you a few of the most popular spiritual trips of India. These trip grants the visitors a fascinating experience that they will remember for many, many years.
+</p>
+        <p> <a href="more-piligrim.html" class="btn_1">Read more</a> </p>
+      </div>
+    </div>
+    <!-- End row --> 
+  </div>
+  <!-- End container --> 
+</div>
+<div class="container add_bottom_60">
+  <div class="main_title add_bottom_45"> <span></span>
+    <h2>Things you may consider</h2>
+    <p> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. </p>
+  </div>
+  <div class="row">
+    <div class="col-md-8" id="strip_activities">
+      <ul>
+        <li> <img src="img/activities_1_thumb.jpg" alt="" class="img-circle styled">
+          <h4>Take a ride on Elephants</h4>
+          <p> The adventure tour in India is popular and especially the elephant safari trips. Elephant safari helps the visitor to travel through such difficult terrains where even jeeps cannot venture.  <a href="more-wayanad.html" class="link_normal">Read more</a> </p>
+        </li>
+        <li><img src="img/activities_2_thumb.jpg" alt="" class="img-circle styled">
+          <h4>Discover typical Food </h4>
+          <p> Usually Kerala food is hot and spicy. Several fresh spices are used while food preparation that gives a unique aroma and flavor to the food. <a href="more-wayanad.html" class="link_normal">Read more</a> </p>
+        </li>
+        <li><img src="img/activities_3_thumb.jpg" alt="" class="img-circle styled">
+          <h4>Learn to cook deliciuos food</h4>
+          <p> The best part of travelling across Kerala is that one never has to eat the same typical food everywhere. You can tantalise your taste buds in every region in Kerala as every district has its own mouth-watering sumptuous delicacies which must not be missed at any cost<a href="more-wayanad.html" class="link_normal">Read more</a> </p>
+        </li>
+        <li><img src="img/activities_4_thumb.jpg" alt="" class="img-circle styled">
+          <h4>Ayurvedic Treatments</h4>
+          <p> The name of Kerala is famous for many attractions such as artistic temples, placid backwaters and panoramic hill stations. Perhaps, the ayurvedic treatment available in Kerala is peculiar to the tradition and heritage of Kerala. <a href="more-wayanad.html" class="link_normal">Read more</a> </p>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <div class="box_style_1 text-center">
+        <p><img src="img/best_price.png" alt=""></p>
+        <p> Id pri consul aeterno petentium. Vivendo 
+          abhorreant et vim, et quot persecuti mel. Libris hendrerit ex sea. Duo 
+          legere evertitur an, pri hinc <strong>doctus definitiones</strong> an, vix id dicam putent. Ius ornatus instructior in. </p>
+        <p> Ad cum movet fierent assueverit, mei stet 
+          legere ne. Mel at vide soluta, ut utamur antiopam inciderint sed. </p>
+      </div>
+      <!-- End box_style_1 -->
+      
+      <div id="banner">
+        <h3><span>-30% OFF</span>This week only for all rides!</h3>
+      </div>
+      <!-- End banner --> 
+      
+    </div>
+  </div>
+  <!-- End row --> 
+</div>
+<!-- End container -->
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6 nopadding">
+      <div class="features-bg">
+        <div class="features-img"> </div>
+      </div>
+    </div>
+    <div class="col-md-6 nopadding">
+      <div class="features-content">
+        <h3>Enjoy spectacular Wayanad</h3>
+        <p> Wayanad is located at the Western Ghats of Kerala. It is a green paradise nestled in the mountain region. The entire city is with enchanting and hypnotizing culture and history. Ideal time to visit the place is between September and March.  </p>
+        <p> <a href="more-wayanad.html" class=" btn_1">Read more</a> </p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End container-fluid  -->
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-sm-3">
+        <h3>Contacts</h3>
+        <ul id="contact_details_footer">
+          <li>BLUE LAGOON HOLIDAY CRUISES PVT LTD<Br>AYINI BYPASS LINK ROAD, VITHAYATHIL BUILDING, MARADU, ERNAKULAM, KERALA 682304</li>
+          <li><a href="tel://">+91 9446 65 16 10</a> / <a href="tel://">+91 9846 30 87 44</a></li>
+          <li><a href="mailto:">mail@bluelagoonholidays.net</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <h3>About</h3>
+        <ul>
+          <li><a href="#">About us</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Packages</a></li>
+          <li><a href="#">Gallery</a></li>
+          <li><a href="#">Contact us</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <h3>Newsletter</h3>
+        <p>Join our newsletter to keep be informed about offers and news.</p>
+        <div id="message-newsletter_2"></div>
+        <form  name="newsletter_2" id="newsletter_2">
+          <div class="form-group">
+            <input name="" id="email_newsletter_2" placeholder="Your mail" class="form-control" type="email">
+          </div>
+          <input value="Subscribe" class="btn_1 white" id="submit-newsletter_2" type="submit">
+        </form>
+      </div>
+      <div class="col-md-3 col-sm-3" id="newsletter">
+        <div id="social_footer">
+          <ul>
+            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+          </ul>
+          <p>© Kerala Tours and Travels 2016</p>
+        </div>
+      </div>
+    </div>
+    <!-- End row -->
+    <div class="row">
+      <div class="col-md-12"> </div>
+    </div>
+  </div>
+  <!-- End row -->
+  </div>
+  <!-- End container --> 
+</footer>
+<!-- End footer -->
+
+<div style="display: block;" id="toTop"></div>
+<!-- Back to top button --> 
+
+<!-- Common scripts --> 
+<script src="js/jquery-1.js"></script> 
+<script src="js/common_scripts_min.js"></script> 
+<script src="js/functions.js"></script> 
+<script src="js/validate.js"></script> 
+
+<!-- SLIDER REVOLUTION 4.x SCRIPTS  --> 
+<script src="js/jquery_002.js"></script> 
+<script src="js/jquery.js"></script> 
+<script src="js/revolution_func.js"></script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="ie ie8"> <![endif]-->
+<!--[if IE 9]><html class="ie ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+<!--<![endif]-->
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="Tour activities, itineraries, Tour holidays, Blue Lagoon Holidays, bed and breakfast, hotel, Kerala hotel bookings">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Home | Blue Lagoon Holidays</title>
+
+<!-- Favicons-->
+<link rel="apple-touch-icon" sizes="57x57" href="img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+
+<!-- Font-CSS -->
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+<!-- Font-Awesome CSS -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- BASE CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/animate.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="css/menu.css" rel="stylesheet">
+<link href="css/responsive.css" rel="stylesheet">
+<link href="css/magnific-popup.css" rel="stylesheet">
+
+<!-- REVOLUTION SLIDER CSS -->
+<link href="css/settings.css" rel="stylesheet">
+<link href="css/extralayers.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body style="overflow: visible;">
+
+
+<div class="layer"></div>
+<!-- Mobile menu overlay mask --> 
+
+<!-- Header================================================== -->
+<header class="sticky">
+  <div id="top_header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-4 col-xs-4">
+          <div id="logo"> <a href="#"><img src="img/logo-lkc.jpg" alt="" data-retina="true" ></a> </div>
+        </div>
+        <nav class="col-md-8 col-sm-8 col-xs-8"> <a class="cmn-toggle-switch cmn-toggle-switch__rot  open_close" href="javascript:void(0);"><span>Menu mobile</span></a>
+          <div class="main-menu">
+            <div id="header_menu"> <img src="img/logo-lkc.jpg" alt="" data-retina="true" > </div>
+            <a href="#" class="open_close" id="close_in"><i class="fa fa-times"></i> </a>
+            <ul>
+              <li class="active"> <a href="index.html">Home </a> </li>
+               <!-- <li><a href="about.html">About</a></li>-->
+              <li> <a href="services.html" >Services</a>
+              <li class="submenu"> <a href="javascript:void(0);" class="show-submenu">Packages <i class="fa fa-angle-down"></i> </a>
+                <ul>
+                  <li><a href="destinations.html">Domestic</a></li>
+                  <li><a href="international_destinations.html">International</a></li>
+                </ul>
+              </li>
+              <li><a href="gallery.html">Gallery</a></li>
+              <li><a href="contact.html">Contact us</a></li>
+            </ul>
+          </div>
+          <!-- End main-menu --> 
+          
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- End Header -->
+
+<div class="tp-banner-container">
+  <div class="tp-banner">
+    <ul>
+      <!-- SLIDE  -->
+      <li data-transition="fade" data-slotamount="7" data-masterspeed="500" data-saveperformance="on" data-title="Intro Slide"> 
+        <!-- MAIN IMAGE --> 
+        <img src="img/slides_bg/dummy.png" alt="slidebg1" data-lazyload="img/slide-1.jpg" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+        <div class="tp-caption white_heavy_40 customin customout text-center text-uppercase" data-x="center" data-y="center" data-hoffset="0" data-voffset="-20" data-customin="x:0;y:0;z:0;rotationX:90;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;" data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-speed="1000" data-start="1700" data-easing="Back.easeInOut" data-endspeed="300" style="z-index: 5;max-width: auto; max-height: auto; white-space: nowrap;">Blue Lagoon Holidays</div>
+        <!-- LAYER NR. 2 -->
+        <div class="tp-caption customin tp-resizeme rs-parallaxlevel-0 text-center" data-x="center" data-y="center" data-hoffset="0" data-voffset="15" data-customin="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-speed="500" data-start="2600" data-easing="Power3.easeInOut" data-splitin="none" data-splitout="none" data-elementdelay="0.05" data-endelementdelay="0.1" style="z-index: 9; max-width: auto; max-height: auto; white-space: nowrap;">
+          <div style="color:#ffffff; font-size:16px; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25); text-transform:uppercase"> Destinations / Tour activities / Pleasure</div>
+        </div>
+        <!-- LAYER NR. 3 -->
+        <div class="tp-caption customin tp-resizeme rs-parallaxlevel-0" data-x="center" data-y="center" data-hoffset="0" data-voffset="70" data-customin="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-speed="500" data-start="2900" data-easing="Power3.easeInOut" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-linktoslide="next" style="z-index: 12;"><a href='more-wayanad.html' class="button_intro">View More</a> </div>
+      </li>
+    </ul>
+  </div>
+  <div id="general_decor"></div>
+</div>
+<!-- End Slider -->
+<div class="feature-blt-section">
+<div class="container margin_60 padd_bottom_20">
+  <div class="main_title"> <span></span>
+    <h2>Why you will love Blue Lagoon Holidays</h2>
+    <p> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. </p>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="box_home"> 
+        <h3>Cozy and Charming Destinations</h3>
+        <p> Kerala is one of the most charming and captivating states of India. Situated alongside the azure Arabian Sea, it is one of the most sought after tourism and holiday destinations in the country. It is noted for its natural beauty created by beaches, backwaters, hill stations, wildlife, etc. Also known as God's Own Country, Kerala tourism also features some historical and religious monuments. It attracts travelers and tourists from all over the world. </p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="box_home"> 
+        <h3>Relax in a beautiful contest</h3>
+        <p>Kerala is a colorful land of fairs and festivals which are celebrated throughout the state with utmost enthusiasm and gaiety. These festivals are like the precious gems which enhances the beauty of the Kerala crown and tradition. Round the year, these vibrant festivals keeps the life of keralites people joyful. .
+</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="box_home"> 
+        <h3>Enjoy Tour activities</h3>
+        <p> Kerala, fondly known as the God's Own Country, is one of the most enticing travel destination and states of India. Beaches, backwaters, houseboats, traditional villages, modern cities, forts, temples, churches, palaces, beautiful landscapes, verdant hill stations, eye-catching surroundings, rich flora & fauna, etc are prime attractions of Kerala tourism. </p>
+      </div>
+    </div>
+  </div>
+  <!-- End row --> 
+</div>
+<!-- End container -->
+</div>
+<div class="bg_gray add_bottom_60">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-sm-3">
+        <div class="img_zoom"> <a href="#"><img src="img/room_1.jpg" alt="" class="img-responsive"></a> </div>
+        <h3>Kerala Packages</h3>
+        <p>Kerala is one of the most charming and captivating states of India. Situated alongside the azure Arabian Sea, it is one of the most sought after tourism and holiday destinations in the country. It is noted for its natural beauty created by beaches, backwaters, hill stations, wildlife, etc. Also known as God's Own Country, Kerala tourism also features some historical and religious monuments. It attracts travelers and tourists from all over the world</p>
+        <p> <a href="more-wayanad.html" class="btn_1">Read more</a> </p>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <div class="img_zoom"> <a href="#"><img src="img/room_2.jpg" alt="" class="img-responsive"></a> </div>
+        <h3>Lakshadweep Packages</h3>
+        <p> One of world's most spectacular tropical island systems, Lakshadweep is tucked away at 220-440Kms off the Kerala Coast. The islands offer a precious heritage of ecology and culture. The unique feature of the Islands is its coral reef, making it a pristine leisure spot to come back to. 4200 sq. kms. of lagoon, rich in marine wealth, is spread over 36 islands in an area of 32 sq. kms.The crystal clear water and the abundant marine life enhance the beauty of these islands
+</p>
+        <p> <a href="http://lakshadweepcruises.com/" class="btn_1" target="blank">Read more</a> </p>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <div class="img_zoom"> <a href="#"><img src="img/room_3.jpg" alt="" class="img-responsive"></a> </div>
+        <h3>International Packages</h3>
+        <p>Kerala is one of the most charming and captivating states of India. Situated alongside the azure Arabian Sea, it is one of the most sought after tourism and holiday destinations in the country. It is noted for its natural beauty created by beaches, backwaters, hill stations, wildlife, etc. Also known as God's Own Country, Kerala tourism also features some historical and religious monuments. It attracts travelers and tourists from all over the world
+</p>
+        <p> <a href="more_international.html" class="btn_1">Read more</a> </p>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <div class="img_zoom"> <a href="#"><img src="img/room_4.jpg" alt="" class="img-responsive"></a> </div>
+        <h3>Piligrim Packages</h3>
+        <p>The chanting of hallowed prayers can be experienced on a pilgrimage tour to India. There are oodles of places of worship for every devotee, be it Hindu, Sikh, Muslim or Christian. Make your journey to one of the renowned holy centers of India blissful and contended by grabbing the best pilgrimage travel packages.
+We offer you a few of the most popular spiritual trips of India. These trip grants the visitors a fascinating experience that they will remember for many, many years.
+</p>
+        <p> <a href="more-piligrim.html" class="btn_1">Read more</a> </p>
+      </div>
+    </div>
+    <!-- End row --> 
+  </div>
+  <!-- End container --> 
+</div>
+<div class="container add_bottom_60">
+  <div class="main_title add_bottom_45"> <span></span>
+    <h2>Things you may consider</h2>
+    <p> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. </p>
+  </div>
+  <div class="row">
+    <div class="col-md-8" id="strip_activities">
+      <ul>
+        <li> <img src="img/activities_1_thumb.jpg" alt="" class="img-circle styled">
+          <h4>Take a ride on Elephants</h4>
+          <p> The adventure tour in India is popular and especially the elephant safari trips. Elephant safari helps the visitor to travel through such difficult terrains where even jeeps cannot venture.  <a href="more-wayanad.html" class="link_normal">Read more</a> </p>
+        </li>
+        <li><img src="img/activities_2_thumb.jpg" alt="" class="img-circle styled">
+          <h4>Discover typical Food </h4>
+          <p> Usually Kerala food is hot and spicy. Several fresh spices are used while food preparation that gives a unique aroma and flavor to the food. <a href="more-wayanad.html" class="link_normal">Read more</a> </p>
+        </li>
+        <li><img src="img/activities_3_thumb.jpg" alt="" class="img-circle styled">
+          <h4>Learn to cook deliciuos food</h4>
+          <p> The best part of travelling across Kerala is that one never has to eat the same typical food everywhere. You can tantalise your taste buds in every region in Kerala as every district has its own mouth-watering sumptuous delicacies which must not be missed at any cost<a href="more-wayanad.html" class="link_normal">Read more</a> </p>
+        </li>
+        <li><img src="img/activities_4_thumb.jpg" alt="" class="img-circle styled">
+          <h4>Ayurvedic Treatments</h4>
+          <p> The name of Kerala is famous for many attractions such as artistic temples, placid backwaters and panoramic hill stations. Perhaps, the ayurvedic treatment available in Kerala is peculiar to the tradition and heritage of Kerala. <a href="more-wayanad.html" class="link_normal">Read more</a> </p>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <div class="box_style_1 text-center">
+        <p><img src="img/best_price.png" alt=""></p>
+        <p> Id pri consul aeterno petentium. Vivendo 
+          abhorreant et vim, et quot persecuti mel. Libris hendrerit ex sea. Duo 
+          legere evertitur an, pri hinc <strong>doctus definitiones</strong> an, vix id dicam putent. Ius ornatus instructior in. </p>
+        <p> Ad cum movet fierent assueverit, mei stet 
+          legere ne. Mel at vide soluta, ut utamur antiopam inciderint sed. </p>
+      </div>
+      <!-- End box_style_1 -->
+      
+      <div id="banner">
+        <h3><span>-30% OFF</span>This week only for all rides!</h3>
+      </div>
+      <!-- End banner --> 
+      
+    </div>
+  </div>
+  <!-- End row --> 
+</div>
+<!-- End container -->
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6 nopadding">
+      <div class="features-bg">
+        <div class="features-img"> </div>
+      </div>
+    </div>
+    <div class="col-md-6 nopadding">
+      <div class="features-content">
+        <h3>Enjoy spectacular Wayanad</h3>
+        <p> Wayanad is located at the Western Ghats of Kerala. It is a green paradise nestled in the mountain region. The entire city is with enchanting and hypnotizing culture and history. Ideal time to visit the place is between September and March.  </p>
+        <p> <a href="more-wayanad.html" class=" btn_1">Read more</a> </p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End container-fluid  -->
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-sm-3">
+        <h3>Contacts</h3>
+        <ul id="contact_details_footer">
+          <li>BLUE LAGOON HOLIDAY CRUISES PVT LTD<Br>AYINI BYPASS LINK ROAD, VITHAYATHIL BUILDING, MARADU, ERNAKULAM, KERALA 682304</li>
+          <li><a href="tel://">+91 9446 65 16 10</a> / <a href="tel://">+91 9846 30 87 44</a></li>
+          <li><a href="mailto:">mail@bluelagoonholidays.net</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <h3>About</h3>
+        <ul>
+          <li><a href="#">About us</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Packages</a></li>
+          <li><a href="#">Gallery</a></li>
+          <li><a href="#">Contact us</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <h3>Newsletter</h3>
+        <p>Join our newsletter to keep be informed about offers and news.</p>
+        <div id="message-newsletter_2"></div>
+        <form  name="newsletter_2" id="newsletter_2">
+          <div class="form-group">
+            <input name="" id="email_newsletter_2" placeholder="Your mail" class="form-control" type="email">
+          </div>
+          <input value="Subscribe" class="btn_1 white" id="submit-newsletter_2" type="submit">
+        </form>
+      </div>
+      <div class="col-md-3 col-sm-3" id="newsletter">
+        <div id="social_footer">
+          <ul>
+            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+          </ul>
+          <p>© Kerala Tours and Travels 2016</p>
+        </div>
+      </div>
+    </div>
+    <!-- End row -->
+    <div class="row">
+      <div class="col-md-12"> </div>
+    </div>
+  </div>
+  <!-- End row -->
+  </div>
+  <!-- End container --> 
+</footer>
+<!-- End footer -->
+
+<div style="display: block;" id="toTop"></div>
+<!-- Back to top button --> 
+
+<!-- Common scripts --> 
+<script src="js/jquery-1.js"></script> 
+<script src="js/common_scripts_min.js"></script> 
+<script src="js/functions.js"></script> 
+<script src="js/validate.js"></script> 
+
+<!-- SLIDER REVOLUTION 4.x SCRIPTS  --> 
+<script src="js/jquery_002.js"></script> 
+<script src="js/jquery.js"></script> 
+<script src="js/revolution_func.js"></script>
+</body>
+</html>
