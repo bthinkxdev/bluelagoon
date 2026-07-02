@@ -8,7 +8,8 @@ from django.utils.html import format_html
 
 from core.email import get_from_email, get_notification_email
 from core.forms import SiteSettingsAdminForm
-from core.models import Banner, SiteSettings
+from core.models import Banner, PageHero, SiteSettings
+from core.page_heroes import HERO_DESKTOP_UPLOAD_HELP, HERO_MOBILE_UPLOAD_HELP
 
 
 @admin.register(SiteSettings)
@@ -127,3 +128,106 @@ class BannerAdmin(admin.ModelAdmin):
         ("Images", {"fields": ("desktop_image", "mobile_image")}),
         ("Display", {"fields": ("order", "is_active", "start_date", "end_date")}),
     )
+
+
+@admin.register(PageHero)
+class PageHeroAdmin(admin.ModelAdmin):
+    list_display = (
+        "page_key",
+        "live_path_display",
+        "image_preview",
+        "mobile_image_preview",
+        "is_active",
+        "updated_at",
+    )
+    list_editable = ("is_active",)
+    list_filter = ("is_active",)
+    readonly_fields = (
+        "live_path_display",
+        "image_preview_large",
+        "mobile_image_preview_large",
+        "created_at",
+        "updated_at",
+    )
+    fields = (
+        "page_key",
+        "live_path_display",
+        "image",
+        "image_preview_large",
+        "mobile_image",
+        "mobile_image_preview_large",
+        "is_active",
+        "created_at",
+        "updated_at",
+    )
+    ordering = ("page_key",)
+
+    @admin.display(description="Live URL")
+    def live_path_display(self, obj: PageHero) -> str:
+        if not obj:
+            return ""
+        return obj.live_path or "—"
+
+    def get_readonly_fields(self, request, obj=None):
+        readonly = list(super().get_readonly_fields(request, obj))
+        if obj is not None:
+            readonly.insert(0, "page_key")
+        return readonly
+
+    def formfield_for_choice_field(self, db_field, request, **kwargs):
+        if db_field.name == "page_key":
+            used = set(PageHero.objects.values_list("page_key", flat=True))
+            kwargs["choices"] = [
+                choice for choice in PageHero.PageKey.choices if choice[0] not in used
+            ]
+        return super().formfield_for_choice_field(db_field, request, **kwargs)
+
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        formfield = super().formfield_for_dbfield(db_field, request, **kwargs)
+        if db_field.name == "image":
+            formfield.help_text = HERO_DESKTOP_UPLOAD_HELP
+        if db_field.name == "mobile_image":
+            formfield.help_text = HERO_MOBILE_UPLOAD_HELP
+        return formfield
+
+    @admin.display(description="Mobile")
+    def mobile_image_preview(self, obj: PageHero) -> str:
+        if obj.mobile_image:
+            return format_html(
+                '<img src="{}" alt="" style="max-height:48px;max-width:96px;object-fit:cover;border-radius:4px;">',
+                obj.mobile_image.url,
+            )
+        return "—"
+
+    @admin.display(description="Mobile preview")
+    def mobile_image_preview_large(self, obj: PageHero) -> str:
+        if obj.mobile_image:
+            return format_html(
+                '<img src="{}" alt="" style="max-width:100%;max-height:200px;object-fit:contain;border-radius:8px;border:1px solid #ddd;">',
+                obj.mobile_image.url,
+            )
+        return "No mobile image — the desktop hero is used on phones until you upload one."
+
+    @admin.display(description="Preview")
+    def image_preview(self, obj: PageHero) -> str:
+        if obj.image:
+            return format_html(
+                '<img src="{}" alt="" style="max-height:48px;max-width:160px;object-fit:cover;border-radius:4px;">',
+                obj.image.url,
+            )
+        return "—"
+
+    @admin.display(description="Preview")
+    def image_preview_large(self, obj: PageHero) -> str:
+        if obj.image:
+            return format_html(
+                '<img src="{}" alt="" style="max-width:100%;max-height:200px;object-fit:contain;border-radius:8px;border:1px solid #ddd;">',
+                obj.image.url,
+            )
+        return "No image uploaded yet — the site shows a placeholder until you upload one."
+
+    def has_add_permission(self, request):
+        return PageHero.objects.count() < len(PageHero.PageKey)
+
+    def has_delete_permission(self, request, obj=None):
+        return False

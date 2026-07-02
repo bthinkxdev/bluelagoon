@@ -154,3 +154,21 @@ class PackageSearchTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "wl-package-filters")
         self.assertContains(response, "Price: Low to High")
+
+    @override_settings(
+        EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
+        STORAGES={
+            "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+            "staticfiles": {
+                "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+            },
+        },
+    )
+    def test_empty_search_shows_custom_enquiry_form(self):
+        response = self.client.get("/packages/", {"to": "Zzyxnonexistent999"})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "wl-search-enquiry")
+        self.assertContains(response, "We can arrange your trip exactly the way you want")
+        self.assertContains(response, "pre-designed packages may not align")
+        self.assertContains(response, "Arrival date:")
+        self.assertContains(response, "enquiry_source")

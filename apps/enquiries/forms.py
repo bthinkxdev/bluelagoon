@@ -74,7 +74,7 @@ class ContactForm(MathCaptchaMixin, forms.ModelForm):
                 attrs={
                     "class": "form-control",
                     "placeholder": "Tell us about your trip — destination, dates, group size, and any special requests.",
-                    "rows": 5,
+                    "rows": 9,
                 }
             ),
         }

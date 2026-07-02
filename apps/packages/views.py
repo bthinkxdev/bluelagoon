@@ -2,12 +2,16 @@
 
 from __future__ import annotations
 
+from django.contrib import messages
 from django.db.models import Prefetch
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.http import urlencode
-from django.views.decorators.cache import cache_page
+from django_ratelimit.decorators import ratelimit
 
+from enquiries.forms import ContactForm
+from enquiries.package_enquiry import build_package_enquiry_initial, build_search_enquiry_initial
+from enquiries.services import save_contact_from_request
 from packages.models import Package, PackageCategory, PackageExclusion, PackageImage, PackageInclusion, Testimonial
 from packages.search import PackageSearch, category_label as get_category_label
 
@@ -70,9 +74,18 @@ def _category_tab_urls(search: PackageSearch) -> dict[str, str]:
     return urls
 
 
-def _package_list_context(request, category_filter: str = "") -> dict:
+def _package_list_context(
+    request,
+    category_filter: str = "",
+    *,
+    enquiry_form: ContactForm | None = None,
+) -> dict:
     search = PackageSearch.from_request(request, category_filter or "all")
     packages = search.apply(_published_packages(category_filter or None))
+    show_search_enquiry = search.has_filters and not packages
+
+    if enquiry_form is None and show_search_enquiry:
+        enquiry_form = ContactForm(initial=build_search_enquiry_initial(search))
 
     if category_filter:
         titles = {
@@ -102,19 +115,58 @@ def _package_list_context(request, category_filter: str = "") -> dict:
         "category_label": category_label_text,
         "show_category_labels": not category_filter,
         "category_tab_urls": _category_tab_urls(search),
+        "enquiry_form": enquiry_form,
+        "show_search_enquiry": show_search_enquiry,
         **search.to_context(),
     }
 
 
+def _enquiry_feedback_messages(request, result) -> None:
+    if result.notification_sent and result.confirmation_sent:
+        messages.success(
+            request,
+            "Thank you! Your enquiry was sent and a confirmation email is on its way.",
+        )
+    elif result.notification_sent:
+        messages.success(
+            request,
+            "Thank you! We received your enquiry and will contact you soon.",
+        )
+    else:
+        messages.warning(
+            request,
+            "Your enquiry was saved. Email delivery failed — our team will follow up shortly.",
+        )
+
+
+def _list_redirect_url(request, search: PackageSearch) -> str:
+    params = search.query_dict()
+    url = request.path
+    if params:
+        url = f"{url}?{urlencode(params)}"
+    return f"{url}#wl-search-enquiry"
+
+
+@ratelimit(key="ip", rate="5/m", method="POST", block=True)
 def _render_package_list(request, category_filter: str = ""):
+    search = PackageSearch.from_request(request, category_filter or "all")
+    enquiry_form = None
+
+    if request.method == "POST" and request.POST.get("enquiry_source") == "package_search":
+        enquiry_form = ContactForm(request.POST)
+        if enquiry_form.is_valid():
+            result = save_contact_from_request(enquiry_form, request)
+            _enquiry_feedback_messages(request, result)
+            return redirect(_list_redirect_url(request, search))
+        messages.error(request, "Please correct the errors below.")
+
     return render(
         request,
         "packages/package_list.html",
-        _package_list_context(request, category_filter),
+        _package_list_context(request, category_filter, enquiry_form=enquiry_form),
     )
 
 
-@cache_page(60 * 5)
 def package_list(request):
     return _render_package_list(request, resolve_list_category(request))
 
@@ -129,21 +181,19 @@ def package_list_partial(request):
     )
 
 
-@cache_page(60 * 5)
 def domestic_list(request):
     return _render_package_list(request, PackageCategory.CategoryType.DOMESTIC)
 
 
-@cache_page(60 * 5)
 def international_list(request):
     return _render_package_list(request, PackageCategory.CategoryType.INTERNATIONAL)
 
 
-@cache_page(60 * 5)
 def pilgrim_list(request):
     return _render_package_list(request, PackageCategory.CategoryType.PILGRIM)
 
 
+@ratelimit(key="ip", rate="5/m", method="POST", block=True)
 def package_detail(request, slug, category_type: str):
     package = get_object_or_404(
         _package_detail_queryset(),
@@ -165,6 +215,32 @@ def package_detail(request, slug, category_type: str):
     if package.route:
         subtitle = f"{subtitle} — {package.route}" if subtitle else package.route
 
+    enquiry_form = None
+    if request.method == "POST":
+        enquiry_form = ContactForm(request.POST)
+        if enquiry_form.is_valid():
+            result = save_contact_from_request(enquiry_form, request)
+            if result.notification_sent and result.confirmation_sent:
+                messages.success(
+                    request,
+                    "Thank you! Your enquiry was sent and a confirmation email is on its way.",
+                )
+            elif result.notification_sent:
+                messages.success(
+                    request,
+                    "Thank you! We received your enquiry and will contact you soon.",
+                )
+            else:
+                messages.warning(
+                    request,
+                    "Your enquiry was saved. Email delivery failed — our team will follow up shortly.",
+                )
+            return redirect(f"{request.path}#wl-package-enquiry")
+        messages.error(request, "Please correct the errors below.")
+
+    if enquiry_form is None:
+        enquiry_form = ContactForm(initial=build_package_enquiry_initial(package))
+
     return render(
         request,
         "packages/package_detail.html",
@@ -177,6 +253,7 @@ def package_detail(request, slug, category_type: str):
                 (package.title, None),
             ],
             "search": PackageSearch.from_request(request, category_type),
+            "enquiry_form": enquiry_form,
         },
     )
 

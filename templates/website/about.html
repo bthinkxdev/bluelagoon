@@ -1,33 +1,32 @@
 {% extends "base_wanderly.html" %}
-{% load static package_tags %}
+{% load package_tags %}
 
 {% block body_extra_class %} wl-inner-page wl-header-solid wl-about-page{% endblock %}
 
 {% block content %}
 <main class="wl-main wl-inner-main">
-  {% include "includes/page_hero.html" with title="About Us" subtitle="Your trusted Kerala travel partner — thoughtfully crafted journeys across India and beyond." hero_eyebrow="Our Story" hero_modifier="about" %}
+  {% include "includes/page_hero.html" with page_key="about" title="About Us" subtitle="Your trusted Kerala travel partner — thoughtfully crafted journeys across India and beyond." hero_eyebrow="Our Story" %}
   {% include "includes/wl_breadcrumbs.html" with crumb_label="About Us" %}
 
   <section class="wl-about-story wl-inner-section">
     <div class="container">
-      <div class="wl-about-story__grid wl-reveal">
-        <div class="wl-about-story__media">
-          <img src="{% static 'img/about-wayanad.jpg' %}" alt="Kerala hill station scenery">
-          <span class="wl-about-story__badge">IATO Certified Agency</span>
+      <div class="wl-about-story__content wl-about-story__content--full wl-reveal">
+        <p class="wl-about-story__eyebrow">Who we are</p>
+        <h2 class="wl-about-story__title">About Us</h2>
+        <div class="wl-prose wl-about-story__prose">
+          <p>We are a travel agency headquartered in Cochin, Kerala, with branches across the state. Our Mattanur branch is conveniently located near the new Kannur International Airport.</p>
+          <p>Blue Lagoon Holiday Cruises Pvt. Ltd. delivers synergy in travel, tourism, and hospitality solutions at affordable costs. We offer a wide range of tour packages — both pre-designed and customized — tailored to your tastes and interests.</p>
+          <p>The destinations we curate will leave you with nostalgic memories. Houseboat cruises through palm-fringed backwaters, beach getaways, hill station resorts, and tea garden trails transform your journey into a close encounter with Mother Nature.</p>
+          <p>Operating since 2013 in Kerala — globally acclaimed as “God’s Own Country” — we confidently recommend destinations that ensure memorable, satisfying experiences. Our happy customers are our best testimony.</p>
+          <p>We are authorized agents of Lakshadweep Tourism under the Ministry of Tourism, Government of India. The “Samudram” Lakshadweep package offers economical on-board accommodation with day visits to three islands. This 5-day, 4-night tour is perfect for sea and beach lovers.</p>
+          <p>For groups of any size, we can arrange make-shift kitchens with cooking staff at visit locations.</p>
+          <p>Choose your tour theme and we’ll propose the most economical and satisfying route:</p>
+          <p class="wl-about-tour-themes">Houseboats | Hill Stations | Beaches | Traditional Villages | Cities | Historical Places | Temples | Mosques | Churches | Trekking | Tea Gardens | Wildlife | And More</p>
+          <p>Managed by courteous professionals with rich travel industry experience, Blue Lagoon ensures all your tour and travel needs are met — leaving you with happy, enduring memories.</p>
         </div>
-        <div class="wl-about-story__content">
-          <p class="wl-about-story__eyebrow">Who we are</p>
-          <h2 class="wl-about-story__title">Blue Lagoon Holidays</h2>
-          {% if page and page.content %}
-          <div class="wl-prose wl-about-story__prose">{{ page.content|safe }}</div>
-          {% else %}
-          <p class="wl-about-story__lead">Blue Lagoon Holiday Cruises Pvt Ltd offers a multi-ranged variety of cruise options and on-shore packages across Kerala, India, and beyond.</p>
-          <p>We help travellers discover mystical spots in South India — from hill stations and beach resorts to trekking routes, heritage cities and modern metropolises.</p>
-          {% endif %}
-          <div class="wl-about-story__actions">
-            <a href="{% url 'packages:list' %}" class="wl-btn wl-btn--primary">Explore packages</a>
-            <a href="{% url 'enquiries:contact' %}" class="wl-btn wl-btn--outline">Contact us</a>
-          </div>
+        <div class="wl-about-story__actions">
+          <a href="{% url 'packages:list' %}" class="wl-btn wl-btn--primary">Explore packages</a>
+          <a href="{% url 'enquiries:contact' %}" class="wl-btn wl-btn--outline">Contact us</a>
         </div>
       </div>
     </div>
@@ -37,8 +36,8 @@
     <div class="container">
       <div class="wl-about-highlights__grid wl-reveal">
         <article class="wl-about-highlight">
-          <strong>15+</strong>
-          <span>Years of travel expertise</span>
+          <strong>2013</strong>
+          <span>Serving travellers since</span>
         </article>
         <article class="wl-about-highlight">
           <strong>4</strong>
@@ -125,28 +124,6 @@
           <h3>Memorable moments</h3>
           <p>Backwaters, hill stations, beaches and cultural tours you will treasure forever.</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="wl-inner-section wl-about-team">
-    <div class="container">
-      <div class="wl-section-intro wl-reveal">
-        <p class="wl-section-intro__eyebrow">Leadership</p>
-        <h2>Meet our director</h2>
-        <p>The leadership behind Blue Lagoon Holidays — guiding every journey with experience and integrity.</p>
-      </div>
-
-      <div class="wl-team-grid wl-team-grid--single wl-reveal wl-reveal--delay-1">
-        <article class="wl-team-card">
-          <div class="wl-team-card__photo">
-            <img src="{% static 'img/director.jpg' %}" alt="Director, Blue Lagoon Holidays">
-          </div>
-          <div class="wl-team-card__body">
-            <h3>Director</h3>
-            <p>Blue Lagoon Holidays</p>
-          </div>
-        </article>
       </div>
     </div>
   </section>

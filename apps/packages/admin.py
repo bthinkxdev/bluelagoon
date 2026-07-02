@@ -95,12 +95,16 @@ class PackageAdmin(admin.ModelAdmin):
                     "description",
                     "duration",
                     "route",
+                    "hero_banner",
+                    "hero_banner_mobile",
                     "price",
                     "price_note",
                 ),
                 "description": (
                     "Duration is the label shown on the site (e.g. 3 Days / 2 Nights). "
-                    "Sorting and duration filters use it automatically."
+                    "Sorting and duration filters use it automatically. "
+                    "Hero banners: desktop 1920×400 px, mobile 390×400 px (780×800 @2x). "
+                    "Gallery photos stay 1920×1080."
                 ),
             },
         ),

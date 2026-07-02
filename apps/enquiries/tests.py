@@ -100,3 +100,56 @@ class ContactEnquiryEmailTests(TestCase):
         response = self.client.post(reverse("enquiries:contact"), payload)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(ContactEnquiry.objects.count(), 0)
+
+    def test_package_detail_shows_enquiry_form_with_prefill(self):
+        url = reverse("packages:domestic_detail", kwargs={"slug": self.package.slug})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'id="wl-package-enquiry"')
+        self.assertContains(response, "Plan your trip")
+        self.assertContains(response, "Arrival date:")
+        self.assertContains(response, "Number of adults:")
+        self.assertContains(response, self.package.slug)
+
+    def test_package_detail_enquiry_submission(self):
+        url = reverse("packages:domestic_detail", kwargs={"slug": self.package.slug})
+        payload = self._valid_payload(
+            package_slug=self.package.slug,
+            message=(
+                "I would like to visit Golden Triangle. Kindly find my travel requirements below\n\n"
+                "Arrival date: 5th July 2026\n"
+                "Departure date: 10th July 2026\n"
+                "Number of nights: 5\n"
+                "Number of adults: 2\n"
+                "Number of child: 1 (Age: 5)"
+            ),
+        )
+        response = self.client.post(url, payload)
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response.url.endswith("#wl-package-enquiry"))
+
+        enquiry = ContactEnquiry.objects.get()
+        self.assertEqual(enquiry.package_id, self.package.pk)
+        self.assertIn("5th July 2026", enquiry.message)
+        staff_mail = next(m for m in mail.outbox if "staff@bluelagoon.test" in m.to)
+        self.assertIn("Golden Triangle", staff_mail.subject)
+
+    def test_empty_search_enquiry_submission(self):
+        url = "/packages/?to=Zzyxnonexistent999"
+        payload = {
+            "enquiry_source": "package_search",
+            "first_name": "Achu",
+            "last_name": "Joseph",
+            "email": "guest@example.com",
+            "phone": "+91 9876543210",
+            "message": (
+                "I searched for a trip matching my requirements, but none of our current "
+                "pre-designed packages fit exactly. Please help me plan a custom itinerary."
+            ),
+            "captcha_answer": "12",
+            "captcha_expected": "12",
+        }
+        response = self.client.post(url, payload)
+        self.assertEqual(response.status_code, 302)
+        self.assertIn("#wl-search-enquiry", response.url)
+        self.assertEqual(ContactEnquiry.objects.count(), 1)

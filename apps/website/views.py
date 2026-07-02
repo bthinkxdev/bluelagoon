@@ -3,18 +3,15 @@
 from __future__ import annotations
 
 from django.shortcuts import render
-from django.views.decorators.cache import cache_page
 
 from website.models import Service, StaticPage
 
 
-@cache_page(60 * 5)
 def about(request):
     page = StaticPage.objects.filter(page_type=StaticPage.PageType.ABOUT, is_published=True).first()
     return render(request, "website/about.html", {"page": page, "page_title": "About"})
 
 
-@cache_page(60 * 5)
 def services(request):
     page = StaticPage.objects.filter(
         page_type=StaticPage.PageType.SERVICES, is_published=True
@@ -33,6 +30,11 @@ LANDING_TEMPLATES = {
     "international-packages": "website/landing_international.html",
 }
 
+LANDING_PAGE_KEYS = {
+    "wayanad": "landing_wayanad",
+    "pilgrim-packages": "landing_pilgrim",
+    "international-packages": "landing_international",
+}
 
 LANDING_BREADCRUMBS = {
     "wayanad": [("Destinations", None), ("Wayanad", None)],
@@ -41,7 +43,6 @@ LANDING_BREADCRUMBS = {
 }
 
 
-@cache_page(60 * 5)
 def landing_page(request, slug):
     template = LANDING_TEMPLATES.get(slug, "website/landing.html")
     page = StaticPage.objects.filter(slug=slug, is_published=True).first()
@@ -55,5 +56,6 @@ def landing_page(request, slug):
             "page": page,
             "page_title": page.title if page else slug.replace("-", " ").title(),
             "breadcrumb_crumbs": crumbs,
+            "landing_page_key": LANDING_PAGE_KEYS.get(slug, ""),
         },
     )

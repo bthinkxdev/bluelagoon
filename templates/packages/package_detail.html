@@ -4,27 +4,10 @@
 {% block body_extra_class %} wl-inner-page wl-header-solid wl-package-detail-page{% endblock %}
 
 {% block content %}
-{% package_hero_image package as hero_image %}
+{% package_hero_images package as page_heroes %}
 <main class="wl-main wl-inner-main">
   <div class="wl-packages-hero-band">
-    <section class="wl-page-hero wl-page-hero--package-detail"
-      style="--wl-page-hero-image: url('{{ hero_image }}');"
-      aria-labelledby="wl-package-hero-title">
-      <div class="wl-page-hero__overlay" aria-hidden="true"></div>
-      <div class="container wl-page-hero__inner">
-        <div class="wl-page-hero__content wl-reveal">
-          {% if package.category %}
-          <p class="wl-page-hero__eyebrow">{{ package.category.name }}</p>
-          {% endif %}
-          <h1 class="wl-page-hero__title" id="wl-package-hero-title">{{ package.title }}</h1>
-          {% if hero_subtitle %}
-          <p class="wl-page-hero__lead">{{ hero_subtitle }}</p>
-          {% elif package.short_description %}
-          <p class="wl-page-hero__lead">{{ package.short_description }}</p>
-          {% endif %}
-        </div>
-      </div>
-    </section>
+    {% include "includes/page_hero.html" with title=package.title hero_image=page_heroes.desktop hero_mobile_image=page_heroes.mobile hero_modifier="package-detail" title_id="wl-package-hero-title" hero_eyebrow=package.category.name subtitle=hero_subtitle|default:package.short_description %}
   </div>
 
   {% include "includes/wl_breadcrumbs.html" with crumbs=breadcrumb_crumbs %}
@@ -104,6 +87,8 @@
             {% endif %}
           </div>
           {% endif %}
+
+          {% include "packages/includes/enquiry_form.html" %}
         </div>
 
         {% include "packages/includes/detail_sidebar.html" %}
@@ -129,7 +114,7 @@
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
     </a>
     {% endif %}
-    <a href="{% url 'enquiries:contact' %}?package={{ package.slug }}" class="wl-btn wl-btn--primary">Enquire</a>
+    <a href="#wl-package-enquiry" class="wl-btn wl-btn--primary">Enquire</a>
   </div>
 </div>
 {% endblock %}

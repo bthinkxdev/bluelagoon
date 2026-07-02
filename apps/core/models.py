@@ -13,7 +13,7 @@ class SiteSettings(models.Model):
     company_name = models.CharField(max_length=200, default="BLUE LAGOON HOLIDAY CRUISES PVT LTD")
     tagline = models.CharField(max_length=255, blank=True)
     logo = models.ImageField(upload_to="site/", blank=True, null=True)
-    phone_primary = models.CharField(max_length=30, default="+91 9446 65 16 10")
+    phone_primary = models.CharField(max_length=30, default="+91 98463 08744")
     phone_secondary = models.CharField(max_length=30, default="+91 9846 30 87 44")
     email = models.EmailField(default="mail@bluelagoonholidays.net")
     address = models.TextField(
@@ -305,3 +305,81 @@ class Banner(models.Model):
         if self.mobile_image:
             return self.mobile_image.url
         return self.hero_image_url
+
+
+# Uniform inner-page hero dimensions (see site-pages.css --wl-uniform-hero-*)
+PAGE_HERO_WIDTH = 1920
+PAGE_HERO_HEIGHT = 400
+PAGE_HERO_MOBILE_WIDTH = 390
+PAGE_HERO_MOBILE_HEIGHT = 400
+PAGE_HERO_MOBILE_BREAKPOINT = 767
+
+
+class PageHero(TimeStampedModel):
+    """One hero banner image per inner page (1920×400 px)."""
+
+    class PageKey(models.TextChoices):
+        SERVICES = "services", "Services (/services/)"
+        GALLERY = "gallery", "Gallery (/gallery/)"
+        PACKAGES_ALL = "packages_all", "All Packages — list (/packages/)"
+        PACKAGES_DOMESTIC = (
+            "packages_domestic",
+            "Domestic Packages — list (/packages/?category=domestic)",
+        )
+        PACKAGES_INTERNATIONAL = (
+            "packages_international",
+            "International Packages — list (/packages/?category=international)",
+        )
+        PACKAGES_PILGRIM = (
+            "packages_pilgrim",
+            "Pilgrim Packages — list (/packages/?category=pilgrim)",
+        )
+        ABOUT = "about", "About Us (/about/)"
+        CONTACT = "contact", "Contact (/contact/)"
+        LANDING_WAYANAD = "landing_wayanad", "Wayanad — landing page (/pages/wayanad/)"
+        LANDING_INTERNATIONAL = (
+            "landing_international",
+            "International — landing page (/pages/international-packages/)",
+        )
+        LANDING_PILGRIM = (
+            "landing_pilgrim",
+            "Pilgrim — landing page (/pages/pilgrim-packages/)",
+        )
+
+    page_key = models.CharField(
+        max_length=40,
+        choices=PageKey.choices,
+        unique=True,
+    )
+    image = models.ImageField(
+        upload_to="page-heroes/desktop/",
+        blank=True,
+        help_text=f"Desktop — upload exactly {PAGE_HERO_WIDTH}×{PAGE_HERO_HEIGHT} px.",
+    )
+    mobile_image = models.ImageField(
+        upload_to="page-heroes/mobile/",
+        blank=True,
+        help_text=(
+            f"Mobile — upload exactly {PAGE_HERO_MOBILE_WIDTH}×{PAGE_HERO_MOBILE_HEIGHT} px "
+            f"(or {PAGE_HERO_MOBILE_WIDTH * 2}×{PAGE_HERO_MOBILE_HEIGHT * 2} px @2x). "
+            "Falls back to the desktop image if empty."
+        ),
+    )
+    is_active = models.BooleanField(
+        default=True,
+        help_text="When off, the site uses the built-in placeholder for this page.",
+    )
+
+    class Meta:
+        ordering = ["page_key"]
+        verbose_name = "Page hero"
+        verbose_name_plural = "Page heroes"
+
+    def __str__(self) -> str:
+        return self.get_page_key_display()
+
+    @property
+    def live_path(self) -> str:
+        from core.page_heroes import page_hero_live_path
+
+        return page_hero_live_path(self.page_key)

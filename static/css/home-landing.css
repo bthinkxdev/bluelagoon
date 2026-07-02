@@ -2239,8 +2239,9 @@ body.wl-modal-open {
 
 .wl-love-perk {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
+  min-width: 0;
   padding-right: 16px;
   border-right: 1px solid var(--wl-border);
 }
@@ -2252,14 +2253,26 @@ body.wl-modal-open {
 
 .wl-love-perk__icon {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--wl-bg-secondary);
   color: var(--wl-teal);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  line-height: 0;
+}
+
+.wl-love-perk__icon svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.wl-love-perk__text {
+  min-width: 0;
 }
 
 .wl-love-perk strong {
@@ -2384,7 +2397,7 @@ body.wl-modal-open {
   border: 1px solid var(--wl-border);
   border-radius: var(--wl-radius-lg);
   box-shadow: var(--wl-shadow);
-  overflow: hidden;
+  overflow: visible;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.3s;
 }
 
@@ -2426,7 +2439,8 @@ body.wl-modal-open {
   position: relative;
   flex-shrink: 0;
   line-height: 0;
-  overflow: visible;
+  overflow: hidden;
+  border-radius: var(--wl-radius-lg) var(--wl-radius-lg) 0 0;
   z-index: 1;
 }
 
@@ -2520,7 +2534,7 @@ body.wl-modal-open {
   flex-direction: column;
   align-items: stretch;
   gap: 10px;
-  padding: 36px var(--wl-card-pad) var(--wl-card-pad);
+  padding: 36px var(--wl-card-pad) calc(var(--wl-card-pad) + 6px);
   text-align: center;
 }
 
@@ -2562,17 +2576,19 @@ body.wl-modal-open {
   justify-content: center;
   gap: 8px;
   margin-top: auto;
-  width: 100%;
-  min-height: 48px;
-  padding: 13px 22px;
+  align-self: center;
+  width: auto;
+  max-width: 100%;
+  min-height: 40px;
+  padding: 10px 18px;
   border-radius: 999px;
   border: 1.5px solid color-mix(in srgb, var(--wl-card-accent, var(--wl-teal)) 32%, #dce3e8);
   background: linear-gradient(180deg, #fff 0%, color-mix(in srgb, var(--wl-card-accent, var(--wl-teal)) 4%, #fff) 100%);
   color: var(--wl-card-accent, var(--wl-teal));
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   line-height: 1.2;
-  box-shadow: 0 6px 18px rgba(27, 43, 58, 0.06);
+  box-shadow: 0 4px 12px rgba(27, 43, 58, 0.06);
   transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -2614,7 +2630,7 @@ body.wl-modal-open {
   .wl-package-card__body {
     align-items: flex-start;
     text-align: left;
-    padding: 34px 18px 16px;
+    padding: 34px 18px 20px;
     gap: 8px;
   }
 
@@ -4284,7 +4300,7 @@ body.home-wanderly > footer:not(.wl-footer) {
 
   .wl-package-card__body {
     text-align: left;
-    padding: 32px 18px 14px;
+    padding: 32px 18px 20px;
     gap: 8px;
   }
 
@@ -4496,7 +4512,7 @@ body.home-wanderly > footer:not(.wl-footer) {
   }
 
   .wl-package-card__body {
-    padding: 34px 18px 14px;
+    padding: 34px 18px 20px;
   }
 }
 

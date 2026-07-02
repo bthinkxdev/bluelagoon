@@ -1,0 +1,45 @@
+{% with enquiry_form=form|default:enquiry_form %}
+<div class="wl-contact-form__grid">
+  <div class="form-group">
+    <label for="id_first_name">First name</label>
+    {{ enquiry_form.first_name }}
+    {% if enquiry_form.first_name.errors %}<p class="wl-field-error">{{ enquiry_form.first_name.errors.0 }}</p>{% endif %}
+  </div>
+  <div class="form-group">
+    <label for="id_last_name">Last name</label>
+    {{ enquiry_form.last_name }}
+    {% if enquiry_form.last_name.errors %}<p class="wl-field-error">{{ enquiry_form.last_name.errors.0 }}</p>{% endif %}
+  </div>
+  <div class="form-group">
+    <label for="id_email">Email</label>
+    {{ enquiry_form.email }}
+    {% if enquiry_form.email.errors %}<p class="wl-field-error">{{ enquiry_form.email.errors.0 }}</p>{% endif %}
+  </div>
+  <div class="form-group">
+    <label for="id_phone">Phone</label>
+    {{ enquiry_form.phone }}
+    {% if enquiry_form.phone.errors %}<p class="wl-field-error">{{ enquiry_form.phone.errors.0 }}</p>{% endif %}
+  </div>
+  <div class="form-group wl-contact-form__full">
+    <label for="id_message">Message</label>
+    {{ enquiry_form.message }}
+    {% if enquiry_form.message.errors %}<p class="wl-field-error">{{ enquiry_form.message.errors.0 }}</p>{% endif %}
+  </div>
+  {% if enquiry_form.captcha_answer %}
+  <div class="form-group wl-contact-form__full">
+    <label for="id_captcha_answer">{{ enquiry_form.captcha_answer.label }}</label>
+    {{ enquiry_form.captcha_answer }}
+    {{ enquiry_form.captcha_expected }}
+    {% if enquiry_form.captcha_answer.errors %}<p class="wl-field-error">{{ enquiry_form.captcha_answer.errors.0 }}</p>{% endif %}
+  </div>
+  {% elif enquiry_form.captcha %}
+  <div class="form-group wl-contact-form__full">{{ enquiry_form.captcha }}</div>
+  {% endif %}
+  <div class="form-group wl-contact-form__full">
+    <button type="submit" class="wl-btn wl-btn--primary wl-btn--lg">
+      {{ submit_label|default:"Submit enquiry" }}
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</div>
+{% endwith %}

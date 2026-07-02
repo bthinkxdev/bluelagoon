@@ -8,6 +8,7 @@ from django.views.decorators.http import require_http_methods
 from django_ratelimit.decorators import ratelimit
 
 from enquiries.forms import ContactForm
+from enquiries.package_enquiry import build_package_enquiry_initial
 from enquiries.services import save_contact_from_request
 from packages.models import Package
 
@@ -25,17 +26,8 @@ def _resolve_package(request) -> Package | None:
     ).first()
 
 
-def _contact_form_initial(package: Package | None) -> dict:
-    if not package:
-        return {}
-    return {
-        "package_slug": package.slug,
-        "message": (
-            f"I am interested in the {package.title} package"
-            f"{f' ({package.duration})' if package.duration else ''}. "
-            "Please share availability, pricing and any customisation options."
-        ),
-    }
+def _contact_form_initial(package) -> dict:
+    return build_package_enquiry_initial(package)
 
 
 @ratelimit(key="ip", rate="5/m", method="POST", block=True)

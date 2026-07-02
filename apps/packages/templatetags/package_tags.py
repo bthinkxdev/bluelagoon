@@ -8,6 +8,8 @@ from urllib.parse import quote
 from django import template
 from django.templatetags.static import static
 
+from core.page_heroes import HeroImageUrls
+
 register = template.Library()
 
 
@@ -75,12 +77,21 @@ def package_gallery_images(package) -> list[dict[str, str]]:
 
 
 @register.simple_tag
+def package_hero_images(package) -> HeroImageUrls:
+    """Desktop + mobile hero banners for package detail."""
+    desktop = package.hero_banner.url if package.hero_banner else static("img/slide-1.jpg")
+    mobile = (
+        package.hero_banner_mobile.url
+        if package.hero_banner_mobile
+        else desktop
+    )
+    return HeroImageUrls(desktop=desktop, mobile=mobile)
+
+
+@register.simple_tag
 def package_hero_image(package) -> str:
-    """First uploaded package photo, or site placeholder."""
-    gallery = package_gallery_images(package)
-    if gallery:
-        return gallery[0]["src"]
-    return static("img/slide-1.jpg")
+    """Desktop hero banner (backwards compatible)."""
+    return package_hero_images(package).desktop
 
 
 @register.simple_tag

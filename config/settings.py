@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     "ckeditor_uploader",
     "django_recaptcha",
     "compressor",
-    "core",
+    "core.apps.CoreConfig",
     "website",
     "packages",
     "gallery",

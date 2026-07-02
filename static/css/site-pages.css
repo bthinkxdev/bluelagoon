@@ -396,19 +396,19 @@ body.wl-inner-page .wl-header::before {
   z-index: 30;
 }
 
-/* Packages page hero + overlapping search */
+/* Uniform inner-page hero — upload exactly 1920×400 px on every page. */
+:root {
+  --wl-uniform-hero-width: 1920;
+  --wl-uniform-hero-height: 400px;
+}
+
+/* Packages page hero + search (below hero; no overlap into banner) */
 .wl-packages-hero-band {
   position: relative;
 }
 
-.wl-packages-page .wl-page-hero {
-  min-height: 340px;
-  align-items: flex-end;
-  padding-bottom: 88px;
-}
-
 .wl-packages-page .wl-search-wrap--page {
-  margin-top: -76px;
+  margin-top: 24px;
   margin-bottom: 36px;
 }
 
@@ -424,22 +424,37 @@ body.wl-inner-page .wl-header::before {
   align-items: start;
 }
 
-/* Page hero */
+/* Page hero — fixed 400px height on all inner pages; image fills edge-to-edge */
 .wl-page-hero {
   position: relative;
-  min-height: 280px;
-  display: flex;
-  align-items: flex-end;
+  width: 100%;
+  height: var(--wl-uniform-hero-height);
+  min-height: var(--wl-uniform-hero-height);
+  max-height: var(--wl-uniform-hero-height);
   overflow: hidden;
   background-color: var(--wl-navy);
-  background-image: var(--wl-page-hero-image, url('../img/slide-1.jpg'));
-  background-size: cover;
-  background-position: center;
+}
+
+.wl-page-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.wl-page-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
 }
 
 .wl-page-hero__overlay {
   position: absolute;
   inset: 0;
+  z-index: 1;
   background: linear-gradient(
     105deg,
     rgba(12, 24, 36, 0.42) 0%,
@@ -449,10 +464,14 @@ body.wl-inner-page .wl-header::before {
 }
 
 .wl-page-hero__inner {
-  position: relative;
-  z-index: 1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
   width: 100%;
-  padding: 56px var(--wl-container-pad) 48px;
+  padding: 40px var(--wl-container-pad) 36px;
+  box-sizing: border-box;
 }
 
 .wl-page-hero__eyebrow {
@@ -1090,16 +1109,9 @@ body.wl-inner-page .wl-header::before {
   color: #842029;
 }
 
-/* Package detail */
-.wl-package-detail-page .wl-packages-hero-band .wl-page-hero {
-  min-height: 300px;
-  padding-bottom: 0;
-}
-
+/* Package detail — same uniform hero dimensions as all other inner pages */
 .wl-page-hero--package-detail {
-  background-image: var(--wl-page-hero-image, url('../img/slide_hero.jpg'));
-  background-size: cover;
-  background-position: center;
+  background-image: var(--wl-page-hero-image, url('../img/slide-1.jpg'));
 }
 
 .wl-package-detail-section {
@@ -1738,7 +1750,8 @@ body.wl-inner-page .wl-header::before {
 }
 
 .wl-package-detail-page [id^="wl-section-"],
-.wl-package-detail-page #wl-detail-booking {
+.wl-package-detail-page #wl-detail-booking,
+.wl-package-detail-page #wl-package-enquiry {
   scroll-margin-top: 132px;
 }
 
@@ -2028,6 +2041,17 @@ body.wl-lightbox-open {
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 24px;
+}
+
+.wl-about-story__content--full {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.wl-about-tour-themes {
+  font-weight: 600;
+  color: var(--wl-navy);
+  line-height: 1.75;
 }
 
 .wl-about-highlights {
@@ -2617,6 +2641,41 @@ a.wl-contact-channel:hover {
   margin: 0 0 12px;
 }
 
+.wl-empty--enquiry {
+  text-align: left;
+  margin-bottom: 24px;
+  background: linear-gradient(180deg, #fff 0%, rgba(47, 143, 137, 0.05) 100%);
+  border-color: rgba(47, 143, 137, 0.2);
+}
+
+.wl-empty__eyebrow {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--wl-teal);
+}
+
+.wl-empty--enquiry p {
+  margin: 0 0 12px;
+  color: var(--wl-text);
+  line-height: 1.7;
+}
+
+.wl-empty__hint {
+  font-size: 15px;
+  color: var(--wl-muted);
+}
+
+.wl-search-empty-enquiry {
+  scroll-margin-top: 132px;
+}
+
+.wl-search-empty-enquiry .wl-detail-block--enquiry {
+  margin-bottom: 0;
+}
+
 /* Pagination */
 .wl-pagination {
   display: flex;
@@ -2865,12 +2924,9 @@ a.wl-contact-channel:hover {
   }
 
   .wl-package-detail-page [id^="wl-section-"],
-  .wl-package-detail-page #wl-detail-booking {
+  .wl-package-detail-page #wl-detail-booking,
+  .wl-package-detail-page #wl-package-enquiry {
     scroll-margin-top: 118px;
-  }
-
-  .wl-package-detail-page .wl-page-hero {
-    min-height: 240px;
   }
 
   .wl-package-detail-page .wl-page-hero__title {
@@ -3159,22 +3215,13 @@ a.wl-contact-channel:hover {
     max-width: 100%;
   }
 
-  .wl-page-hero {
-    min-height: 220px;
-  }
-
-  .wl-packages-page .wl-page-hero {
-    min-height: 280px;
-    padding-bottom: 72px;
-  }
-
   .wl-packages-page .wl-search-wrap--page {
-    margin-top: -64px;
+    margin-top: 20px;
     margin-bottom: 28px;
   }
 
   .wl-page-hero__inner {
-    padding: 32px var(--wl-container-pad) 28px;
+    padding: 24px var(--wl-container-pad) 20px;
   }
 
   .wl-page-hero__eyebrow::before {

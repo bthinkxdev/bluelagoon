@@ -64,6 +64,18 @@ class Package(TimeStampedModel, SluggedModel):
     route = models.CharField(
         max_length=500, blank=True, help_text="e.g. DELHI / JAIPUR / AGRA"
     )
+    hero_banner = models.ImageField(
+        upload_to="packages/hero/desktop/",
+        blank=True,
+        null=True,
+        help_text="Desktop hero — upload exactly 1920×400 px.",
+    )
+    hero_banner_mobile = models.ImageField(
+        upload_to="packages/hero/mobile/",
+        blank=True,
+        null=True,
+        help_text="Mobile hero — upload exactly 390×400 px (or 780×800 px @2x). Falls back to desktop hero if empty.",
+    )
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     price_note = models.CharField(max_length=120, blank=True, default="*Pax/Per Day")
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.PUBLISHED)

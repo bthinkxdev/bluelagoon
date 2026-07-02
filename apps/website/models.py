@@ -23,7 +23,12 @@ class StaticPage(TimeStampedModel, SluggedModel, SEOMixin):
     subtitle = models.CharField(max_length=255, blank=True)
     content = RichTextField(blank=True)
     banner_css_class = models.CharField(max_length=80, blank=True)
-    hero_image = models.ImageField(upload_to="pages/", blank=True, null=True)
+    hero_image = models.ImageField(
+        upload_to="pages/",
+        blank=True,
+        null=True,
+        help_text="Deprecated — use Admin → Core → Page heroes for banner images.",
+    )
     is_published = models.BooleanField(default=True)
 
     class Meta:

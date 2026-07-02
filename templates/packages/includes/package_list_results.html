@@ -4,7 +4,7 @@
   {% if packages %}
     for <em>{{ search_query }}</em> — {{ packages|length }} package{{ packages|length|pluralize }} found.
   {% else %}
-    — no packages matched <em>{{ search_query }}</em>. Try fewer filters or <a href="{% url list_url_name %}">view all packages</a>.
+    — no pre-designed packages matched <em>{{ search_query }}</em>. Share your plans below and we will arrange a custom trip for you.
   {% endif %}
 </div>
 {% endif %}
@@ -20,9 +20,13 @@
 {% for package in packages %}
   {% include "packages/includes/package_strip.html" %}
 {% empty %}
+{% if show_search_enquiry and enquiry_form %}
+  {% include "packages/includes/search_empty_enquiry.html" %}
+{% else %}
 <div class="wl-empty">
   <h3>No packages found</h3>
   <p>We could not find{% if category_type %} a {{ category_label|lower }}{% endif %} package matching your search. Try a broader destination name, leave dates empty, or browse all packages.</p>
   <p><button type="button" class="wl-btn wl-btn--primary" data-package-filter data-category="">View all packages</button></p>
 </div>
+{% endif %}
 {% endfor %}

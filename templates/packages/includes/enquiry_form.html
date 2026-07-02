@@ -1,32 +1,20 @@
-<div class="wl-detail-block wl-detail-block--enquiry wl-reveal">
+<div class="wl-detail-block wl-detail-block--enquiry wl-reveal" id="wl-package-enquiry">
   <div class="wl-detail-block__head">
     <h3>Plan your trip</h3>
-    <p>Tell us your travel dates and preferences — our experts will craft a personalized quote within 24 hours.</p>
+    <p>Fill in your travel requirements below — our experts will send a personalized quote, usually within one business day.</p>
   </div>
-  <form method="post" action="{% url 'enquiries:package_enquiry' package.slug %}" class="wl-form wl-enquiry-form">
+
+  {% if messages %}
+  <div class="wl-contact-alerts">
+    {% for message in messages %}
+    <div class="wl-alert wl-alert--{% if message.tags == 'error' %}error{% else %}success{% endif %}" role="alert">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <form method="post" action="#wl-package-enquiry" class="wl-form wl-contact-form wl-enquiry-form" novalidate>
     {% csrf_token %}
-    <div class="row">
-      <div class="col-md-6"><div class="form-group"><label for="id_name">Full name</label>{{ enquiry_form.name }}</div></div>
-      <div class="col-md-6"><div class="form-group"><label for="id_email">Email</label>{{ enquiry_form.email }}</div></div>
-      <div class="col-md-6"><div class="form-group"><label for="id_phone">Phone</label>{{ enquiry_form.phone }}</div></div>
-      <div class="col-md-3"><div class="form-group"><label for="id_travel_date">Travel date</label>{{ enquiry_form.travel_date }}</div></div>
-      <div class="col-md-3"><div class="form-group"><label for="id_guests">Guests</label>{{ enquiry_form.guests }}</div></div>
-      <div class="col-md-12"><div class="form-group"><label for="id_message">Message</label>{{ enquiry_form.message }}</div></div>
-      {% if enquiry_form.captcha_answer %}
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="id_captcha_answer">{{ enquiry_form.captcha_answer.label }}</label>
-          {{ enquiry_form.captcha_answer }}
-          {{ enquiry_form.captcha_expected }}
-        </div>
-      </div>
-      {% endif %}
-      <div class="col-md-12">
-        <button type="submit" class="wl-btn wl-btn--primary wl-btn--lg">
-          Send enquiry
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </div>
-    </div>
+    {{ enquiry_form.package_slug }}
+    {% include "enquiries/includes/contact_form_fields.html" with form=enquiry_form %}
   </form>
 </div>

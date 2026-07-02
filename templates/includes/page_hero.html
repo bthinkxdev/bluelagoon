@@ -1,13 +1,25 @@
-{% load static %}
-<section class="wl-page-hero{% if hero_modifier %} wl-page-hero--{{ hero_modifier }}{% endif %}"
-  {% if hero_image %}style="--wl-page-hero-image: url('{{ hero_image }}');"{% endif %}
-  aria-labelledby="wl-page-hero-title">
+{% load static page_hero_tags %}
+{% if page_key and not hero_image %}
+  {% page_hero_urls page_key as page_heroes %}
+{% endif %}
+{% with desktop=hero_image|default:page_heroes.desktop mobile=hero_mobile_image|default:page_heroes.mobile %}
+<section class="wl-page-hero"
+  aria-labelledby="{% if title_id %}{{ title_id }}{% else %}wl-page-hero-title{% endif %}">
+  {% if desktop %}
+  <picture class="wl-page-hero__media" aria-hidden="true">
+    {% if mobile and mobile != desktop %}
+    <source media="(max-width: 767px)" srcset="{{ mobile }}">
+    {% endif %}
+    <img class="wl-page-hero__img" src="{{ desktop }}" alt="">
+  </picture>
+  {% endif %}
   <div class="wl-page-hero__overlay" aria-hidden="true"></div>
   <div class="container wl-page-hero__inner">
     <div class="wl-page-hero__content wl-reveal">
       {% if hero_eyebrow %}<p class="wl-page-hero__eyebrow">{{ hero_eyebrow }}</p>{% endif %}
-      <h1 class="wl-page-hero__title" id="wl-page-hero-title">{{ title }}</h1>
+      <h1 class="wl-page-hero__title" id="{% if title_id %}{{ title_id }}{% else %}wl-page-hero-title{% endif %}">{{ title }}</h1>
       {% if subtitle %}<p class="wl-page-hero__lead">{{ subtitle }}</p>{% endif %}
     </div>
   </div>
 </section>
+{% endwith %}

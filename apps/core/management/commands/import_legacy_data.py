@@ -89,29 +89,29 @@ class Command(BaseCommand):
             name="Registered Office",
             address="BLUE LAGOON HOLIDAY CRUISES PVT LTD, AYINI BYPASS LINK ROAD, "
             "VITHAYATHIL BUILDING, MARADU, ERNAKULAM, KERALA 682304",
-            phone_primary="+91 9446651610",
-            phone_secondary="+91 9846308744",
+            phone_primary="+91 9846308744",
+            phone_secondary="",
             email="mail@bluelagoonholidays.net",
             display_order=1,
         )
         OfficeBranch.objects.create(
             name="Thiruvankulam Branch",
             address="TEMPLE ROAD, THIRUVANKULAM, COCHIN 682305",
-            phone_primary="+91 9446651610",
+            phone_primary="+91 9846308744",
             email="mail@bluelagoonholidays.net",
             display_order=2,
         )
         OfficeBranch.objects.create(
             name="Koothuparamba Branch",
             address="MUNICIPAL SHOPPING COMPLEX, KOOTHUPARAMP",
-            phone_primary="+91 9446651610",
+            phone_primary="+91 9846308744",
             email="bluelagoonholiday@gmail.com",
             display_order=3,
         )
         OfficeBranch.objects.create(
             name="Kannur Branch",
             address="HIRA CENTER, GOVERNMENT HOSPITAL ROAD, MATTANNUR, KANNUR - 670702",
-            phone_primary="+91 9446651610",
+            phone_primary="+91 9846308744",
             email="bluelagoonholiday@gmail.com",
             display_order=4,
         )
