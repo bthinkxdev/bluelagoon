@@ -32,9 +32,7 @@ def build_search_enquiry_initial(search: PackageSearch) -> dict:
     """Prefill enquiry message from an empty destination search."""
     lines = [
         (
-            "We couldn't find a ready-made package for your selected destination. "
-            "Please share your travel requirements, and our travel consultant will "
-            "prepare a customized itinerary for you."
+            ""
         ),
         "",
         "Kindly find my travel requirements below:",
