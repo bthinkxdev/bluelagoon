@@ -628,7 +628,7 @@
     if (partnerModal && !partnerModal.hidden) closeWlModal(partnerModal);
   });
 
-  /* Hero banner carousel */
+  /* Hero banner carousel — 3s gap, rounded slide transition */
   var heroCarousel = document.getElementById('wl-hero-carousel');
   if (heroCarousel) {
     var slides = heroCarousel.querySelectorAll('.wl-hero');
@@ -637,20 +637,36 @@
     var nextBtn = heroCarousel.querySelector('.wl-hero__arrow--next');
     var current = 0;
     var timer = null;
-    var delay = 6000;
+    var delay = parseInt(heroCarousel.getAttribute('data-autoplay') || '3000', 10) || 3000;
 
-    function showSlide(index) {
+    function showSlide(index, forceForward) {
       if (!slides.length) return;
+      var previous = current;
       current = (index + slides.length) % slides.length;
+      if (previous === current) return;
+
+      var goingForward;
+      if (typeof forceForward === 'boolean') {
+        goingForward = forceForward;
+      } else {
+        var forwardDist = (current - previous + slides.length) % slides.length;
+        var backwardDist = (previous - current + slides.length) % slides.length;
+        goingForward = forwardDist <= backwardDist;
+      }
+
       slides.forEach(function (slide, i) {
-        var isActive = i === current;
-        slide.classList.toggle('is-active', isActive);
-        if (isActive) {
+        slide.classList.remove('is-active', 'is-prev', 'is-next');
+        if (i === current) {
+          slide.classList.add('is-active');
           slide.querySelectorAll('.wl-hero__media img, .wl-hero__video').forEach(function (media) {
             media.style.animation = 'none';
             void media.offsetWidth;
             media.style.animation = '';
           });
+        } else if (i === previous) {
+          slide.classList.add(goingForward ? 'is-prev' : 'is-next');
+        } else {
+          slide.classList.add(goingForward ? 'is-next' : 'is-prev');
         }
       });
       dots.forEach(function (dot, i) {
@@ -686,8 +702,8 @@
     window.addEventListener('resize', syncHeroTrackHeight);
     syncHeroTrackHeight();
 
-    function nextSlide() { showSlide(current + 1); }
-    function prevSlide() { showSlide(current - 1); }
+    function nextSlide() { showSlide(current + 1, true); }
+    function prevSlide() { showSlide(current - 1, false); }
 
     function startAutoplay() {
       stopAutoplay();

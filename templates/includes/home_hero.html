@@ -1,6 +1,6 @@
 {% load static %}
 {% if banners %}
-<section class="wl-hero-carousel" id="wl-hero-carousel" aria-label="Homepage banners">
+<section class="wl-hero-carousel" id="wl-hero-carousel" aria-label="Homepage banners" data-autoplay="3000">
   <div class="wl-hero-track">
     {% for banner in banners %}
     <article class="wl-hero wl-hero--{{ banner.animation }}{% if forloop.first %} is-active{% endif %}"
