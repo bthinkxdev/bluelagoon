@@ -1,11 +1,10 @@
-"""Django admin — packages, destinations, and categories."""
+"""Django admin — packages and destinations."""
 
 from django.contrib import admin
 
 from packages.models import (
     Destination,
     Package,
-    PackageCategory,
     PackageExclusion,
     PackageImage,
     PackageInclusion,
@@ -84,33 +83,25 @@ class DestinationAdmin(admin.ModelAdmin):
 @admin.register(Testimonial)
 class TestimonialAdmin(admin.ModelAdmin):
     list_display = ("name", "package", "rating", "display_order", "is_active")
-    list_filter = ("is_active", "package__category")
+    list_filter = ("is_active", "package__travel_type")
     search_fields = ("name", "quote", "package__title")
     list_editable = ("display_order", "is_active")
     autocomplete_fields = ("package",)
     ordering = ("display_order", "-created_at")
 
 
-@admin.register(PackageCategory)
-class PackageCategoryAdmin(admin.ModelAdmin):
-    list_display = ("name", "category_type", "is_active")
-    list_filter = ("category_type", "is_active")
-    list_editable = ("is_active",)
-    prepopulated_fields = {"slug": ("name",)}
-
-
 @admin.register(Package)
 class PackageAdmin(admin.ModelAdmin):
     list_display = (
         "title",
+        "travel_type",
         "destination",
-        "category",
         "duration",
         "price",
         "status",
         "display_order",
     )
-    list_filter = ("category", "destination__travel_type", "status", "category__category_type")
+    list_filter = ("travel_type", "status", "destination")
     search_fields = ("title", "short_description", "route", "destination__name")
     prepopulated_fields = {"slug": ("title",)}
     list_editable = ("display_order", "status")
@@ -128,8 +119,8 @@ class PackageAdmin(admin.ModelAdmin):
                 "fields": (
                     "title",
                     "slug",
+                    "travel_type",
                     "destination",
-                    "category",
                     "status",
                     "is_featured",
                     "display_order",
@@ -150,10 +141,10 @@ class PackageAdmin(admin.ModelAdmin):
                     "price_note",
                 ),
                 "description": (
-                    "Destination drives package search. Category is kept for package detail URLs. "
+                    "Travel type controls URLs and list tabs (Domestic / International / Pilgrimage). "
+                    "Destination drives package search. Choosing a destination updates travel type automatically. "
                     "Duration is the label shown on the site (e.g. 3 Days / 2 Nights). "
-                    "Hero banners: desktop 1920×400 px, mobile 390×400 px (780×800 @2x). "
-                    "Gallery photos stay 1920×1080."
+                    "Hero banners: desktop 1920×400 px, mobile 390×400 px (780×800 @2x)."
                 ),
             },
         ),

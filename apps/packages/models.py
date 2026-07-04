@@ -10,36 +10,11 @@ from core.mixins import SluggedModel, TimeStampedModel
 
 
 class TravelType(models.TextChoices):
-    """Shared travel-type choices for destinations and package categories."""
+    """Domestic / International / Pilgrimage — used on packages and destinations."""
 
     DOMESTIC = "domestic", "Domestic"
     INTERNATIONAL = "international", "International"
     PILGRIM = "pilgrim", "Pilgrimage"
-
-
-class PackageCategory(TimeStampedModel, SluggedModel):
-    """Domestic, International, Pilgrim."""
-
-    class CategoryType(models.TextChoices):
-        DOMESTIC = TravelType.DOMESTIC, TravelType.DOMESTIC.label
-        INTERNATIONAL = TravelType.INTERNATIONAL, TravelType.INTERNATIONAL.label
-        PILGRIM = TravelType.PILGRIM, TravelType.PILGRIM.label
-        KERALA = "kerala", "Kerala"
-        OTHER = "other", "Other"
-
-    name = models.CharField(max_length=120)
-    category_type = models.CharField(max_length=20, choices=CategoryType.choices)
-    is_active = models.BooleanField(default=True)
-
-    class Meta:
-        verbose_name_plural = "Package categories"
-        ordering = ["name"]
-
-    def _slug_source(self) -> str:
-        return self.name
-
-    def __str__(self) -> str:
-        return self.name
 
 
 class Destination(TimeStampedModel, SluggedModel):
@@ -82,8 +57,12 @@ class Package(TimeStampedModel, SluggedModel):
         ARCHIVED = "archived", "Archived"
 
     title = models.CharField(max_length=200)
-    category = models.ForeignKey(
-        PackageCategory, on_delete=models.PROTECT, related_name="packages"
+    travel_type = models.CharField(
+        max_length=20,
+        choices=TravelType.choices,
+        default=TravelType.DOMESTIC,
+        db_index=True,
+        help_text="Domestic, International, or Pilgrimage — used for URLs, tabs, and badges.",
     )
     destination = models.ForeignKey(
         "Destination",
@@ -141,6 +120,10 @@ class Package(TimeStampedModel, SluggedModel):
     def save(self, *args, **kwargs):
         from packages.search import extract_duration_days
 
+        if self.destination_id:
+            destination = self.destination
+            if destination and destination.travel_type in TravelType.values:
+                self.travel_type = destination.travel_type
         self.duration_days = extract_duration_days(self.duration or "")
         super().save(*args, **kwargs)
 
@@ -148,11 +131,11 @@ class Package(TimeStampedModel, SluggedModel):
         from django.urls import reverse
 
         routes = {
-            PackageCategory.CategoryType.DOMESTIC: "packages:domestic_detail",
-            PackageCategory.CategoryType.INTERNATIONAL: "packages:international_detail",
-            PackageCategory.CategoryType.PILGRIM: "packages:pilgrim_detail",
+            TravelType.DOMESTIC: "packages:domestic_detail",
+            TravelType.INTERNATIONAL: "packages:international_detail",
+            TravelType.PILGRIM: "packages:pilgrim_detail",
         }
-        route = routes.get(self.category.category_type, "packages:domestic_detail")
+        route = routes.get(self.travel_type, "packages:domestic_detail")
         return reverse(route, kwargs={"slug": self.slug})
 
 

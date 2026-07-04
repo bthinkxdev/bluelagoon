@@ -7,7 +7,7 @@
 {% package_hero_images package as page_heroes %}
 <main class="wl-main wl-inner-main">
   <div class="wl-packages-hero-band">
-    {% include "includes/page_hero.html" with title=package.title hero_image=page_heroes.desktop hero_mobile_image=page_heroes.mobile hero_modifier="package-detail" title_id="wl-package-hero-title" hero_eyebrow=package.category.name subtitle=hero_subtitle|default:package.short_description %}
+    {% include "includes/page_hero.html" with title=package.title hero_image=page_heroes.desktop hero_mobile_image=page_heroes.mobile hero_modifier="package-detail" title_id="wl-package-hero-title" hero_eyebrow=package.get_travel_type_display subtitle=hero_subtitle|default:package.short_description %}
   </div>
 
   {% include "includes/wl_breadcrumbs.html" with crumbs=breadcrumb_crumbs %}

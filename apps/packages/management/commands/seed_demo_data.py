@@ -1,4 +1,4 @@
-"""Seed package categories, sample packages, and testimonials for demo/production."""
+"""Seed sample packages and testimonials for demo/production."""
 
 from __future__ import annotations
 
@@ -9,10 +9,10 @@ from django.db import transaction
 
 from packages.models import (
     Package,
-    PackageCategory,
     PackageExclusion,
     PackageInclusion,
     Testimonial,
+    TravelType,
 )
 
 STANDARD_INCLUSIONS = [
@@ -29,16 +29,10 @@ STANDARD_EXCLUSIONS = [
     "Travel insurance",
 ]
 
-CATEGORIES = [
-    ("Domestic", PackageCategory.CategoryType.DOMESTIC, "domestic"),
-    ("International", PackageCategory.CategoryType.INTERNATIONAL, "international"),
-    ("Pilgrim", PackageCategory.CategoryType.PILGRIM, "pilgrim"),
-]
-
 PACKAGES = [
   {
     "slug": "kerala-backwaters-retreat",
-    "category_slug": "domestic",
+    "travel_type": TravelType.DOMESTIC,
     "title": "Kerala Backwaters Retreat",
     "short_description": "Houseboat cruise, village walks, and coastal Kerala flavours.",
     "description": (
@@ -54,7 +48,7 @@ PACKAGES = [
   },
   {
     "slug": "wayanad-wildlife-escape",
-    "category_slug": "domestic",
+    "travel_type": TravelType.DOMESTIC,
     "title": "Wayanad Wildlife Escape",
     "short_description": "Misty hills, tea estates, and wildlife trails in North Kerala.",
     "description": (
@@ -68,7 +62,7 @@ PACKAGES = [
   },
   {
     "slug": "munnar-hill-station",
-    "category_slug": "domestic",
+    "travel_type": TravelType.DOMESTIC,
     "title": "Munnar Hill Station",
     "short_description": "Tea valleys, Eravikulam views, and cool mountain air.",
     "description": (
@@ -82,7 +76,7 @@ PACKAGES = [
   },
   {
     "slug": "golden-triangle",
-    "category_slug": "international",
+    "travel_type": TravelType.INTERNATIONAL,
     "title": "Golden Triangle",
     "short_description": "Delhi, Jaipur, and Agra — India's classic heritage circuit.",
     "description": (
@@ -98,7 +92,7 @@ PACKAGES = [
   },
   {
     "slug": "dubai-city-break",
-    "category_slug": "international",
+    "travel_type": TravelType.INTERNATIONAL,
     "title": "Dubai City Break",
     "short_description": "Skyline views, desert safari, and curated city experiences.",
     "description": (
@@ -112,7 +106,7 @@ PACKAGES = [
   },
   {
     "slug": "singapore-family-fun",
-    "category_slug": "international",
+    "travel_type": TravelType.INTERNATIONAL,
     "title": "Singapore Family Fun",
     "short_description": "Gardens, Sentosa, and easy family-friendly city touring.",
     "description": (
@@ -126,7 +120,7 @@ PACKAGES = [
   },
   {
     "slug": "varanasi-spiritual-journey",
-    "category_slug": "pilgrim",
+    "travel_type": TravelType.PILGRIM,
     "title": "Varanasi Spiritual Journey",
     "short_description": "Ganga aarti, temple visits, and sacred city walks.",
     "description": (
@@ -141,7 +135,7 @@ PACKAGES = [
   },
   {
     "slug": "tirupati-darshan",
-    "category_slug": "pilgrim",
+    "travel_type": TravelType.PILGRIM,
     "title": "Tirupati Darshan",
     "short_description": "Balaji darshan assistance with transfers and hotel support.",
     "description": (
@@ -220,7 +214,7 @@ TESTIMONIALS = [
 
 
 class Command(BaseCommand):
-    help = "Create demo package categories, packages, and testimonials (safe to re-run)."
+    help = "Create demo packages and testimonials (safe to re-run)."
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -242,43 +236,23 @@ class Command(BaseCommand):
             )
             return
 
-        categories = self._seed_categories()
-        packages = self._seed_packages(categories, force=options["force"])
+        packages = self._seed_packages(force=options["force"])
         testimonials = self._seed_testimonials(packages, force=options["force"])
 
         self.stdout.write(
             self.style.SUCCESS(
-                f"Demo data ready: {len(categories)} categories, "
-                f"{len(packages)} packages, {testimonials} testimonials."
+                f"Demo data ready: {len(packages)} packages, {testimonials} testimonials."
             )
         )
         self.stdout.write("Upload package photos in Admin -> Packages when ready.")
 
-    def _seed_categories(self) -> dict[str, PackageCategory]:
-        created: dict[str, PackageCategory] = {}
-        for name, ctype, slug in CATEGORIES:
-            obj, was_created = PackageCategory.objects.get_or_create(
-                slug=slug,
-                defaults={"name": name, "category_type": ctype, "is_active": True},
-            )
-            if not was_created:
-                obj.name = name
-                obj.category_type = ctype
-                obj.is_active = True
-                obj.save()
-            created[slug] = obj
-            label = "created" if was_created else "exists"
-            self.stdout.write(f"  Category [{label}] {obj.name}")
-        return created
-
-    def _seed_packages(self, categories: dict[str, PackageCategory], *, force: bool) -> dict[str, Package]:
+    def _seed_packages(self, *, force: bool) -> dict[str, Package]:
         packages: dict[str, Package] = {}
         for data in PACKAGES:
             slug = data["slug"]
-            category = categories[data["category_slug"]]
             defaults = {
                 "title": data["title"],
-                "category": category,
+                "travel_type": data["travel_type"],
                 "short_description": data["short_description"],
                 "description": data.get("description", ""),
                 "duration": data["duration"],

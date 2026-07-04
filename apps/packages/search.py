@@ -10,7 +10,7 @@ from typing import Any
 from django.db.models import Case, F, IntegerField, Q, QuerySet, Value, When
 from django.utils.dateparse import parse_date
 
-from packages.models import Package, PackageCategory, TravelType
+from packages.models import Package, TravelType
 
 SORT_DEFAULT = "default"
 SORT_PRICE_ASC = "price_asc"
@@ -147,10 +147,7 @@ class PackageSearch:
         qs = queryset
 
         if self.travel_type in TRAVEL_TYPES:
-            qs = qs.filter(
-                Q(destination__travel_type=self.travel_type)
-                | Q(destination__isnull=True, category__category_type=self.travel_type)
-            )
+            qs = qs.filter(travel_type=self.travel_type)
 
         if self.destination:
             term = self.destination
@@ -223,7 +220,7 @@ class PackageSearch:
     def summary(self) -> str:
         parts: list[str] = []
         if self.travel_type in TRAVEL_TYPES:
-            parts.append(category_label(self.travel_type).lower())
+            parts.append(travel_type_label(self.travel_type).lower())
         if self.destination:
             parts.append(self.destination)
         if self.travel_date:
@@ -316,10 +313,14 @@ def _filter_by_duration_bucket(queryset: QuerySet[Package], bucket: str) -> Quer
     return queryset.filter(duration_days__gte=min_days, duration_days__lte=max_days)
 
 
-def category_label(category_type: str) -> str:
+def travel_type_label(travel_type: str) -> str:
     labels = {
-        PackageCategory.CategoryType.DOMESTIC: "Domestic",
-        PackageCategory.CategoryType.INTERNATIONAL: "International",
-        PackageCategory.CategoryType.PILGRIM: "Pilgrimage",
+        TravelType.DOMESTIC: "Domestic",
+        TravelType.INTERNATIONAL: "International",
+        TravelType.PILGRIM: "Pilgrimage",
     }
-    return labels.get(category_type, "Tour")
+    return labels.get(travel_type, "Tour")
+
+
+# Backward-compatible alias used by older imports.
+category_label = travel_type_label

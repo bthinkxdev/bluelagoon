@@ -8,7 +8,7 @@ from django.urls import reverse
 
 from core.models import SiteSettings
 from enquiries.models import ContactEnquiry
-from packages.models import Package, PackageCategory
+from packages.models import Package, TravelType
 
 
 @override_settings(
@@ -28,15 +28,10 @@ class ContactEnquiryEmailTests(TestCase):
         site.smtp_enabled = False
         site.save()
 
-        category = PackageCategory.objects.create(
-            name="Domestic",
-            slug="domestic",
-            category_type=PackageCategory.CategoryType.DOMESTIC,
-        )
         self.package = Package.objects.create(
             title="Golden Triangle",
             slug="golden-triangle",
-            category=category,
+            travel_type=TravelType.DOMESTIC,
             duration="5 Days / 4 Nights",
             status=Package.Status.PUBLISHED,
         )

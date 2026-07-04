@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from packages.models import Package
-from packages.search import category_label
+from packages.search import travel_type_label
 
 if TYPE_CHECKING:
     from packages.search import PackageSearch
@@ -41,7 +41,7 @@ def build_search_enquiry_initial(search: PackageSearch) -> dict:
         "",
     ]
     if search.travel_type and search.travel_type != "all":
-        lines.append(f"Travel type: {category_label(search.travel_type)}")
+        lines.append(f"Travel type: {travel_type_label(search.travel_type)}")
     if search.destination:
         lines.append(f"Destination: {search.destination}")
     else:

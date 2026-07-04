@@ -120,12 +120,12 @@ def testimonial_marquee_rows(testimonials):
 def package_detail_url(package) -> str:
     from django.urls import reverse
 
-    from packages.models import PackageCategory
+    from packages.models import TravelType
 
     routes = {
-        PackageCategory.CategoryType.DOMESTIC: "packages:domestic_detail",
-        PackageCategory.CategoryType.INTERNATIONAL: "packages:international_detail",
-        PackageCategory.CategoryType.PILGRIM: "packages:pilgrim_detail",
+        TravelType.DOMESTIC: "packages:domestic_detail",
+        TravelType.INTERNATIONAL: "packages:international_detail",
+        TravelType.PILGRIM: "packages:pilgrim_detail",
     }
-    name = routes.get(package.category.category_type, "packages:domestic_detail")
+    name = routes.get(package.travel_type, "packages:domestic_detail")
     return reverse(name, kwargs={"slug": package.slug})

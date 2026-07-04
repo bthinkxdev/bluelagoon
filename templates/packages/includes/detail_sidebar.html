@@ -1,8 +1,8 @@
 {% load humanize package_tags %}
 <aside class="wl-layout__aside wl-detail-aside">
   <div class="wl-detail-booking wl-reveal" id="wl-detail-booking">
-    {% if package.category %}
-    <span class="wl-detail-booking__badge">{{ package.category.name }}</span>
+    {% if package.travel_type %}
+    <span class="wl-detail-booking__badge">{{ package.get_travel_type_display }}</span>
     {% endif %}
     <h2 class="wl-detail-booking__title">{{ package.title }}</h2>
     {% if package.duration %}

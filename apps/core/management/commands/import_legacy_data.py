@@ -23,10 +23,9 @@ from core.models import (
 from gallery.models import GalleryImage
 from packages.models import (
     Package,
-    PackageCategory,
     PackageExclusion,
     PackageInclusion,
-    PackagePrice,
+    TravelType,
 )
 from website.models import StaticPage
 

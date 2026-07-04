@@ -5,7 +5,7 @@ from decimal import Decimal
 
 from django.test import TestCase, override_settings
 
-from packages.models import Destination, Package, PackageCategory, TravelType
+from packages.models import Destination, Package, TravelType
 from packages.search import (
     DURATION_SHORT,
     PackageSearch,
@@ -18,16 +18,6 @@ from packages.search import (
 class PackageSearchTests(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.domestic = PackageCategory.objects.create(
-            name="Domestic",
-            slug="domestic",
-            category_type=PackageCategory.CategoryType.DOMESTIC,
-        )
-        cls.international = PackageCategory.objects.create(
-            name="International",
-            slug="international",
-            category_type=PackageCategory.CategoryType.INTERNATIONAL,
-        )
         cls.alleppey = Destination.objects.create(
             name="Alleppey",
             travel_type=TravelType.DOMESTIC,
@@ -49,7 +39,7 @@ class PackageSearchTests(TestCase):
         Package.objects.create(
             title="Alleppey Backwaters",
             slug="alleppey-backwaters",
-            category=cls.domestic,
+            travel_type=TravelType.DOMESTIC,
             destination=cls.alleppey,
             short_description="Cruise through serene backwaters from Cochin.",
             route="COCHIN / ALAPPUZHA / COCHIN",
@@ -60,7 +50,7 @@ class PackageSearchTests(TestCase):
         Package.objects.create(
             title="Golden Triangle",
             slug="golden-triangle",
-            category=cls.international,
+            travel_type=TravelType.INTERNATIONAL,
             destination=cls.delhi,
             short_description="Delhi Jaipur Agra tour",
             route="DELHI / JAIPUR / AGRA / DELHI",
@@ -71,7 +61,7 @@ class PackageSearchTests(TestCase):
         Package.objects.create(
             title="Munnar Escape",
             slug="munnar-escape",
-            category=cls.domestic,
+            travel_type=TravelType.DOMESTIC,
             destination=cls.munnar,
             short_description="Hill station getaway in Munnar",
             route="COCHIN / MUNNAR / COCHIN",

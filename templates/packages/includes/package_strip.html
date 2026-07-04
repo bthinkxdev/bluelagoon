@@ -3,8 +3,8 @@
   <div class="wl-package-row__media">
     <a href="{% package_detail_url package %}" tabindex="-1" aria-hidden="true">
       <img src="{% package_list_image package %}" alt="">
-      {% if package.category %}
-      <span class="wl-package-row__badge">{{ package.category.name }}</span>
+      {% if package.travel_type %}
+      <span class="wl-package-row__badge">{{ package.get_travel_type_display }}</span>
       {% endif %}
     </a>
   </div>

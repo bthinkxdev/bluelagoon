@@ -22,7 +22,7 @@ def _resolve_package(request) -> Package | None:
     if not slug:
         return None
     return Package.objects.filter(slug=slug, status=Package.Status.PUBLISHED).select_related(
-        "category"
+        "destination"
     ).first()
 
 
@@ -61,7 +61,7 @@ def contact(request):
                 slug=form.data.get("package_slug", "").strip(),
                 status=Package.Status.PUBLISHED,
             )
-            .select_related("category")
+            .select_related("destination")
             .first()
             or enquiry_package
         )

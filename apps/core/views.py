@@ -13,7 +13,7 @@ def home(request):
     banners = Banner.objects.active()
     testimonials = (
         Testimonial.objects.filter(is_active=True)
-        .select_related("package", "package__category")
+        .select_related("package", "package__destination")
         .order_by("display_order", "-created_at")
     )
     context = {
