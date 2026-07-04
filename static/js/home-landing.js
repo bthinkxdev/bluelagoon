@@ -12,6 +12,12 @@
   var loveModalTitle = document.getElementById('wl-love-modal-title');
   var loveModalBody = document.getElementById('wl-love-modal-body');
   var loveModalLink = document.getElementById('wl-love-modal-link');
+  var partnerModal = document.getElementById('wl-partner-modal');
+  var partnerModalImage = document.getElementById('wl-partner-modal-image');
+  var partnerModalLabel = document.getElementById('wl-partner-modal-label');
+  var partnerModalTitle = document.getElementById('wl-partner-modal-title');
+  var partnerModalBody = document.getElementById('wl-partner-modal-body');
+  var partnerModalLink = document.getElementById('wl-partner-modal-link');
   var modalLastFocus = null;
 
   function closeWlModal(modalEl) {
@@ -30,14 +36,21 @@
       config.imageEl.src = config.image || '';
       config.imageEl.alt = config.title || '';
     }
+    if (config.labelEl) config.labelEl.textContent = config.label || 'Partner details';
     if (config.titleEl) config.titleEl.textContent = config.title || '';
-    if (config.bodyEl) config.bodyEl.textContent = config.body || '';
+    if (config.bodyEl) {
+      if (config.bodyHtml) {
+        config.bodyEl.innerHTML = config.bodyHtml;
+      } else {
+        config.bodyEl.textContent = config.body || '';
+      }
+    }
     if (config.linkEl) {
       config.linkEl.href = config.link || '#';
       config.linkEl.textContent = config.linkLabel || 'Learn more';
       if (config.external) {
         config.linkEl.setAttribute('target', '_blank');
-        config.linkEl.setAttribute('rel', 'noopener');
+        config.linkEl.setAttribute('rel', 'noopener noreferrer');
       } else {
         config.linkEl.removeAttribute('target');
         config.linkEl.removeAttribute('rel');
@@ -53,7 +66,37 @@
     if (closeBtn) closeBtn.focus();
   }
 
-  [modal, loveModal].forEach(function (modalEl) {
+  function partnerBodyHtml(text) {
+    return (text || '')
+      .split(/\n\s*\n/)
+      .map(function (part) { return part.trim(); })
+      .filter(Boolean)
+      .map(function (part) {
+        return '<p>' + part.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</p>';
+      })
+      .join('');
+  }
+
+  document.querySelectorAll('[data-partner-open]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      openWlModal(partnerModal, {
+        imageEl: partnerModalImage,
+        labelEl: partnerModalLabel,
+        titleEl: partnerModalTitle,
+        bodyEl: partnerModalBody,
+        linkEl: partnerModalLink,
+        image: button.getAttribute('data-partner-image') || '',
+        label: button.getAttribute('data-partner-label') || 'Partner details',
+        title: button.getAttribute('data-partner-title') || '',
+        bodyHtml: partnerBodyHtml(button.getAttribute('data-partner-body') || ''),
+        link: button.getAttribute('data-partner-link') || '#',
+        linkLabel: button.getAttribute('data-partner-link-label') || 'Learn more',
+        external: button.getAttribute('data-partner-external') === 'true'
+      });
+    });
+  });
+
+  [modal, loveModal, partnerModal].forEach(function (modalEl) {
     if (!modalEl) return;
     modalEl.querySelectorAll('[data-wl-modal-close]').forEach(function (el) {
       el.addEventListener('click', function () {
@@ -234,6 +277,9 @@
       if (categoryField) {
         categoryField.value = tab.dataset.tab || '';
       }
+      if (window.wlHideDestinationSuggestions) {
+        window.wlHideDestinationSuggestions();
+      }
     });
   });
 
@@ -243,24 +289,17 @@
     categoryField.value = activeTab.dataset.tab || '';
   }
 
-  /* Date pickers — styled calendar, equal column width */
+  /* Travel date picker */
   function initSearchDatePickers() {
     if (typeof flatpickr === 'undefined') return;
 
     var departInput = document.getElementById('wl-depart');
-    var returnInput = document.getElementById('wl-return');
     if (!departInput) return;
 
-    var returnPicker = null;
     var departDefault = departInput.value ? departInput.value : null;
-    var returnDefault = returnInput && returnInput.value ? returnInput.value : null;
     if (!departDefault) {
       departDefault = new Date();
       departDefault.setDate(departDefault.getDate() + 7);
-    }
-    if (!returnDefault) {
-      returnDefault = new Date();
-      returnDefault.setDate(returnDefault.getDate() + 14);
     }
 
     function syncCalendarWidth(instance) {
@@ -271,43 +310,28 @@
       instance.calendarContainer.style.minWidth = width + 'px';
     }
 
-    function datePickerOptions(linkReturn, defaultDate) {
-      return {
-        altInput: true,
-        altFormat: 'j M, Y',
-        altInputClass: 'wl-date-alt',
-        dateFormat: 'Y-m-d',
-        defaultDate: defaultDate || null,
-        minDate: 'today',
-        disableMobile: true,
-        allowInput: false,
-        clickOpens: true,
-        onReady: function (_dates, _str, instance) {
-          instance.calendarContainer.classList.add('wl-flatpickr');
-        },
-        onOpen: function (_dates, _str, instance) {
-          syncCalendarWidth(instance);
-        },
-        onChange: function (selectedDates) {
-          if (!linkReturn || !returnPicker || !selectedDates[0]) return;
-          returnPicker.set('minDate', selectedDates[0]);
-          if (returnPicker.selectedDates[0] && returnPicker.selectedDates[0] < selectedDates[0]) {
-            returnPicker.clear();
-          }
-        }
-      };
-    }
-
-    flatpickr(departInput, datePickerOptions(true, departDefault));
-
-    if (returnInput) {
-      returnPicker = flatpickr(returnInput, datePickerOptions(false, returnDefault));
-    }
+    flatpickr(departInput, {
+      altInput: true,
+      altFormat: 'j M, Y',
+      altInputClass: 'wl-date-alt',
+      dateFormat: 'Y-m-d',
+      defaultDate: departDefault,
+      minDate: 'today',
+      disableMobile: true,
+      allowInput: false,
+      clickOpens: true,
+      onReady: function (_dates, _str, instance) {
+        instance.calendarContainer.classList.add('wl-flatpickr');
+      },
+      onOpen: function (_dates, _str, instance) {
+        syncCalendarWidth(instance);
+      }
+    });
 
     document.querySelectorAll('.wl-search-field--date').forEach(function (field) {
       field.addEventListener('click', function (e) {
         if (e.target.closest('.flatpickr-calendar')) return;
-        var input = field.querySelector('#wl-depart, #wl-return');
+        var input = field.querySelector('#wl-depart');
         if (input && input._flatpickr) {
           input._flatpickr.open();
         }
@@ -316,6 +340,137 @@
   }
 
   initSearchDatePickers();
+
+  /* Destination autocomplete */
+  (function initDestinationAutocomplete() {
+    var form = document.getElementById('wl-search-form');
+    var input = document.getElementById('wl-destination');
+    var list = document.getElementById('wl-destination-suggestions');
+    if (!form || !input || !list) return;
+
+    var apiUrl = form.getAttribute('data-destinations-url') || '/api/destinations/';
+    var debounceTimer = null;
+    var activeIndex = -1;
+    var items = [];
+    var abortController = null;
+
+    function hideSuggestions() {
+      list.hidden = true;
+      list.innerHTML = '';
+      items = [];
+      activeIndex = -1;
+      input.setAttribute('aria-expanded', 'false');
+    }
+
+    window.wlHideDestinationSuggestions = hideSuggestions;
+
+    function renderSuggestions(results) {
+      items = results || [];
+      activeIndex = -1;
+      list.innerHTML = '';
+
+      if (!items.length) {
+        hideSuggestions();
+        return;
+      }
+
+      items.forEach(function (item, index) {
+        var li = document.createElement('li');
+        li.className = 'wl-destination-suggestions__item';
+        li.setAttribute('role', 'option');
+        li.setAttribute('id', 'wl-destination-option-' + index);
+        li.textContent = item.name;
+        li.addEventListener('mousedown', function (event) {
+          event.preventDefault();
+          input.value = item.name;
+          hideSuggestions();
+          input.focus();
+        });
+        list.appendChild(li);
+      });
+
+      list.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
+    }
+
+    function setActive(index) {
+      var options = list.querySelectorAll('.wl-destination-suggestions__item');
+      options.forEach(function (option, i) {
+        option.classList.toggle('is-active', i === index);
+      });
+      activeIndex = index;
+      if (index >= 0 && options[index]) {
+        input.setAttribute('aria-activedescendant', options[index].id);
+      } else {
+        input.removeAttribute('aria-activedescendant');
+      }
+    }
+
+    function fetchSuggestions(query) {
+      if (abortController) abortController.abort();
+      abortController = typeof AbortController !== 'undefined' ? new AbortController() : null;
+
+      var categoryField = document.getElementById('wl-search-category');
+      var travelType = categoryField ? categoryField.value : '';
+      var url = apiUrl + '?search=' + encodeURIComponent(query);
+      if (travelType) {
+        url += '&travel_type=' + encodeURIComponent(travelType);
+      }
+
+      fetch(url, {
+        headers: { Accept: 'application/json' },
+        signal: abortController ? abortController.signal : undefined
+      })
+        .then(function (response) {
+          if (!response.ok) throw new Error('Destination lookup failed');
+          return response.json();
+        })
+        .then(renderSuggestions)
+        .catch(function (error) {
+          if (error && error.name === 'AbortError') return;
+          hideSuggestions();
+        });
+    }
+
+    input.addEventListener('input', function () {
+      var query = input.value.trim();
+      clearTimeout(debounceTimer);
+      if (query.length < 1) {
+        hideSuggestions();
+        return;
+      }
+      debounceTimer = setTimeout(function () {
+        fetchSuggestions(query);
+      }, 300);
+    });
+
+    input.addEventListener('keydown', function (event) {
+      if (list.hidden || !items.length) return;
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        setActive(activeIndex < items.length - 1 ? activeIndex + 1 : 0);
+      } else if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        setActive(activeIndex > 0 ? activeIndex - 1 : items.length - 1);
+      } else if (event.key === 'Enter' && activeIndex >= 0) {
+        event.preventDefault();
+        input.value = items[activeIndex].name;
+        hideSuggestions();
+      } else if (event.key === 'Escape') {
+        hideSuggestions();
+      }
+    });
+
+    input.addEventListener('blur', function () {
+      setTimeout(hideSuggestions, 120);
+    });
+
+    document.addEventListener('click', function (event) {
+      if (!event.target.closest('.wl-destination-autocomplete')) {
+        hideSuggestions();
+      }
+    });
+  })();
 
   /* Travellers picker */
   var travellersPicker = document.getElementById('wl-travellers-picker');
@@ -470,6 +625,7 @@
     if (e.key !== 'Escape') return;
     if (modal && !modal.hidden) closeWlModal(modal);
     if (loveModal && !loveModal.hidden) closeWlModal(loveModal);
+    if (partnerModal && !partnerModal.hidden) closeWlModal(partnerModal);
   });
 
   /* Hero banner carousel */

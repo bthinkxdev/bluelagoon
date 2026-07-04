@@ -15,19 +15,67 @@
         <h2 class="wl-about-story__title">About Us</h2>
         <div class="wl-prose wl-about-story__prose">
           <p>We are a travel agency headquartered in Cochin, Kerala, with branches across the state. Our Mattanur branch is conveniently located near the new Kannur International Airport.</p>
-          <p>Blue Lagoon Holiday Cruises Pvt. Ltd. delivers synergy in travel, tourism, and hospitality solutions at affordable costs. We offer a wide range of tour packages — both pre-designed and customized — tailored to your tastes and interests.</p>
+          <p>BLUE LAGOON HOLIDAY CRUISES delivers synergy in travel, tourism, and hospitality solutions at affordable costs. We offer a wide range of tour packages — both pre-designed and customized — tailored to your tastes and interests.</p>
           <p>The destinations we curate will leave you with nostalgic memories. Houseboat cruises through palm-fringed backwaters, beach getaways, hill station resorts, and tea garden trails transform your journey into a close encounter with Mother Nature.</p>
           <p>Operating since 2013 in Kerala — globally acclaimed as “God’s Own Country” — we confidently recommend destinations that ensure memorable, satisfying experiences. Our happy customers are our best testimony.</p>
           <p>We are authorized agents of Lakshadweep Tourism under the Ministry of Tourism, Government of India. The “Samudram” Lakshadweep package offers economical on-board accommodation with day visits to three islands. This 5-day, 4-night tour is perfect for sea and beach lovers.</p>
           <p>For groups of any size, we can arrange make-shift kitchens with cooking staff at visit locations.</p>
           <p>Choose your tour theme and we’ll propose the most economical and satisfying route:</p>
           <p class="wl-about-tour-themes">Houseboats | Hill Stations | Beaches | Traditional Villages | Cities | Historical Places | Temples | Mosques | Churches | Trekking | Tea Gardens | Wildlife | And More</p>
-          <p>Managed by courteous professionals with rich travel industry experience, Blue Lagoon ensures all your tour and travel needs are met — leaving you with happy, enduring memories.</p>
+          <p>Managed by courteous professionals with rich travel industry experience, BLUE LAGOON HOLIDAY CRUISES ensures all your tour and travel needs are met — leaving you with happy, enduring memories.</p>
         </div>
         <div class="wl-about-story__actions">
           <a href="{% url 'packages:list' %}" class="wl-btn wl-btn--primary">Explore packages</a>
           <a href="{% url 'enquiries:contact' %}" class="wl-btn wl-btn--outline">Contact us</a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wl-about-locations wl-inner-section" aria-label="Our offices">
+    <div class="container">
+      <div class="wl-section-intro wl-reveal">
+        <p class="wl-section-intro__eyebrow">Find us</p>
+        <h2>Our offices</h2>
+      </div>
+      <div class="wl-about-locations__grid wl-reveal">
+        <article class="wl-about-location-card">
+          <p class="wl-about-location-card__label">Mattanur office</p>
+          <h3>{{ site_settings.company_name }}</h3>
+          <p>{{ site_settings.address }}</p>
+          {% if site_settings.maps_url %}
+          <a href="{{ site_settings.maps_url }}" class="wl-about-location-card__link" target="_blank" rel="noopener noreferrer">
+            Open in Google Maps
+            <span aria-hidden="true">→</span>
+          </a>
+          {% endif %}
+        </article>
+        {% if site_settings.head_office %}
+        <article class="wl-about-location-card wl-about-location-card--head">
+          <p class="wl-about-location-card__label">Head Office</p>
+          <h3>{{ site_settings.head_office }}</h3>
+          <p>Kerala, India</p>
+        </article>
+        {% endif %}
+      </div>
+
+      <div class="wl-about-map wl-reveal">
+        {% if site_settings.google_maps_embed %}
+        <div class="wl-about-map__embed">{{ site_settings.google_maps_embed|safe }}</div>
+        {% else %}
+        <iframe
+          title="BLUE LAGOON HOLIDAY CRUISES office location"
+          class="wl-about-map__frame"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q={{ site_settings.address|urlencode }}&amp;output=embed"
+          allowfullscreen>
+        </iframe>
+        {% endif %}
+        <a href="{% if site_settings.maps_url %}{{ site_settings.maps_url }}{% else %}https://www.google.com/maps/search/?api=1&amp;query={{ site_settings.address|urlencode }}{% endif %}" class="wl-about-map__link" target="_blank" rel="noopener noreferrer">
+          Open in Google Maps
+          <span aria-hidden="true">→</span>
+        </a>
       </div>
     </div>
   </section>
@@ -133,7 +181,7 @@
       <div class="wl-about-cta__card">
         <div class="wl-about-cta__content">
           <p class="wl-about-cta__eyebrow">Plan your next journey</p>
-          <h2>Ready to explore with Blue Lagoon?</h2>
+          <h2>Ready to explore with BLUE LAGOON HOLIDAY CRUISES?</h2>
           <p>Tell us where you want to go — we will craft a journey that fits your style, schedule and budget.</p>
         </div>
         <div class="wl-about-cta__actions">

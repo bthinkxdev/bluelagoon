@@ -135,7 +135,7 @@ class ContactEnquiryEmailTests(TestCase):
         self.assertIn("Golden Triangle", staff_mail.subject)
 
     def test_empty_search_enquiry_submission(self):
-        url = "/packages/?to=Zzyxnonexistent999"
+        url = "/packages/?destination=Zzyxnonexistent999&category=international"
         payload = {
             "enquiry_source": "package_search",
             "first_name": "Achu",

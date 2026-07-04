@@ -9,10 +9,15 @@ from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
-from core.email import get_from_email, get_notification_bcc, get_notification_email
+from core.email import get_from_email, get_notification_bcc, get_notification_email, get_site_settings
 from enquiries.models import ContactEnquiry, PackageEnquiry
 
 logger = logging.getLogger("enquiries")
+
+
+def _site_name() -> str:
+    site = get_site_settings()
+    return (site.company_name or settings.SITE_NAME).strip()
 
 
 @dataclass
@@ -36,7 +41,7 @@ def _notification_subject(enquiry: ContactEnquiry) -> str:
 
 
 def _email_context(enquiry: ContactEnquiry) -> dict:
-    return {"enquiry": enquiry, "site_name": settings.SITE_NAME}
+    return {"enquiry": enquiry, "site_name": _site_name()}
 
 
 def send_contact_notification(enquiry: ContactEnquiry) -> bool:
@@ -78,7 +83,7 @@ def send_contact_notification(enquiry: ContactEnquiry) -> bool:
 
 def send_contact_confirmation(enquiry: ContactEnquiry) -> bool:
     """Send confirmation email to the customer."""
-    subject = f"Thank you for contacting {settings.SITE_NAME}"
+    subject = f"Thank you for contacting {_site_name()}"
     context = _email_context(enquiry)
     html_body = render_to_string("emails/contact_confirmation.html", context)
     text_body = render_to_string("emails/contact_confirmation.txt", context)
@@ -106,7 +111,7 @@ def send_contact_confirmation(enquiry: ContactEnquiry) -> bool:
 
 def send_package_enquiry_notification(enquiry: PackageEnquiry) -> bool:
     subject = f"Package enquiry from {enquiry.name}"
-    context = {"enquiry": enquiry, "site_name": settings.SITE_NAME}
+    context = {"enquiry": enquiry, "site_name": _site_name()}
     html_body = render_to_string("emails/package_enquiry_notification.html", context)
     text_body = render_to_string("emails/package_enquiry_notification.txt", context)
 

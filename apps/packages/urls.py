@@ -9,6 +9,7 @@ app_name = "packages"
 urlpatterns = [
     path("", views.package_list, name="list"),
     path("list/partial/", views.package_list_partial, name="list_partial"),
+    path("api/destinations/", views.destination_autocomplete, name="destination_api"),
     path("domestic/", views.domestic_list, name="domestic_list"),
     path("international/", views.international_list, name="international_list"),
     path("pilgrim/", views.pilgrim_list, name="pilgrim_list"),

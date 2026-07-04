@@ -4,7 +4,7 @@
   <div class="container">
     <div class="wl-search-card">
       <div class="wl-search-head">
-        <div class="wl-search-tabs" role="tablist" aria-label="Search type">
+        <div class="wl-search-tabs" role="tablist" aria-label="Travel type">
           {% if search_variant == "page" %}
           <button type="button" class="wl-search-tab{% if not active_tab %} is-active{% endif %}" data-tab="" role="tab" aria-selected="{% if not active_tab %}true{% else %}false{% endif %}">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/></svg>
@@ -21,45 +21,39 @@
           </button>
           <button type="button" class="wl-search-tab{% if active_tab == 'pilgrim' %} is-active{% endif %}" data-tab="pilgrim" role="tab" aria-selected="{% if active_tab == 'pilgrim' %}true{% else %}false{% endif %}">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="7" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="2"/></svg>
-            Pilgrim
+            Pilgrimage
           </button>
         </div>
         <div class="wl-search-head__fill" aria-hidden="true"></div>
       </div>
 
-      <form class="wl-search-form" id="wl-search-form" action="{% url 'packages:list' %}" method="get">
+      <form class="wl-search-form" id="wl-search-form" action="{% url 'packages:list' %}" method="get" data-destinations-url="{% url 'destination_api' %}">
         <input type="hidden" name="category" id="wl-search-category" value="{% if active_tab %}{{ active_tab }}{% endif %}">
-        <div class="wl-search-field">
-          <label for="wl-from">From</label>
-          <div class="wl-search-input">
-            <input id="wl-from" name="from" type="text" placeholder="City or airport" autocomplete="off" value="{% if search %}{{ search.from_place }}{% endif %}">
+        <div class="wl-search-field wl-search-field--destination">
+          <label for="wl-destination">Destination</label>
+          <div class="wl-search-input wl-destination-autocomplete">
+            <input
+              id="wl-destination"
+              name="destination"
+              type="text"
+              placeholder="Where do you want to go?"
+              autocomplete="off"
+              role="combobox"
+              aria-autocomplete="list"
+              aria-expanded="false"
+              aria-controls="wl-destination-suggestions"
+              value="{% if search %}{{ search.destination }}{% endif %}"
+            >
             <span class="wl-search-input__icon" aria-hidden="true">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 21s6-5.2 6-11.4A6.4 6.4 0 1 0 6 9.6C6 15.8 12 21 12 21z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="9.6" r="2" fill="currentColor"/></svg>
             </span>
-          </div>
-        </div>
-        <div class="wl-search-field">
-          <label for="wl-to">To</label>
-          <div class="wl-search-input">
-            <input id="wl-to" name="to" type="text" placeholder="Where to?" autocomplete="off" value="{% if search %}{{ search.to_place }}{% endif %}">
-            <span class="wl-search-input__icon" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 21s6-5.2 6-11.4A6.4 6.4 0 1 0 6 9.6C6 15.8 12 21 12 21z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="9.6" r="2" fill="currentColor"/></svg>
-            </span>
+            <ul class="wl-destination-suggestions" id="wl-destination-suggestions" role="listbox" hidden></ul>
           </div>
         </div>
         <div class="wl-search-field wl-search-field--date">
-          <label for="wl-depart">Depart</label>
+          <label for="wl-depart">Travel date</label>
           <div class="wl-search-input wl-search-input--date">
-            <input id="wl-depart" name="depart" type="text" placeholder="Select date" autocomplete="off" inputmode="none" readonly{% if search and search.depart %} value="{{ search.depart|date:'Y-m-d' }}"{% endif %}>
-            <span class="wl-search-input__icon" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2"/></svg>
-            </span>
-          </div>
-        </div>
-        <div class="wl-search-field wl-search-field--date">
-          <label for="wl-return">Return</label>
-          <div class="wl-search-input wl-search-input--date">
-            <input id="wl-return" name="return" type="text" placeholder="Select date" autocomplete="off" inputmode="none" readonly{% if search and search.return_date %} value="{{ search.return_date|date:'Y-m-d' }}"{% endif %}>
+            <input id="wl-depart" name="depart" type="text" placeholder="Select date" autocomplete="off" inputmode="none" readonly{% if search and search.travel_date %} value="{{ search.travel_date|date:'Y-m-d' }}"{% endif %}>
             <span class="wl-search-input__icon" aria-hidden="true">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2"/></svg>
             </span>

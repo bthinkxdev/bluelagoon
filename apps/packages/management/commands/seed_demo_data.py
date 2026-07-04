@@ -161,7 +161,7 @@ TESTIMONIALS = [
     "name": "Achu Joseph",
     "rating": 5,
     "quote": (
-      "Blue Lagoon planned our Golden Triangle trip flawlessly. Hotels were great "
+      "BLUE LAGOON HOLIDAY CRUISES planned our Golden Triangle trip flawlessly. Hotels were great "
       "and the guide in Jaipur was excellent."
     ),
     "display_order": 1,
@@ -191,7 +191,7 @@ TESTIMONIALS = [
     "name": "Mary Thomas",
     "rating": 4,
     "quote": (
-      "A deeply moving pilgrimage. Blue Lagoon handled logistics so we could focus "
+      "A deeply moving pilgrimage. BLUE LAGOON HOLIDAY CRUISES handled logistics so we could focus "
       "on the spiritual experience."
     ),
     "display_order": 4,

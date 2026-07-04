@@ -4,9 +4,9 @@
     <a href="{% url 'core:home' %}" class="wl-logo">
       <span class="wl-logo__mark">
         {% if site_settings.logo %}
-        <img src="{{ site_settings.logo.url }}" alt="Blue Lagoon Holiday Cruises" onerror="this.onerror=null;this.src='{% static 'img/newlogo.png' %}';">
-        {% else %}
-        <img src="{% static 'img/newlogo.png' %}" alt="Blue Lagoon Holiday Cruises">
+        <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.company_name }}" onerror="this.onerror=null;this.src='{% static 'img/newlogo.png' %}';">
+{% else %}
+        <img src="{% static 'img/newlogo.png' %}" alt="{{ site_settings.company_name }}">
         {% endif %}
       </span>
     </a>

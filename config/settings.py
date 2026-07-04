@@ -1,4 +1,4 @@
-"""Django settings for Blue Lagoon Holidays."""
+"""Django settings for BLUE LAGOON HOLIDAY CRUISES."""
 
 import os
 import sys
@@ -15,7 +15,7 @@ DEBUG = config("DEBUG", default=True, cast=bool)
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost,127.0.0.1", cast=Csv())
 
 SITE_URL = config("SITE_URL", default="http://127.0.0.1:8000")
-SITE_NAME = config("SITE_NAME", default="Blue Lagoon Holidays")
+SITE_NAME = config("SITE_NAME", default="BLUE LAGOON HOLIDAY CRUISES")
 
 INSTALLED_APPS = [
     "django.contrib.admin",

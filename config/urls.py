@@ -8,9 +8,10 @@ from django.urls import include, path
 
 from core.sitemaps import GallerySitemap, PackageSitemap, StaticViewSitemap
 from core.views_misc import robots_txt
+from packages.views import destination_autocomplete
 
-admin.site.site_header = "Blue Lagoon CMS"
-admin.site.site_title = "Blue Lagoon"
+admin.site.site_header = "BLUE LAGOON HOLIDAY CRUISES CMS"
+admin.site.site_title = "BLUE LAGOON HOLIDAY CRUISES"
 admin.site.index_title = "Manage banners, packages, gallery & contact messages"
 
 sitemaps = {
@@ -25,6 +26,7 @@ urlpatterns = [
     path("", include("website.urls")),
     path("gallery/", include("gallery.urls")),
     path("packages/", include("packages.urls")),
+    path("api/destinations/", destination_autocomplete, name="destination_api"),
     path("", include("enquiries.urls")),
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("robots.txt", robots_txt),

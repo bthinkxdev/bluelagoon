@@ -1,13 +1,7 @@
 <div class="wl-search-empty-enquiry wl-reveal" id="wl-search-enquiry">
-  <div class="wl-empty wl-empty--enquiry">
-    <p class="wl-empty__eyebrow">Good news — we can still help</p>
-    <h3>We can arrange your trip exactly the way you want</h3>
-    <p>
-      Our current pre-designed packages may not align perfectly with your search
-      {% if search_query %}for <em>{{ search_query }}</em>{% endif %}.
-      But be happy — Blue Lagoon specializes in custom itineraries, and we can arrange your journey to match your dates, destinations, and group size.
-    </p>
-    <p class="wl-empty__hint">Share your travel requirements below and our experts will get back to you with a tailored plan, usually within one business day.</p>
+  <div class="wl-empty wl-empty--enquiry wl-empty--enquiry-simple">
+    <h3>Enter your details</h3>
+    <p>We will reach out to you soon.</p>
   </div>
 
   {% if messages %}
@@ -19,11 +13,6 @@
   {% endif %}
 
   <div class="wl-detail-block wl-detail-block--enquiry">
-    <div class="wl-detail-block__head">
-      <h3>Request a custom itinerary</h3>
-      <p>Tell us what you are looking for — we will design a package around your plans.</p>
-    </div>
-
     <form method="post" action="{{ request.path }}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}#wl-search-enquiry" class="wl-form wl-contact-form wl-enquiry-form" novalidate>
       {% csrf_token %}
       <input type="hidden" name="enquiry_source" value="package_search">

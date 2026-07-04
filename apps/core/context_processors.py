@@ -16,7 +16,7 @@ def site_context(request):
     )
     return {
         "site_settings": settings_obj,
-        "site_name": settings.SITE_NAME,
+        "site_name": settings_obj.company_name or settings.SITE_NAME,
         "site_url": settings.SITE_URL,
         "navigation_items": nav_items,
     }

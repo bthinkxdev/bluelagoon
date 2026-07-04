@@ -1,8 +1,9 @@
-"""Django admin — packages and categories."""
+"""Django admin — packages, destinations, and categories."""
 
 from django.contrib import admin
 
 from packages.models import (
+    Destination,
     Package,
     PackageCategory,
     PackageExclusion,
@@ -42,6 +43,44 @@ class TestimonialInline(admin.TabularInline):
     ordering = ("display_order",)
 
 
+@admin.register(Destination)
+class DestinationAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "travel_type",
+        "country",
+        "state",
+        "is_active",
+        "display_order",
+        "updated_at",
+    )
+    list_filter = ("travel_type", "is_active", "country")
+    search_fields = ("name", "country", "state", "description")
+    list_editable = ("is_active", "display_order")
+    prepopulated_fields = {"slug": ("name",)}
+    ordering = ("display_order", "name")
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "name",
+                    "slug",
+                    "travel_type",
+                    "country",
+                    "state",
+                    "is_active",
+                    "display_order",
+                )
+            },
+        ),
+        (
+            "Content",
+            {"fields": ("description", "image")},
+        ),
+    )
+
+
 @admin.register(Testimonial)
 class TestimonialAdmin(admin.ModelAdmin):
     list_display = ("name", "package", "rating", "display_order", "is_active")
@@ -62,11 +101,20 @@ class PackageCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Package)
 class PackageAdmin(admin.ModelAdmin):
-    list_display = ("title", "category", "duration", "price", "status", "display_order")
-    list_filter = ("category", "status", "category__category_type")
-    search_fields = ("title", "short_description", "route")
+    list_display = (
+        "title",
+        "destination",
+        "category",
+        "duration",
+        "price",
+        "status",
+        "display_order",
+    )
+    list_filter = ("category", "destination__travel_type", "status", "category__category_type")
+    search_fields = ("title", "short_description", "route", "destination__name")
     prepopulated_fields = {"slug": ("title",)}
     list_editable = ("display_order", "status")
+    autocomplete_fields = ("destination",)
     inlines = [
         PackageImageInline,
         PackageInclusionInline,
@@ -80,6 +128,7 @@ class PackageAdmin(admin.ModelAdmin):
                 "fields": (
                     "title",
                     "slug",
+                    "destination",
                     "category",
                     "status",
                     "is_featured",
@@ -101,8 +150,8 @@ class PackageAdmin(admin.ModelAdmin):
                     "price_note",
                 ),
                 "description": (
+                    "Destination drives package search. Category is kept for package detail URLs. "
                     "Duration is the label shown on the site (e.g. 3 Days / 2 Nights). "
-                    "Sorting and duration filters use it automatically. "
                     "Hero banners: desktop 1920×400 px, mobile 390×400 px (780×800 @2x). "
                     "Gallery photos stay 1920×1080."
                 ),

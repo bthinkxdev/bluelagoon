@@ -12,8 +12,19 @@ from django_ratelimit.decorators import ratelimit
 from enquiries.forms import ContactForm
 from enquiries.package_enquiry import build_package_enquiry_initial, build_search_enquiry_initial
 from enquiries.services import save_contact_from_request
-from packages.models import Package, PackageCategory, PackageExclusion, PackageImage, PackageInclusion, Testimonial
-from packages.search import PackageSearch, category_label as get_category_label
+from django.http import JsonResponse
+from django.views.decorators.http import require_GET
+
+from packages.models import (
+    Destination,
+    Package,
+    PackageCategory,
+    PackageExclusion,
+    PackageImage,
+    PackageInclusion,
+    Testimonial,
+)
+from packages.search import PackageSearch, TRAVEL_TYPES, category_label as get_category_label
 
 
 PACKAGE_LIST_CATEGORIES = (
@@ -38,7 +49,7 @@ def _published_packages(category_type: str | None = None):
             status=Package.Status.PUBLISHED,
             category__category_type__in=PACKAGE_LIST_CATEGORIES,
         )
-        .select_related("category")
+        .select_related("category", "destination")
         .prefetch_related(
             Prefetch("images", queryset=PackageImage.objects.order_by("display_order"))
         )
@@ -47,6 +58,24 @@ def _published_packages(category_type: str | None = None):
     if category_type:
         qs = qs.filter(category__category_type=category_type)
     return qs
+
+
+@require_GET
+def destination_autocomplete(request):
+    """JSON suggestions for destination search autocomplete."""
+    travel_type = (request.GET.get("travel_type") or "").strip()
+    search = (request.GET.get("search") or "").strip()
+
+    qs = Destination.objects.filter(is_active=True)
+    if travel_type in TRAVEL_TYPES:
+        qs = qs.filter(travel_type=travel_type)
+    if search:
+        qs = qs.filter(name__icontains=search)
+
+    results = list(
+        qs.order_by("display_order", "name").values("id", "name")[:12]
+    )
+    return JsonResponse(results, safe=False)
 
 
 def _package_detail_queryset():

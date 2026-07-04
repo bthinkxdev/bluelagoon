@@ -17,7 +17,18 @@ class SiteSettingsAdmin(admin.ModelAdmin):
     form = SiteSettingsAdminForm
     fieldsets = (
         ("Company", {"fields": ("company_name", "logo", "copyright_text")}),
-        ("Contact", {"fields": ("phone_primary", "email", "address")}),
+        (
+            "Contact",
+            {
+                "fields": (
+                    "phone_primary",
+                    "email",
+                    "address",
+                    "head_office",
+                    "maps_url",
+                )
+            },
+        ),
         (
             "Email delivery (SMTP)",
             {
@@ -45,6 +56,7 @@ class SiteSettingsAdmin(admin.ModelAdmin):
             {
                 "fields": (
                     "facebook_url",
+                    "instagram_url",
                     "twitter_url",
                     "youtube_url",
                     "google_maps_embed",
@@ -80,7 +92,7 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         from_email = get_from_email()
         try:
             sent = send_mail(
-                subject="Blue Lagoon — SMTP test",
+                subject="BLUE LAGOON HOLIDAY CRUISES — SMTP test",
                 message="If you received this, SMTP is configured correctly.",
                 from_email=from_email,
                 recipient_list=[to_email],

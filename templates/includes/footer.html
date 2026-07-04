@@ -4,7 +4,7 @@
       <div class="col-md-4 col-sm-3">
         <h3>Contacts</h3>
         <ul id="contact_details_footer">
-          <li>{{ site_settings.company_name }}<br>{{ site_settings.address }}</li>
+          <li>{{ site_settings.company_name }}<br>{{ site_settings.address }}{% if site_settings.head_office %}<br><strong>Head Office:</strong> {{ site_settings.head_office }}{% endif %}</li>
           <li>
             <a href="tel:{{ site_settings.phone_primary }}">{{ site_settings.phone_primary }}</a>
             {% if site_settings.phone_secondary %} / <a href="tel:{{ site_settings.phone_secondary }}">{{ site_settings.phone_secondary }}</a>{% endif %}
@@ -36,10 +36,10 @@
       <div class="col-md-3 col-sm-3" id="newsletter">
         <div id="social_footer">
           <ul>
-            {% if site_settings.facebook_url %}<li><a href="{{ site_settings.facebook_url }}" aria-label="Facebook"><i class="fa fa-facebook"></i></a></li>{% endif %}
-            {% if site_settings.twitter_url %}<li><a href="{{ site_settings.twitter_url }}" aria-label="Twitter"><i class="fa fa-twitter"></i></a></li>{% endif %}
-            {% if site_settings.google_plus_url %}<li><a href="{{ site_settings.google_plus_url }}" aria-label="Google Plus"><i class="fa fa-google-plus"></i></a></li>{% endif %}
-            {% if site_settings.youtube_url %}<li><a href="{{ site_settings.youtube_url }}" aria-label="YouTube"><i class="fa fa-youtube"></i></a></li>{% endif %}
+            {% if site_settings.facebook_url %}<li><a href="{{ site_settings.facebook_url }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa fa-facebook"></i></a></li>{% endif %}
+            {% if site_settings.instagram_url %}<li><a href="{{ site_settings.instagram_url }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa fa-instagram"></i></a></li>{% endif %}
+            {% if site_settings.twitter_url %}<li><a href="{{ site_settings.twitter_url }}" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fa fa-twitter"></i></a></li>{% endif %}
+            {% if site_settings.youtube_url %}<li><a href="{{ site_settings.youtube_url }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa fa-youtube"></i></a></li>{% endif %}
           </ul>
           <p>{{ site_settings.copyright_text }}</p>
         </div>

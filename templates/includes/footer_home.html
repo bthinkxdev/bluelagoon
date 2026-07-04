@@ -8,7 +8,7 @@
       </div>
       <div class="wl-trust__item">
         <span class="wl-trust__icon" aria-hidden="true">✓</span>
-        <span><strong>IATA Certified</strong> Agency</span>
+        <span><strong>IATO Certified</strong> Agency</span>
       </div>
       <div class="wl-trust__item">
         <span class="wl-trust__icon" aria-hidden="true">🔒</span>
@@ -20,9 +20,18 @@
       </div>
     </div>
     <div class="wl-trust__social">
-      {% if site_settings.facebook_url %}<a href="{{ site_settings.facebook_url }}" aria-label="Facebook"><i class="fa fa-facebook"></i></a>{% endif %}
-      {% if site_settings.twitter_url %}<a href="{{ site_settings.twitter_url }}" aria-label="Twitter"><i class="fa fa-twitter"></i></a>{% endif %}
-      {% if site_settings.youtube_url %}<a href="{{ site_settings.youtube_url }}" aria-label="YouTube"><i class="fa fa-youtube-play"></i></a>{% endif %}
+      {% if site_settings.facebook_url %}
+      <a href="{{ site_settings.facebook_url }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+      {% endif %}
+      {% if site_settings.instagram_url %}
+      <a href="{{ site_settings.instagram_url }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa fa-instagram"></i></a>
+      {% endif %}
+      {% if site_settings.twitter_url %}
+      <a href="{{ site_settings.twitter_url }}" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+      {% endif %}
+      {% if site_settings.youtube_url %}
+      <a href="{{ site_settings.youtube_url }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa fa-youtube-play"></i></a>
+      {% endif %}
       <a href="mailto:{{ site_settings.email }}" aria-label="Email"><i class="fa fa-envelope"></i></a>
     </div>
   </div>
@@ -36,6 +45,9 @@
         <ul class="wl-footer__list">
           <li class="wl-footer__company">{{ site_settings.company_name }}</li>
           <li class="wl-footer__address">{{ site_settings.address }}</li>
+          {% if site_settings.head_office %}
+          <li class="wl-footer__head-office"><strong>Head Office:</strong> {{ site_settings.head_office }}</li>
+          {% endif %}
           <li class="wl-footer__phones">
             <a href="tel:{{ site_settings.phone_primary|phone_tel }}" class="wl-footer__link">{{ site_settings.phone_primary }}</a>{% if site_settings.phone_secondary %}
             <span class="wl-footer__sep">/</span>
@@ -43,6 +55,14 @@
           </li>
           <li><a href="mailto:{{ site_settings.email }}" class="wl-footer__link">{{ site_settings.email }}</a></li>
         </ul>
+        <div class="wl-footer__social">
+          {% if site_settings.facebook_url %}
+          <a href="{{ site_settings.facebook_url }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+          {% endif %}
+          {% if site_settings.instagram_url %}
+          <a href="{{ site_settings.instagram_url }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa fa-instagram"></i></a>
+          {% endif %}
+        </div>
         {% if site_settings.phone_primary %}
         <a href="tel:{{ site_settings.phone_primary|phone_tel }}" class="wl-footer__call-btn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>

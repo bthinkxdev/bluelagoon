@@ -1,4 +1,4 @@
-"""Tour package search — parse home/list form params and filter querysets."""
+"""Tour package search — destination-based filtering within travel types."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from typing import Any
 from django.db.models import Case, F, IntegerField, Q, QuerySet, Value, When
 from django.utils.dateparse import parse_date
 
-from packages.models import Package, PackageCategory
+from packages.models import Package, PackageCategory, TravelType
 
 SORT_DEFAULT = "default"
 SORT_PRICE_ASC = "price_asc"
@@ -44,33 +44,52 @@ _DURATION_BUCKETS: dict[str, tuple[int, int]] = {
     DURATION_LONG: (8, 999),
 }
 
+TRAVEL_TYPES = frozenset(TravelType.values)
+
 
 @dataclass
 class PackageSearch:
     """Search criteria from GET parameters."""
 
-    category_type: str
-    from_place: str = ""
-    to_place: str = ""
-    depart: date | None = None
-    return_date: date | None = None
+    travel_type: str
+    destination: str = ""
+    travel_date: date | None = None
     adults: int = 1
     children: int = 0
     tab: str = ""
     sort: str = SORT_DEFAULT
     duration_bucket: str = ""
 
+    # Legacy aliases kept for older links / templates.
+    @property
+    def category_type(self) -> str:
+        return self.travel_type
+
+    @property
+    def to_place(self) -> str:
+        return self.destination
+
+    @property
+    def from_place(self) -> str:
+        return ""
+
+    @property
+    def depart(self) -> date | None:
+        return self.travel_date
+
+    @property
+    def return_date(self) -> date | None:
+        return None
+
     @property
     def has_text_search(self) -> bool:
-        return bool(self.from_place or self.to_place)
+        return bool(self.destination)
 
     @property
     def has_filters(self) -> bool:
         return bool(
-            self.from_place
-            or self.to_place
-            or self.depart
-            or self.return_date
+            self.destination
+            or self.travel_date
             or self.adults != 1
             or self.children > 0
             or self.duration_bucket
@@ -87,12 +106,10 @@ class PackageSearch:
 
     @property
     def trip_days(self) -> int | None:
-        if self.depart and self.return_date and self.return_date >= self.depart:
-            return (self.return_date - self.depart).days + 1
         return None
 
     @classmethod
-    def from_request(cls, request, category_type: str) -> PackageSearch:
+    def from_request(cls, request, travel_type: str = "all") -> PackageSearch:
         get = request.GET
         adults, children = _parse_travellers(
             get.get("adults", ""),
@@ -105,12 +122,20 @@ class PackageSearch:
         duration_bucket = (get.get("duration") or "").strip()
         if duration_bucket not in DURATION_CHOICES:
             duration_bucket = DURATION_ANY
+
+        destination = (get.get("destination") or get.get("to") or "").strip()
+        travel_date = parse_date(get.get("depart", "") or "") or parse_date(
+            get.get("travel_date", "") or ""
+        )
+
+        resolved_type = (travel_type or "all").strip()
+        if resolved_type not in TRAVEL_TYPES and resolved_type != "all":
+            resolved_type = "all"
+
         return cls(
-            category_type=category_type,
-            from_place=(get.get("from") or "").strip(),
-            to_place=(get.get("to") or "").strip(),
-            depart=parse_date(get.get("depart", "") or ""),
-            return_date=parse_date(get.get("return", "") or ""),
+            travel_type=resolved_type,
+            destination=destination,
+            travel_date=travel_date,
             adults=adults,
             children=children,
             tab=(get.get("tab") or "").strip(),
@@ -120,21 +145,29 @@ class PackageSearch:
 
     def apply(self, queryset: QuerySet[Package]) -> QuerySet[Package]:
         qs = queryset
-        terms = self._search_terms()
 
-        if terms:
-            match_q = Q()
-            for term in terms:
-                match_q |= _text_query(term)
+        if self.travel_type in TRAVEL_TYPES:
+            qs = qs.filter(
+                Q(destination__travel_type=self.travel_type)
+                | Q(destination__isnull=True, category__category_type=self.travel_type)
+            )
+
+        if self.destination:
+            term = self.destination
+            match_q = (
+                Q(destination__name__iexact=term)
+                | Q(destination__name__icontains=term)
+                | Q(destination__slug__icontains=term.replace(" ", "-").lower())
+                | Q(title__icontains=term)
+                | Q(route__icontains=term)
+                | Q(short_description__icontains=term)
+                | Q(description__icontains=term)
+            )
             qs = qs.filter(match_q).distinct()
-            qs = _annotate_relevance(qs, terms)
+            qs = _annotate_relevance(qs, [term])
 
         if self.duration_bucket:
             qs = _filter_by_duration_bucket(qs, self.duration_bucket)
-
-        trip_days = self.trip_days
-        if trip_days:
-            qs = _filter_by_trip_length(qs, trip_days)
 
         return self.apply_sort(qs)
 
@@ -155,14 +188,6 @@ class PackageSearch:
             return queryset.order_by("-relevance_score", "display_order", "title")
         return queryset.order_by("display_order", "title")
 
-    def _search_terms(self) -> list[str]:
-        terms: list[str] = []
-        if self.to_place:
-            terms.append(self.to_place)
-        if self.from_place and self.from_place.lower() != self.to_place.lower():
-            terms.append(self.from_place)
-        return terms
-
     def to_context(self) -> dict[str, Any]:
         return {
             "search": self,
@@ -176,22 +201,18 @@ class PackageSearch:
     def query_dict(self) -> dict[str, str]:
         """Preserve active filters for links and refine forms."""
         params: dict[str, str] = {}
-        if self.from_place:
-            params["from"] = self.from_place
-        if self.to_place:
-            params["to"] = self.to_place
-        if self.depart:
-            params["depart"] = self.depart.isoformat()
-        if self.return_date:
-            params["return"] = self.return_date.isoformat()
+        if self.destination:
+            params["destination"] = self.destination
+        if self.travel_date:
+            params["depart"] = self.travel_date.isoformat()
         if self.adults != 1:
             params["adults"] = str(self.adults)
         if self.children:
             params["children"] = str(self.children)
         if self.tab:
             params["tab"] = self.tab
-        if self.category_type and self.category_type != "all":
-            params["category"] = self.category_type
+        if self.travel_type and self.travel_type != "all":
+            params["category"] = self.travel_type
         if self.sort and self.sort != SORT_DEFAULT:
             params["sort"] = self.sort
         if self.duration_bucket:
@@ -201,16 +222,12 @@ class PackageSearch:
 
     def summary(self) -> str:
         parts: list[str] = []
-        if self.from_place:
-            parts.append(f"from {self.from_place}")
-        if self.to_place:
-            parts.append(f"to {self.to_place}")
-        if self.depart:
-            parts.append(f"depart {self.depart.strftime('%d %b %Y')}")
-        if self.return_date:
-            parts.append(f"return {self.return_date.strftime('%d %b %Y')}")
-        if self.trip_days:
-            parts.append(f"{self.trip_days} day trip")
+        if self.travel_type in TRAVEL_TYPES:
+            parts.append(category_label(self.travel_type).lower())
+        if self.destination:
+            parts.append(self.destination)
+        if self.travel_date:
+            parts.append(f"travel date {self.travel_date.strftime('%d %b %Y')}")
         if self.duration_bucket:
             parts.append(DURATION_CHOICES.get(self.duration_bucket, self.duration_bucket))
         if self.adults != 1 or self.children:
@@ -223,25 +240,17 @@ def extract_duration_days(duration: str) -> int | None:
     return _extract_duration_days(duration)
 
 
-def _text_query(term: str) -> Q:
-    return (
-        Q(title__icontains=term)
-        | Q(short_description__icontains=term)
-        | Q(route__icontains=term)
-        | Q(duration__icontains=term)
-        | Q(description__icontains=term)
-    )
-
-
 def _term_relevance_case(term: str, *, weight: int = 1) -> Case:
     """Score a single search term with field-weighted relevance."""
     return Case(
-        When(title__iexact=term, then=Value(100 * weight)),
-        When(title__istartswith=term, then=Value(90 * weight)),
-        When(title__icontains=term, then=Value(75 * weight)),
-        When(route__icontains=term, then=Value(55 * weight)),
-        When(short_description__icontains=term, then=Value(45 * weight)),
-        When(duration__icontains=term, then=Value(35 * weight)),
+        When(destination__name__iexact=term, then=Value(120 * weight)),
+        When(destination__name__istartswith=term, then=Value(100 * weight)),
+        When(destination__name__icontains=term, then=Value(90 * weight)),
+        When(title__iexact=term, then=Value(85 * weight)),
+        When(title__istartswith=term, then=Value(75 * weight)),
+        When(title__icontains=term, then=Value(65 * weight)),
+        When(route__icontains=term, then=Value(50 * weight)),
+        When(short_description__icontains=term, then=Value(40 * weight)),
         When(description__icontains=term, then=Value(25 * weight)),
         default=Value(0),
         output_field=IntegerField(),
@@ -253,11 +262,8 @@ def _annotate_relevance(queryset: QuerySet[Package], terms: list[str]) -> QueryS
         return queryset
 
     score = Value(0, output_field=IntegerField())
-    for index, term in enumerate(terms):
-        # Destination ("to") is weighted higher than departure ("from").
-        weight = 2 if index == 0 and len(terms) > 1 else 1
-        score = score + _term_relevance_case(term, weight=weight)
-
+    for term in terms:
+        score = score + _term_relevance_case(term)
     return queryset.annotate(relevance_score=score).filter(relevance_score__gt=0)
 
 
@@ -310,20 +316,10 @@ def _filter_by_duration_bucket(queryset: QuerySet[Package], bucket: str) -> Quer
     return queryset.filter(duration_days__gte=min_days, duration_days__lte=max_days)
 
 
-def _filter_by_trip_length(queryset: QuerySet[Package], trip_days: int) -> QuerySet[Package]:
-    """Match packages whose stated duration is close to the requested trip length."""
-    tolerance = 2
-    min_days = max(1, trip_days - tolerance)
-    max_days = trip_days + tolerance
-    return queryset.filter(
-        Q(duration_days__gte=min_days, duration_days__lte=max_days) | Q(duration_days__isnull=True)
-    )
-
-
 def category_label(category_type: str) -> str:
     labels = {
         PackageCategory.CategoryType.DOMESTIC: "Domestic",
         PackageCategory.CategoryType.INTERNATIONAL: "International",
-        PackageCategory.CategoryType.PILGRIM: "Pilgrim",
+        PackageCategory.CategoryType.PILGRIM: "Pilgrimage",
     }
     return labels.get(category_type, "Tour")

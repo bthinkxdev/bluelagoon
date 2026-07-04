@@ -87,7 +87,7 @@ class Command(BaseCommand):
             return
         OfficeBranch.objects.create(
             name="Registered Office",
-            address="BLUE LAGOON HOLIDAY CRUISES PVT LTD, AYINI BYPASS LINK ROAD, "
+            address="BLUE LAGOON HOLIDAY CRUISES, AYINI BYPASS LINK ROAD, "
             "VITHAYATHIL BUILDING, MARADU, ERNAKULAM, KERALA 682304",
             phone_primary="+91 9846308744",
             phone_secondary="",
@@ -271,8 +271,8 @@ class Command(BaseCommand):
             defaults={
                 "title": "About Us",
                 "page_type": StaticPage.PageType.ABOUT,
-                "subtitle": "Blue Lagoon Holidays",
-                "content": "<p>Blue Lagoon Holiday Cruises Pvt Ltd offers curated tour packages across Kerala and beyond.</p>",
+                "subtitle": "BLUE LAGOON HOLIDAY CRUISES",
+                "content": "<p>BLUE LAGOON HOLIDAY CRUISES offers curated tour packages across Kerala and beyond.</p>",
                 "is_published": True,
             },
         )
@@ -354,7 +354,7 @@ class Command(BaseCommand):
                 ),
                 HomePackageHighlight(
                     title="International Packages",
-                    description="Explore international destinations with Blue Lagoon Holidays.",
+                    description="Explore international destinations with BLUE LAGOON HOLIDAY CRUISES.",
                     link_url="/pages/international-packages/",
                     display_order=3,
                 ),
@@ -387,7 +387,7 @@ class Command(BaseCommand):
             },
         )
         HomeSlider.objects.get_or_create(
-            title="Blue Lagoon Holidays",
+            title="BLUE LAGOON HOLIDAY CRUISES",
             defaults={
                 "subtitle": "Destinations / Tour activities / Pleasure",
                 "link_url": "/pages/wayanad/",
@@ -436,5 +436,5 @@ class Command(BaseCommand):
                 title=f"Photo {i}",
                 legacy_filename=f"pic_{i}.jpg",
                 display_order=i,
-                alt_text=f"Blue Lagoon Holidays gallery photo {i}",
+                alt_text=f"BLUE LAGOON HOLIDAY CRUISES gallery photo {i}",
             )

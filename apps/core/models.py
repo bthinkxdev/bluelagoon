@@ -10,14 +10,25 @@ from core.mixins import SEOMixin, SluggedModel, TimeStampedModel
 class SiteSettings(models.Model):
     """Singleton site-wide configuration."""
 
-    company_name = models.CharField(max_length=200, default="BLUE LAGOON HOLIDAY CRUISES PVT LTD")
+    company_name = models.CharField(max_length=200, default="BLUE LAGOON HOLIDAY CRUISES")
     tagline = models.CharField(max_length=255, blank=True)
     logo = models.ImageField(upload_to="site/", blank=True, null=True)
     phone_primary = models.CharField(max_length=30, default="+91 98463 08744")
     phone_secondary = models.CharField(max_length=30, default="+91 9846 30 87 44")
     email = models.EmailField(default="mail@bluelagoonholidays.net")
     address = models.TextField(
-        default="AYINI BYPASS LINK ROAD, VITHAYATHIL BUILDING, MARADU, ERNAKULAM, KERALA 682304"
+        default="Hira Center, Government Hospital Road, Mattanur, Kannur, Kerala 670702"
+    )
+    head_office = models.CharField(
+        max_length=200,
+        blank=True,
+        default="Cochin",
+        help_text="Head office location shown separately from the branch address.",
+    )
+    maps_url = models.URLField(
+        blank=True,
+        default="https://www.google.com/maps/place/Blue+Lagoon+Holiday+Cruises+Pvt+Ltd/@11.9302609,75.5715209,17z",
+        help_text="Google Maps link for the primary office.",
     )
     # Outbound email (SMTP) — configured in Django admin, not .env
     smtp_enabled = models.BooleanField(
@@ -45,11 +56,18 @@ class SiteSettings(models.Model):
         blank=True,
         help_text="Optional BCC on staff notification emails.",
     )
-    facebook_url = models.URLField(blank=True)
+    facebook_url = models.URLField(
+        blank=True,
+        default="https://www.facebook.com/share/1CedRrDnzy/",
+    )
+    instagram_url = models.URLField(
+        blank=True,
+        default="https://www.instagram.com/bluelagoonholidaycruises/",
+    )
     twitter_url = models.URLField(blank=True)
     google_plus_url = models.URLField(blank=True)
     youtube_url = models.URLField(blank=True)
-    copyright_text = models.CharField(max_length=200, default="© Blue Lagoon Holidays")
+    copyright_text = models.CharField(max_length=200, default="© BLUE LAGOON HOLIDAY CRUISES")
     google_maps_embed = models.TextField(blank=True, help_text="Google Maps embed URL or API key config")
 
     class Meta:

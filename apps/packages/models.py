@@ -9,13 +9,21 @@ from ckeditor.fields import RichTextField
 from core.mixins import SluggedModel, TimeStampedModel
 
 
+class TravelType(models.TextChoices):
+    """Shared travel-type choices for destinations and package categories."""
+
+    DOMESTIC = "domestic", "Domestic"
+    INTERNATIONAL = "international", "International"
+    PILGRIM = "pilgrim", "Pilgrimage"
+
+
 class PackageCategory(TimeStampedModel, SluggedModel):
     """Domestic, International, Pilgrim."""
 
     class CategoryType(models.TextChoices):
-        DOMESTIC = "domestic", "Domestic"
-        INTERNATIONAL = "international", "International"
-        PILGRIM = "pilgrim", "Pilgrim"
+        DOMESTIC = TravelType.DOMESTIC, TravelType.DOMESTIC.label
+        INTERNATIONAL = TravelType.INTERNATIONAL, TravelType.INTERNATIONAL.label
+        PILGRIM = TravelType.PILGRIM, TravelType.PILGRIM.label
         KERALA = "kerala", "Kerala"
         OTHER = "other", "Other"
 
@@ -34,6 +42,37 @@ class PackageCategory(TimeStampedModel, SluggedModel):
         return self.name
 
 
+class Destination(TimeStampedModel, SluggedModel):
+    """Searchable travel destination within a travel type."""
+
+    name = models.CharField(max_length=160, db_index=True)
+    travel_type = models.CharField(
+        max_length=20,
+        choices=TravelType.choices,
+        db_index=True,
+    )
+    country = models.CharField(max_length=120, blank=True, default="")
+    state = models.CharField(max_length=120, blank=True, default="")
+    description = models.TextField(blank=True, default="")
+    image = models.ImageField(upload_to="destinations/", blank=True, null=True)
+    is_active = models.BooleanField(default=True, db_index=True)
+    display_order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["display_order", "name"]
+        indexes = [
+            models.Index(fields=["travel_type", "is_active", "name"]),
+        ]
+        verbose_name = "Destination"
+        verbose_name_plural = "Destinations"
+
+    def _slug_source(self) -> str:
+        return self.name
+
+    def __str__(self) -> str:
+        return f"{self.name} ({self.get_travel_type_display()})"
+
+
 class Package(TimeStampedModel, SluggedModel):
     """Tour package."""
 
@@ -45,6 +84,14 @@ class Package(TimeStampedModel, SluggedModel):
     title = models.CharField(max_length=200)
     category = models.ForeignKey(
         PackageCategory, on_delete=models.PROTECT, related_name="packages"
+    )
+    destination = models.ForeignKey(
+        "Destination",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="packages",
+        help_text="Primary destination used for search and filtering.",
     )
     short_description = models.CharField(
         max_length=500, blank=True, help_text="Short summary for listings."

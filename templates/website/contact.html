@@ -21,7 +21,7 @@
         </a>
         {% endif %}
         {% if site_settings.phone_primary %}
-        <a href="{{ site_settings.phone_primary|whatsapp_href:'Hello, I would like to plan a trip with Blue Lagoon Holidays.' }}" class="wl-contact-channel wl-contact-channel--whatsapp" target="_blank" rel="noopener noreferrer">
+        <a href="{{ site_settings.phone_primary|whatsapp_href:'Hello, I would like to plan a trip with BLUE LAGOON HOLIDAY CRUISES.' }}" class="wl-contact-channel wl-contact-channel--whatsapp" target="_blank" rel="noopener noreferrer">
           <span class="wl-contact-channel__icon" aria-hidden="true"><i class="fa fa-whatsapp"></i></span>
           <span class="wl-contact-channel__label">WhatsApp</span>
           <strong>Chat with us</strong>
@@ -137,7 +137,7 @@
 
         <aside class="wl-contact-sidebar wl-reveal wl-reveal--delay-1">
           <div class="wl-contact-info-card">
-            <p class="wl-contact-info-card__eyebrow">Registered office</p>
+            <p class="wl-contact-info-card__eyebrow">Mattanur office</p>
             <h3>{{ site_settings.company_name }}</h3>
             <ul class="wl-contact-info-list">
               <li>
@@ -170,6 +170,26 @@
               {% endif %}
             </div>
           </div>
+
+          {% if site_settings.head_office %}
+          <div class="wl-contact-info-card wl-contact-info-card--head">
+            <p class="wl-contact-info-card__eyebrow">Head Office</p>
+            <h3>{{ site_settings.head_office }}</h3>
+            <p class="wl-contact-info-card__note">Kerala, India</p>
+          </div>
+          {% endif %}
+
+          <div class="wl-contact-info-card wl-contact-info-card--social">
+            <p class="wl-contact-info-card__eyebrow">Follow us</p>
+            <div class="wl-contact-social">
+              {% if site_settings.facebook_url %}
+              <a href="{{ site_settings.facebook_url }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+              {% endif %}
+              {% if site_settings.instagram_url %}
+              <a href="{{ site_settings.instagram_url }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa fa-instagram"></i></a>
+              {% endif %}
+            </div>
+          </div>
         </aside>
       </div>
     </div>
@@ -187,7 +207,7 @@
         <div class="wl-contact-map__embed">{{ site_settings.google_maps_embed|safe }}</div>
         {% else %}
         <iframe
-          title="Blue Lagoon Holidays office location"
+          title="BLUE LAGOON HOLIDAY CRUISES office location"
           class="wl-contact-map__frame"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
@@ -195,7 +215,7 @@
           allowfullscreen>
         </iframe>
         {% endif %}
-        <a href="https://www.google.com/maps/search/?api=1&amp;query={{ site_settings.address|urlencode }}" class="wl-contact-map__link" target="_blank" rel="noopener noreferrer">
+        <a href="{% if site_settings.maps_url %}{{ site_settings.maps_url }}{% else %}https://www.google.com/maps/search/?api=1&amp;query={{ site_settings.address|urlencode }}{% endif %}" class="wl-contact-map__link" target="_blank" rel="noopener noreferrer">
           Open in Google Maps
           <span aria-hidden="true">→</span>
         </a>
@@ -213,7 +233,7 @@
         </div>
         <div class="wl-contact-cta__actions">
           <a href="{% url 'packages:list' %}" class="wl-btn wl-btn--primary">View all packages</a>
-          <a href="{% url 'website:about' %}" class="wl-btn wl-btn--outline">About Blue Lagoon</a>
+          <a href="{% url 'website:about' %}" class="wl-btn wl-btn--outline">About BLUE LAGOON HOLIDAY CRUISES</a>
         </div>
       </div>
     </div>
